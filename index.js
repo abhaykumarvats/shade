@@ -42,9 +42,10 @@ app.route('/signup')
 
         // Create and save user object into database
         User.create(user, (err, userRecord) => {
-            // Send error as response, if any, and return
-            if (err.errmsg.includes('duplicate key error')) {
-                res.send('Username not available.');
+            // Log error, if any
+            if (err) {
+                console.error(err);
+                res.redirect('/signup');
                 return;
             }
 
@@ -71,9 +72,10 @@ app.route('/login')
 
         // Try to find user
         User.findOne(user, '-_id username consent', (err, userRecord) => {
-            // Send error as response, if any, and return
+            // Log error, if any
             if (err) {
-                res.send(err);
+                console.error(err);
+                res.redirect('/login');
                 return;
             }
 
