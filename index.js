@@ -76,7 +76,5 @@ app.route('/login')
         });
     });
 
-app.get('/login', (req, res) => {});
-
 // Start server and listen for requests
 app.listen(PORT, () => console.log('Listening on port', PORT));
