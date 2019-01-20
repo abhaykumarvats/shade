@@ -70,9 +70,12 @@ app.route('/login')
         };
 
         // Try to find user
-        User.findOne(user, 'username consent', (err, userRecord) => {
-            // Log error, if any
-            if (err) console.error(err);
+        User.findOne(user, '-_id username consent', (err, userRecord) => {
+            // Send error as response, if any, and return
+            if (err) {
+                res.send(err);
+                return;
+            }
 
             // Send response as json, if found
             userRecord ? res.json(userRecord) : res.send('No such user.');
