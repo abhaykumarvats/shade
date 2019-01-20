@@ -15,5 +15,10 @@
   "bugs": {
     "url": "https://github.com/abhaykv04/shade/issues"
   },
-  "homepage": "https://github.com/abhaykv04/shade#readme"
+  "homepage": "https://github.com/abhaykv04/shade#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "mongoose": "^5.4.5",
+    "pug": "^2.0.3"
+  }
 }
