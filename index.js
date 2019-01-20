@@ -22,11 +22,17 @@ app.get('/', (req, res) => {
     // Redirect all the to /signup
     res.redirect('/signup');
 });
+
 // GET requests handler for /signup
 app.get('/signup', (req, res) => {
     // Send signup.html
     res.sendFile(path.join(__dirname, 'public/signup.html'));
 });
+
+// GET requests handler for /login
+app.get('/login', (req, res) => {
+    // Send login.html
+    res.sendFile(path.join(__dirname, 'public/login.html'));
 });
 
 // Start server and listen for requests
