@@ -19,7 +19,9 @@ app.use(express.urlencoded({ extended: false }));
 
 // GET requests handler for / route
 app.get('/', (req, res) => {
-    res.send('Hello world!');
+    // Redirect all the to /signup
+    res.redirect('/signup');
+});
 });
 
 // Start server and listen for requests
