@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- Metadata -->
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+        <!-- Title -->
+        <title>Log In | Shade</title>
+
+        <!-- Bootstrap stylesheet -->
+        <link
+            rel="stylesheet"
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+            integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+            crossorigin="anonymous"
+        />
+
+        <!-- Main stylesheet -->
+        <link rel="stylesheet" href="./css/main.css" />
+    </head>
+
+    <body>
+        <!-- Bootstrap container -->
+        <div class="container-fluid">
+            <!-- Bootstrap row -->
+            <div class="row">
+                <!-- Bootstrap column 1: empty -->
+                <div class="col-sm-3"></div>
+
+                <!-- Bootstrap column 2: to make things centred -->
+                <div class="col-sm-6">
+                    <!-- Heading -->
+                    <h1>Log In</h1>
+
+                    <!-- Signup form -->
+                    <form action="/signup" method="POST">
+                        <!-- Sub-text -->
+                        <div class="form-group">
+                            <small class="form-text text-muted">
+                                Don't have an account?
+                                <a href="/signup">Sign Up</a>
+                            </small>
+                        </div>
+
+                        <!-- Username form group -->
+                        <div class="form-group">
+                            <!-- Username label -->
+                            <label for="username">Username</label>
+
+                            <!-- Username input box -->
+                            <input
+                                type="text"
+                                class="form-control form-control-sm"
+                                id="username"
+                                name="username"
+                                placeholder="Enter username"
+                            />
+                        </div>
+
+                        <!-- Password form group -->
+                        <div class="form-group">
+                            <!-- Password label -->
+                            <label for="password">Password</label>
+
+                            <!-- Password input box -->
+                            <input
+                                type="password"
+                                class="form-control form-control-sm"
+                                id="password"
+                                name="password"
+                                placeholder="Enter password"
+                            />
+                        </div>
+
+                        <!-- Submit button -->
+                        <button
+                            type="submit"
+                            class="btn btn-outline-primary btn-sm"
+                        >
+                            Submit
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Bootstrap column 3: empty -->
+                <div class="col-sm-3"></div>
+            </div>
+        </div>
+
+        <!-- jQuery script -->
+        <script
+            src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"
+        ></script>
+
+        <!-- Popper script -->
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+            integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+            crossorigin="anonymous"
+        ></script>
+
+        <!-- Bootstrap script -->
+        <script
+            src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+            integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+            crossorigin="anonymous"
+        ></script>
+    </body>
+</html>
