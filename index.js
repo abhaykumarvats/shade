@@ -40,8 +40,6 @@ app.route('/signup')
             consent: req.body.consent ? true : false
         };
 
-        console.log('Consent:', req.body.consent);
-
         // Create and save user object into database
         User.create(user, (err, userRecord) => {
             // Log error, if any
@@ -55,11 +53,30 @@ app.route('/signup')
         });
     });
 
-// GET requests handler for /login
-app.get('/login', (req, res) => {
-    // Send login.html
-    res.sendFile(path.join(__dirname, 'public/login.html'));
-});
+// GET and POST requests handler for /login
+app.route('/login')
+    .get((req, res) => {
+        // Send login.html
+        res.sendFile(path.join(__dirname, 'public/login.html'));
+    })
+    .post((req, res) => {
+        // Prepare user object
+        const user = {
+            username: req.body.username,
+            password: req.body.password
+        };
+
+        // Try to find user
+        User.findOne(user, 'username consent', (err, userRecord) => {
+            // Log error, if any
+            if (err) console.error(err);
+
+            // Send response as json, if found
+            userRecord ? res.json(userRecord) : res.send('No such user.');
+        });
+    });
+
+app.get('/login', (req, res) => {});
 
 // Start server and listen for requests
 app.listen(PORT, () => console.log('Listening on port', PORT));
