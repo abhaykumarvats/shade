@@ -42,8 +42,11 @@ app.route('/signup')
 
         // Create and save user object into database
         User.create(user, (err, userRecord) => {
-            // Log error, if any
-            if (err) console.error(err);
+            // Send error as response, if any, and return
+            if (err.errmsg.includes('duplicate key error')) {
+                res.send('Username not available.');
+                return;
+            }
 
             // Log returned user record
             console.log(userRecord);
