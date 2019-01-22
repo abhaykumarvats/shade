@@ -80,7 +80,7 @@ app.route('/login')
             }
 
             // Send response as json, if found
-            userRecord ? res.json(userRecord) : res.send('No such user.');
+      userRecord ? res.json(userRecord) : res.send('<h1>No such user.</h1>');
         });
     });
 
