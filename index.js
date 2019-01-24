@@ -19,8 +19,8 @@ app.use(express.urlencoded({ extended: false }));
 
 // GET requests handler for / route
 app.get('/', (req, res) => {
-  // Redirect all the to /signup
-  res.redirect('/signup');
+  // Redirect all requests to /login
+  res.redirect('/login');
 });
 
 // GET and POST requests handler for /signup
