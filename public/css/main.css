@@ -1,10 +1,27 @@
+/* Flexbox container */
 .flex-container {
-  display: flex;
   height: 100vh;
+  display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  justify-content: center;
+  justify-content: space-evenly;
 }
 
+/* Flexbox item */
 .flex-form {
-  width: 50%;
+  width: 30%;
+}
+
+/* If screen width is less than 768px */
+@media all and (max-width: 768px) {
+  .flex-form {
+    width: 40%;
+  }
+}
+
+/* If screen width is less than 425px */
+@media all and (max-width: 425px) {
+  .flex-form {
+    width: 80%;
+  }
 }
