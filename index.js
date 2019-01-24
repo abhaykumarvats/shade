@@ -11,9 +11,6 @@ const path = require('path');
 // Retrieve port number from environment, or use 3000
 const PORT = process.env.PORT || 3000;
 
-// Set view engine as pug
-app.set('view engine', 'pug');
-
 // Serve static files from /public directory
 app.use(express.static(path.join(__dirname, 'public')));
 
