@@ -17,81 +17,76 @@
   </head>
 
   <body>
-    <!-- Bootstrap container -->
-    <div class="container-fluid">
-      <!-- Bootstrap row -->
-      <div class="row">
-        <!-- Bootstrap column 1: empty -->
-        <div class="col-sm-3"></div>
+    <!-- Flex container -->
+    <div class="flex-container">
+      <!-- Flex item: form -->
+      <div class="flex-form">
+        <!-- Heading -->
+        <h1>Sign Up</h1>
 
-        <!-- Bootstrap column 2: to make things centred -->
-        <div class="col-sm-6">
-          <!-- Heading -->
-          <h1>Sign Up</h1>
+        <!-- Signup form -->
+        <form action="/signup" method="POST">
+          <!-- Sub-text -->
+          <div class="form-group">
+            <small class="form-text text-muted">
+              Already have an account? <a href="/login">Log In</a>
+            </small>
+          </div>
 
-          <!-- Signup form -->
-          <form action="/signup" method="POST">
-            <!-- Sub-text -->
-            <div class="form-group">
-              <small class="form-text text-muted">
-                Already have an account? <a href="/login">Log In</a>
-              </small>
-            </div>
+          <!-- Username form group -->
+          <div class="form-group">
+            <!-- Username label -->
+            <label for="username">Username</label>
 
-            <!-- Username form group -->
-            <div class="form-group">
-              <!-- Username label -->
-              <label for="username">Username</label>
+            <!-- Username input box -->
+            <input
+              type="text"
+              class="form-control form-control-sm"
+              id="username"
+              name="username"
+              placeholder="Enter username"
+              required
+            />
+          </div>
 
-              <!-- Username input box -->
-              <input
-                type="text"
-                class="form-control form-control-sm"
-                id="username"
-                name="username"
-                placeholder="Enter username"
-                required
-              />
-            </div>
+          <!-- Password form group -->
+          <div class="form-group">
+            <!-- Password label -->
+            <label for="password">Password</label>
 
-            <!-- Password form group -->
-            <div class="form-group">
-              <!-- Password label -->
-              <label for="password">Password</label>
+            <!-- Password input box -->
+            <input
+              type="password"
+              class="form-control form-control-sm"
+              id="password"
+              name="password"
+              placeholder="Enter password"
+              required
+            />
+          </div>
 
-              <!-- Password input box -->
-              <input
-                type="password"
-                class="form-control form-control-sm"
-                id="password"
-                name="password"
-                placeholder="Enter password"
-                required
-              />
-            </div>
+          <!-- Consent form group -->
+          <div class="form-group custom-control custom-checkbox">
+            <!-- Consent checkbox -->
+            <input
+              type="checkbox"
+              class="custom-control-input"
+              id="consent"
+              name="consent"
+            />
 
-            <!-- Consent form group -->
-            <div class="form-group custom-control custom-checkbox">
-              <!-- Consent checkbox -->
-              <input
-                type="checkbox"
-                class="custom-control-input"
-                id="consent"
-                name="consent"
-              />
+            <!-- Consent label -->
+            <label for="consent" class="custom-control-label">
+              I would like to share my data with Shade.
+            </label>
+          </div>
 
-              <!-- Consent label -->
-              <label for="consent" class="custom-control-label">
-                I would like to share my data with Shade.
-              </label>
-            </div>
-
-            <!-- Submit button -->
-            <button type="submit" class="btn btn-outline-primary btn-sm">
-              Submit
-            </button>
-          </form>
-        </div>
+          <!-- Submit button -->
+          <button type="submit" class="btn btn-outline-primary btn-sm">
+            Submit
+          </button>
+        </form>
       </div>
+    </div>
   </body>
 </html>
