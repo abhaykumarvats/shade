@@ -17,18 +17,18 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Parse body of incoming requests
 app.use(express.urlencoded({ extended: false }));
 
-// GET requests handler for / route
+// GET requests handler, for / route
 app.get('/', (req, res) => {
-  // Redirect all requests to /login
-  res.redirect('/login');
+  // Send main.html
+  res.sendFile(path.join(__dirname, 'public/main.html'));
 });
 
-// GET and POST requests handler for /signup
+// GET and POST requests handler, for /signup
 app
   .route('/signup')
   .get((req, res) => {
-    // Send signup.html
-    res.sendFile(path.join(__dirname, 'public/signup.html'));
+    // Redirect to main page
+    res.redirect('/');
   })
   .post((req, res) => {
     // Prepare user object
@@ -42,25 +42,24 @@ app
     User.create(user, (err, userRecord) => {
       // Log error, if any
       if (err) {
-        console.error(err);
-        res.redirect('/signup');
-        return;
+        res.redirect('/');
+        return console.error(err);
       }
 
       // Log returned user record
       console.log(userRecord);
 
-      // Redirect to /login page
-      res.redirect('/login');
+      // Redirect to / page
+      res.redirect('/');
     });
   });
 
-// GET and POST requests handler for /login
+// GET and POST requests handler, for /login
 app
   .route('/login')
   .get((req, res) => {
-    // Send login.html
-    res.sendFile(path.join(__dirname, 'public/login.html'));
+    // Redirect to main page
+    res.redirect('/');
   })
   .post((req, res) => {
     // Prepare user object
@@ -73,9 +72,8 @@ app
     User.findOne(user, '-_id username consent', (err, userRecord) => {
       // Log error, if any
       if (err) {
-        console.error(err);
-        res.redirect('/login');
-        return;
+        res.redirect('/');
+        return console.error(err);
       }
 
       // Send response as json, if found

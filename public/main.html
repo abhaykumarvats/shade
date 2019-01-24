@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 
     <!-- Title -->
-    <title>Sign Up | Shade</title>
+    <title>Log In or Sign Up | Shade</title>
 
     <!-- Bootstrap stylesheet -->
     <link rel="stylesheet" href="./css/bootstrap.min.css" />
@@ -19,20 +19,59 @@
   <body>
     <!-- Flex container -->
     <div class="flex-container">
-      <!-- Flex item: form -->
+      <!-- Flex item 1: login form -->
+      <div class="flex-form">
+        <!-- Heading -->
+        <h1>Log In</h1>
+
+        <!-- Login form -->
+        <form action="/login" method="POST">
+          <!-- Username form group -->
+          <div class="form-group">
+            <!-- Username label -->
+            <label for="username">Username</label>
+
+            <!-- Username input box -->
+            <input
+              type="text"
+              class="form-control form-control-sm"
+              id="username"
+              name="username"
+              placeholder="Enter username"
+              required
+            />
+          </div>
+
+          <!-- Password form group -->
+          <div class="form-group">
+            <!-- Password label -->
+            <label for="password">Password</label>
+
+            <!-- Password input box -->
+            <input
+              type="password"
+              class="form-control form-control-sm"
+              id="password"
+              name="password"
+              placeholder="Enter password"
+              required
+            />
+          </div>
+
+          <!-- Submit button -->
+          <button type="submit" class="btn btn-outline-primary btn-sm">
+            Submit
+          </button>
+        </form>
+      </div>
+
+      <!-- Flex item 2: signup form -->
       <div class="flex-form">
         <!-- Heading -->
         <h1>Sign Up</h1>
 
         <!-- Signup form -->
         <form action="/signup" method="POST">
-          <!-- Sub-text -->
-          <div class="form-group">
-            <small class="form-text text-muted">
-              Already have an account? <a href="/login">Log In</a>
-            </small>
-          </div>
-
           <!-- Username form group -->
           <div class="form-group">
             <!-- Username label -->
