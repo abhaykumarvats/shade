@@ -2,6 +2,14 @@
 const express = require('express');
 const app = express();
 
+// Require express-session and passport for authentication
+const session = require('express-session');
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+
+// Require bcryptjs for password hashing
+const bcrypt = require('bcryptjs');
+
 // Require User schema
 const User = require('./schemas/User');
 
@@ -16,6 +24,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Parse body of incoming requests
 app.use(express.urlencoded({ extended: false }));
+
+// Initialise express- and passport session
+app.use(session({ secret: process.env.SECRET }));
+app.use(passport.initialize());
+app.use(passport.session());
 
 // GET requests handler, for / route
 app.get('/', (req, res) => {
