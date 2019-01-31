@@ -107,25 +107,14 @@ app
     // Redirect to main page
     res.redirect('/');
   })
-  .post((req, res) => {
-    // Prepare user object
-    const user = {
-      username: req.body.username,
-      password: req.body.password
-    };
-
-    // Try to find user
-    User.findOne(user, '-_id username consent', (err, userRecord) => {
-      // Log error, if any
-      if (err) {
-        res.redirect('/');
-        return console.error(err);
-      }
-
-      // Send response as json, if found
-      userRecord ? res.json(userRecord) : res.send('<h1>No such user.</h1>');
-    });
-  });
+  .post(
+    // Authenticate user with local strategy
+    passport.authenticate('local', {
+      successRedirect: '/profile',
+      failureRedirect: '/login',
+      failureFlash: true
+    })
+  );
 
 // Start server and listen for requests
 app.listen(PORT, () => console.log('Listening on port', PORT));
