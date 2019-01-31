@@ -13,7 +13,7 @@ const bcrypt = require('bcryptjs');
 // Require User schema
 const User = require('./schemas/User');
 
-// Require path for path-joining
+// Require path for path joining
 const path = require('path');
 
 // Retrieve port number from environment, or use 3000
@@ -29,6 +29,39 @@ app.use(express.urlencoded({ extended: false }));
 app.use(session({ secret: process.env.SECRET }));
 app.use(passport.initialize());
 app.use(passport.session());
+
+// Function to serialise user
+passport.serializeUser((user, done) => {
+  done(null, user._id);
+});
+
+// Function to deserialise user
+passport.deserializeUser((id, done) => {
+  User.findById(id, (err, user) => {
+    done(err, user);
+  });
+});
+
+// Implement a passport LocalStrategy
+passport.use(
+  new LocalStrategy((username, password, done) => {
+    // Try to find user in database
+    User.findOne({ username: username }, (err, user) => {
+      // Error in retrieving user
+      if (err) return done(err);
+
+      // Incorrect username
+      if (!user) return done(null, false, { message: 'Incorrect username.' });
+
+      // Incorrect password
+      if (!bcrypt.compareSync(password, user.password))
+        return done(null, false, { message: 'Incorrect password.' });
+
+      // Correct username and password
+      return done(null, user);
+    });
+  })
+);
 
 // GET requests handler, for / route
 app.get('/', (req, res) => {
