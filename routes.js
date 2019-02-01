@@ -22,8 +22,8 @@ module.exports = (app) => {
   app
     .route('/signup')
     .get((req, res) => {
-      // Redirect to main page
-      res.redirect('/');
+      // Render register page
+      res.render('login', { type: 'register' });
     })
     .post(
       (req, res, next) => {
@@ -65,8 +65,8 @@ module.exports = (app) => {
   app
     .route('/login')
     .get((req, res) => {
-      // Redirect to main page
-      res.redirect('/');
+      // Render login page
+      res.render('login', { type: 'login' });
     })
     .post(
       // Authenticate user with local strategy
@@ -87,6 +87,6 @@ module.exports = (app) => {
 
   // 404 handler
   app.use((req, res) => {
-    res.sendFile(path.join(__dirname, 'public/404.html'));
+    res.sendFile(path.join(__dirname, 'views/404.html'));
   });
 };
