@@ -1,6 +1,3 @@
-// Require User model
-const User = require('./schemas/User');
-
 // Require express-session and passport for authentication
 const session = require('express-session');
 const passport = require('passport');
@@ -8,6 +5,9 @@ const LocalStrategy = require('passport-local').Strategy;
 
 // Require bcryptjs for password hashing
 const bcrypt = require('bcryptjs');
+
+// Require User model
+const User = require('./schemas/User');
 
 // Export passport module
 module.exports = (app) => {
