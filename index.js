@@ -20,6 +20,9 @@ app.use('/public', express.static(path.join(__dirname, 'public')));
 // Parse body of all incoming requests
 app.use(express.urlencoded({ extended: false }));
 
+// Set ejs as view engine
+app.set('view engine', 'ejs');
+
 // Instantiate passport and routes modules
 passport(app);
 routes(app);
