@@ -2,9 +2,8 @@
 .flex-container {
   height: 100vh;
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: center;
 }
 
 /* Flexbox item */
