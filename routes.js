@@ -31,11 +31,13 @@ module.exports = (app) => {
    * TODO: Implement below two handlers
    */
   app.route('/home').get(ensureAuthentication, (req, res) => {
-    // Render home page
+    // TODO: Render home page
+    res.send('Home page. <a href="/logout">Log Out</a>');
   });
 
   app.route('/profile').get(ensureAuthentication, (req, res) => {
-    // Render profile page
+    // TODO: Render profile page
+    res.send('Profile page. <a href="/logout">Log Out</a>');
   });
 
   // GET and POST requests handler, for /register
@@ -57,7 +59,6 @@ module.exports = (app) => {
           else {
             // Convert password into its hash
             const hashedPassword = bcrypt.hashSync(req.body.password, 8);
-            console.log(hashedPassword);
 
             // Prepare user object
             const user = {
