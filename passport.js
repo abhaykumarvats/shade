@@ -14,7 +14,7 @@ module.exports = (app) => {
   // Initialise express- and passport session
   app.use(
     session({
-      secret: process.env.SECRET,
+      secret: process.env.SESSION_SECRET,
       resave: true,
       saveUninitialized: true
     })
