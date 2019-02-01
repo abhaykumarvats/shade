@@ -18,9 +18,9 @@ module.exports = (app) => {
     res.sendFile(path.join(__dirname, 'public/main.html'));
   });
 
-  // GET and POST requests handler, for /signup
+  // GET and POST requests handler, for /register
   app
-    .route('/signup')
+    .route('/register')
     .get((req, res) => {
       // Render register page
       res.render('login', { type: 'register' });
