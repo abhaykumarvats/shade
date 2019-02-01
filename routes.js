@@ -22,9 +22,20 @@ module.exports = (app) => {
   }
 
   // GET requests handler, for / route
-  app.route('/').get((req, res) => {
-    // Send main.html
-    res.sendFile(path.join(__dirname, 'public/main.html'));
+  app.route('/').get(ensureAuthentication, (req, res) => {
+    // Redirect to home page
+    res.redirect('/home');
+  });
+
+  /**
+   * TODO: Implement below two handlers
+   */
+  app.route('/home').get(ensureAuthentication, (req, res) => {
+    // Render home page
+  });
+
+  app.route('/profile').get(ensureAuthentication, (req, res) => {
+    // Render profile page
   });
 
   // GET and POST requests handler, for /register
@@ -46,6 +57,7 @@ module.exports = (app) => {
           else {
             // Convert password into its hash
             const hashedPassword = bcrypt.hashSync(req.body.password, 8);
+            console.log(hashedPassword);
 
             // Prepare user object
             const user = {
