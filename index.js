@@ -6,7 +6,7 @@ const app = express();
 const path = require('path');
 
 // Retrieve port number from environment, or use 3000
-const PORT = process.env.PORT || 3000;
+const port = process.env.PORT || 3000;
 
 // Require passport module for authentication
 const passport = require('./passport');
@@ -25,4 +25,4 @@ passport(app);
 routes(app);
 
 // Start server and listen for requests
-app.listen(PORT, () => console.log('Listening on port', PORT));
+app.listen(port, () => console.log('Listening on port', port));
