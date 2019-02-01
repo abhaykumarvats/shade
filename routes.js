@@ -12,6 +12,15 @@ const path = require('path');
 
 // Export routes module
 module.exports = (app) => {
+  // Function to check if user is logged in
+  function ensureAuthentication(req, res, next) {
+    // Check if user is logged in
+    if (req.isAuthenticated()) return next();
+
+    // User is not logged in
+    res.redirect('/login');
+  }
+
   // GET requests handler, for / route
   app.route('/').get((req, res) => {
     // Send main.html
