@@ -56,8 +56,8 @@ module.exports = (app) => {
         });
       },
       passport.authenticate('local', {
-        successRedirect: '/profile',
-        failureRedirect: '/signup'
+        successRedirect: '/home',
+        failureRedirect: '/register'
       })
     );
 
@@ -71,7 +71,7 @@ module.exports = (app) => {
     .post(
       // Authenticate user with local strategy
       passport.authenticate('local', {
-        successRedirect: '/profile',
+        successRedirect: '/home',
         failureRedirect: '/login'
       })
     );
@@ -82,7 +82,7 @@ module.exports = (app) => {
     req.logout();
 
     // Redirect to homepage
-    res.redirect('/');
+    res.redirect('/login');
   });
 
   // 404 handler
