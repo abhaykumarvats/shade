@@ -15,7 +15,7 @@ module.exports = (app) => {
   // GET requests handler, for / route
   app.route('/').get((req, res) => {
     // Send main.html
-    res.sendFile(path.join(process.cwd(), 'public/main.html'));
+    res.sendFile(path.join(__dirname, 'public/main.html'));
   });
 
   // GET and POST requests handler, for /signup
@@ -87,6 +87,6 @@ module.exports = (app) => {
 
   // 404 handler
   app.use((req, res) => {
-    res.sendFile(path.join(process.cwd(), 'public/404.html'));
+    res.sendFile(path.join(__dirname, 'public/404.html'));
   });
 };

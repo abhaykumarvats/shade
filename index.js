@@ -17,7 +17,7 @@ const routes = require('./routes');
 // Serve static files from /public directory
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Parse body of incoming requests
+// Parse body of all incoming requests
 app.use(express.urlencoded({ extended: false }));
 
 // Instantiate passport and routes modules
