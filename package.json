@@ -3,14 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/abhaykv04/shade.git"
   },
-  "author": "Abhay (abhaykv04)",
+  "author": "abhaykv04 (Abhay)",
   "license": "UNLICENSED",
   "bugs": {
     "url": "https://github.com/abhaykv04/shade/issues"
