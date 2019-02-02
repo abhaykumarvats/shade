@@ -36,6 +36,13 @@ if (type === 'register') {
     <div class="flex-container">
       <!-- Flex item -->
       <div class="flex-item">
+        <!-- Alert box, if required -->
+        <% if (alertMessage) { %>
+          <div class="alert alert-danger">
+            <%= alertMessage %>
+          </div>
+        <% } %>
+
         <!-- Heading -->
         <h1><%= title %></h1>
 
@@ -81,21 +88,21 @@ if (type === 'register') {
           </div>
 
           <% if (type === 'register') { %>
-          <!-- Consent form group -->
-          <div class="form-group custom-control custom-checkbox">
-            <!-- Consent checkbox -->
-            <input
-              type="checkbox"
-              class="custom-control-input"
-              id="consent"
-              name="consent"
-            />
+            <!-- Consent form group -->
+            <div class="form-group custom-control custom-checkbox">
+              <!-- Consent checkbox -->
+              <input
+                type="checkbox"
+                class="custom-control-input"
+                id="consent"
+                name="consent"
+              />
 
-            <!-- Consent label -->
-            <label for="consent" class="custom-control-label">
-              I would like to share my data with Shade.
-            </label>
-          </div>
+              <!-- Consent label -->
+              <label for="consent" class="custom-control-label">
+                I would like to share my data with Shade.
+              </label>
+            </div>
           <% } %>
 
           <!-- Submit button -->
