@@ -63,7 +63,7 @@ module.exports = (app) => {
       else res.render('form', { type: 'login', alertMessage: null });
     })
     .post(
-      // Authenticate user with local strategy
+      // Authenticate user with LocalStrategy
       passport.authenticate('local', {
         successRedirect: '/home',
         failureRedirect: '/login'
@@ -81,10 +81,9 @@ module.exports = (app) => {
       // User is not logged in, render register form
       else res.render('form', { type: 'register', alertMessage: null });
     })
-    .post(
-      (req, res, next) => {
-        // Find if user is already registered
-        User.findOne({ username: req.body.username }, (err, user) => {
+    .post((req, res) => {
+      // Find if user is already registered
+      User.findOne({ username: req.body.username }, (err, user) => {
         // If error, render register form with alert
         if (err)
           res.render('form', {
@@ -92,45 +91,45 @@ module.exports = (app) => {
             alertMessage: 'An error occured.',
             alertType: 'danger'
           });
-          // If user is already registered, render register form with alert
-          else if (user)
-            res.render('form', {
-              type: 'register',
+        // If user is already registered, render register form with alert
+        else if (user)
+          res.render('form', {
+            type: 'register',
             alertMessage: 'User already exists.',
             alertType: 'danger'
-            });
-          // Else, proceed with registration
-          else {
-            // Convert password into its hash
-            const hashedPassword = bcrypt.hashSync(req.body.password, 8);
+          });
+        // Else, proceed with registration
+        else {
+          // Convert password into its hash
+          const hashedPassword = bcrypt.hashSync(req.body.password, 8);
 
-            // Prepare user object
-            const user = {
-              username: req.body.username,
-              password: hashedPassword,
-              consent: req.body.consent ? true : false
-            };
+          // Prepare user object
+          const user = {
+            username: req.body.username,
+            password: hashedPassword,
+            consent: req.body.consent ? true : false
+          };
 
-            // Save new user into database
-            User.create(user, (err, user) => {
-              // If error, redirect to register page
-              if (err)
-                res.render('form', {
-                  type: 'register',
-                  alertMessage: 'An error occured. Try again.',
-                  alertType: 'danger'
-                });
-              // Else, pass new user object to next middleware
-              else next(null, user);
-            });
-          }
-        });
-      },
-      passport.authenticate('local', {
-        successRedirect: '/home',
-        failureRedirect: '/register'
-      })
-    );
+          // Save new user into database
+          User.create(user, (err, user) => {
+            // If error, render register form with alert
+            if (err)
+              res.render('form', {
+                type: 'register',
+                alertMessage: 'An error occured.',
+                alertType: 'danger'
+              });
+            // Registration successful, render login page with alert
+            else
+              res.render('form', {
+                type: 'login',
+                alertMessage: 'Registration successful.',
+                alertType: 'success'
+              });
+          });
+        }
+      });
+    });
 
   // GET requests handler, for /logout
   app.route('/logout').get((req, res) => {
