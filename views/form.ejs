@@ -38,7 +38,7 @@ if (type === 'register') {
       <div class="flex-item">
         <!-- Alert box, if required -->
         <% if (alertMessage) { %>
-          <div class="alert alert-danger">
+          <div class="alert alert-<%= alertType %>">
             <%= alertMessage %>
           </div>
         <% } %>

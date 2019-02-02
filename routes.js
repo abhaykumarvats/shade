@@ -31,7 +31,8 @@ module.exports = (app) => {
     else
       res.render('form', {
         type: 'login',
-        alertMessage: 'Log in to continue.'
+        alertMessage: 'Log in to continue.',
+        alertType: 'danger'
       });
   });
 
@@ -45,7 +46,8 @@ module.exports = (app) => {
     else
       res.render('form', {
         type: 'login',
-        alertMessage: 'Log in to continue.'
+        alertMessage: 'Log in to continue.',
+        alertType: 'danger'
       });
   });
 
@@ -89,7 +91,8 @@ module.exports = (app) => {
           else if (user)
             res.render('form', {
               type: 'register',
-              alertMessage: 'Username not available.'
+            alertMessage: 'User already exists.',
+            alertType: 'danger'
             });
           // Else, proceed with registration
           else {
