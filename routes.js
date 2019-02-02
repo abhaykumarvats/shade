@@ -85,8 +85,13 @@ module.exports = (app) => {
       (req, res, next) => {
         // Find if user is already registered
         User.findOne({ username: req.body.username }, (err, user) => {
-          // If error, pass it to next middleware
-          if (err) next(err);
+        // If error, render register form with alert
+        if (err)
+          res.render('form', {
+            type: 'register',
+            alertMessage: 'An error occured.',
+            alertType: 'danger'
+          });
           // If user is already registered, render register form with alert
           else if (user)
             res.render('form', {
