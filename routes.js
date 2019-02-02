@@ -66,9 +66,24 @@ module.exports = (app) => {
       // Authenticate user with LocalStrategy
       passport.authenticate('local', {
         successRedirect: '/home',
-        failureRedirect: '/login'
+        failureRedirect: '/loginfail'
       })
     );
+
+  // GET requests handler, for /loginfail
+  app.route('/loginfail').get((req, res) => {
+    // Check if user is logged in
+    if (req.isAuthenticated())
+      // User is logged in, redirect to /home
+      res.redirect('/home');
+    // User is not logged in, render login form with alert
+    else
+      res.render('form', {
+        type: 'login',
+        alertMessage: 'Invalid username or password.',
+        alertType: 'danger'
+      });
+  });
 
   // GET and POST requests handler, for /register
   app
@@ -119,7 +134,7 @@ module.exports = (app) => {
                 alertMessage: 'An error occured.',
                 alertType: 'danger'
               });
-            // Registration successful, render login page with alert
+            // Registration successful, render login form with alert
             else
               res.render('form', {
                 type: 'login',
