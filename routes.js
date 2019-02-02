@@ -62,28 +62,38 @@ module.exports = (app) => {
       // User is not logged in, render login form
       else res.render('form', { type: 'login', alertMessage: null });
     })
-    .post(
+    .post((req, res, next) => {
       // Authenticate user with LocalStrategy
-      passport.authenticate('local', {
-        successRedirect: '/home',
-        failureRedirect: '/loginfail'
-      })
-    );
-
-  // GET requests handler, for /loginfail
-  app.route('/loginfail').get((req, res) => {
-    // Check if user is logged in
-    if (req.isAuthenticated())
-      // User is logged in, redirect to /home
-      res.redirect('/home');
-    // User is not logged in, render login form with alert
-    else
-      res.render('form', {
-        type: 'login',
-        alertMessage: 'Invalid username or password.',
-        alertType: 'danger'
-      });
-  });
+      passport.authenticate('local', (err, user, message) => {
+        // If error, render login form with alert
+        if (err)
+          res.render('form', {
+            type: 'login',
+            alertMessage: 'An error occured.',
+            alertType: 'danger'
+          });
+        // If user not found, render login form with alert
+        else if (!user)
+          res.render('form', {
+            type: 'login',
+            alertMessage: message,
+            alertType: 'danger'
+          });
+        // User found, try to log in
+        else
+          req.login(user, (err) => {
+            // If error, render login form with alert
+            if (err)
+              res.render('form', {
+                type: 'login',
+                alertMessage: 'An error occured.',
+                alertType: 'danger'
+              });
+            // Successful login, redirect to /home
+            else res.redirect('/home');
+          });
+      })(req, res, next);
+    });
 
   // GET and POST requests handler, for /register
   app
