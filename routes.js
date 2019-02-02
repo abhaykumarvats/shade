@@ -15,7 +15,7 @@ module.exports = (app) => {
   // GET requests handler, for /
   app.route('/').get((req, res) => {
     // Redirect to /home
-    res.redirect('/home');
+    res.redirect('/login');
   });
 
   /**
