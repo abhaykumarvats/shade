@@ -43,11 +43,11 @@ module.exports = (app) => {
         if (err) return done(err);
 
         // Incorrect username
-        if (!user) return done(null, false);
+        if (!user) return done(null, false, 'Invalid username.');
 
         // Incorrect password
         if (!bcrypt.compareSync(password, user.password))
-          return done(null, false);
+          return done(null, false, 'Invalid password.');
 
         // Correct username and password
         return done(null, user);
