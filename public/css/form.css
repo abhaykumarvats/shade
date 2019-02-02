@@ -7,20 +7,20 @@
 }
 
 /* Flexbox item */
-.flex-form {
+.flex-item {
   width: 30%;
 }
 
 /* If screen width is less than 768px */
 @media all and (max-width: 768px) {
-  .flex-form {
+  .flex-item {
     width: 40%;
   }
 }
 
 /* If screen width is less than 425px */
 @media all and (max-width: 425px) {
-  .flex-form {
+  .flex-item {
     width: 80%;
   }
 }
