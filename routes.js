@@ -27,8 +27,12 @@ module.exports = (app) => {
     if (req.isAuthenticated())
       // TODO: User is logged in, render home page
       res.send('Home page. <a href="/logout">Log Out.</a><br>' + req.user);
-    // User is not logged in, redirect to /login
-    else res.redirect('/login');
+    // User is not logged in, render login form with warning
+    else
+      res.render('form', {
+        type: 'login',
+        alertMessage: 'Log in to continue.'
+      });
   });
 
   // GET requests handler, for /profile
@@ -38,7 +42,11 @@ module.exports = (app) => {
       // TODO: User is logged in, render profile page
       res.send('Profile page. <a href="/logout">Log Out.</a><br>' + req.user);
     // User is not logged in, redirect to /login
-    else res.redirect('/login');
+    else
+      res.render('form', {
+        type: 'login',
+        alertMessage: 'Log in to continue.'
+      });
   });
 
   // GET and POST requests handler, for /login
@@ -50,7 +58,7 @@ module.exports = (app) => {
         // User is logged in, redirect to /home
         res.redirect('/home');
       // User is not logged in, render login form
-      else res.render('form', { type: 'login' });
+      else res.render('form', { type: 'login', alertMessage: null });
     })
     .post(
       // Authenticate user with local strategy
@@ -69,7 +77,7 @@ module.exports = (app) => {
         // User is logged in, redirect to /home
         res.redirect('/home');
       // User is not logged in, render register form
-      else res.render('form', { type: 'register' });
+      else res.render('form', { type: 'register', alertMessage: null });
     })
     .post(
       (req, res, next) => {
@@ -78,7 +86,11 @@ module.exports = (app) => {
           // If error, pass it to next middleware
           if (err) next(err);
           // If user is already registered
-          else if (user) res.redirect('/login');
+          else if (user)
+            res.render('form', {
+              type: 'register',
+              alertMessage: 'Username not available.'
+            });
           // Else, proceed with registration
           else {
             // Convert password into its hash
@@ -94,7 +106,12 @@ module.exports = (app) => {
             // Save new user into database
             User.create(user, (err, user) => {
               // If error, redirect to register page
-              if (err) res.redirect('/register');
+              if (err)
+                res.render('form', {
+                  type: 'register',
+                  alertMessage: 'An error occured. Try again.',
+                  alertType: 'danger'
+                });
               // Else, pass new user object to next middleware
               else next(null, user);
             });
