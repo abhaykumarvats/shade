@@ -14,7 +14,7 @@ const User = require('./schemas/User');
 module.exports = (app) => {
   // GET requests handler, for /
   app.route('/').get((req, res) => {
-    // Redirect to /home
+    // Redirect to /login
     res.redirect('/login');
   });
 
@@ -27,7 +27,7 @@ module.exports = (app) => {
     if (req.isAuthenticated())
       // TODO: User is logged in, render home page
       res.send('Home page. <a href="/logout">Log Out.</a><br>' + req.user);
-    // User is not logged in, render login form with warning
+    // User is not logged in, render login form with alert
     else
       res.render('form', {
         type: 'login',
@@ -41,7 +41,7 @@ module.exports = (app) => {
     if (req.isAuthenticated())
       // TODO: User is logged in, render profile page
       res.send('Profile page. <a href="/logout">Log Out.</a><br>' + req.user);
-    // User is not logged in, redirect to /login
+    // User is not logged in, render login form with alert
     else
       res.render('form', {
         type: 'login',
@@ -85,7 +85,7 @@ module.exports = (app) => {
         User.findOne({ username: req.body.username }, (err, user) => {
           // If error, pass it to next middleware
           if (err) next(err);
-          // If user is already registered
+          // If user is already registered, render register form with alert
           else if (user)
             res.render('form', {
               type: 'register',
