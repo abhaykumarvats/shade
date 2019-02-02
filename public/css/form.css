@@ -1,26 +1,65 @@
-/* Flexbox container */
-.flex-container {
+/* Set default color */
+body {
+  color: black;
+}
+
+/* Grid container */
+.grid-container {
+  display: grid;
+  grid-template: auto / 50vw 50vw;
+}
+
+/* Flexbox containers */
+.head-flex-container,
+.form-flex-container {
   height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-/* Flexbox item */
-.flex-item {
-  width: 30%;
+.head-flex-container {
+  flex-direction: column;
+  color: white;
+  background-color: black;
+}
+
+/* Flexbox item: Form */
+.flex-form {
+  width: 50%;
+}
+
+/* Hide small-screen-head on large screens */
+.small-screen-head {
+  display: none;
 }
 
 /* If screen width is less than 768px */
 @media all and (max-width: 768px) {
-  .flex-item {
-    width: 40%;
+  .flex-form {
+    width: 70%;
   }
 }
 
-/* If screen width is less than 425px */
-@media all and (max-width: 425px) {
-  .flex-item {
-    width: 80%;
+/* If screen width is less than 576px */
+@media all and (max-width: 576px) {
+  .grid-container {
+    display: block;
+  }
+
+  .head-flex-container {
+    display: none;
+  }
+
+  .form-flex-container {
+    height: 100vh;
+  }
+
+  .small-screen-head {
+    display: block;
+  }
+
+  .flex-form {
+    width: 70%;
   }
 }

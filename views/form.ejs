@@ -1,6 +1,6 @@
 <%
 let title, otherTitle, otherType, subText;
-if (type === 'register') { 
+if (type === 'register') {
   title = 'Register';
   otherTitle = 'Log In';
   otherType = 'login';
@@ -9,7 +9,7 @@ if (type === 'register') {
   title = 'Log In';
   otherTitle = 'Register';
   otherType = 'register';
-  subText = "Don't have an account?"; 
+  subText = "Don't have an account?";
 }
 %>
 
@@ -32,64 +32,99 @@ if (type === 'register') {
   </head>
 
   <body>
-    <!-- Flex container -->
-    <div class="flex-container">
-      <!-- Flex item -->
-      <div class="flex-item">
-        <!-- Alert box, if required -->
-        <% if (alertMessage) { %>
+    <!-- Grid container -->
+    <div class="grid-container">
+
+      <!-- Grid item 1: head-flex-container -->
+      <div class="head-flex-container text-center">
+
+        <!-- Flex item 1: Main heading -->
+        <h1 class="display-3">Shade</h1>
+
+        <!-- Flex item 2: Sub-heading -->
+        <p class="lead">
+          <em>an</em> Online Social Network <br>
+          <em>for</em> Privacy-Concerned Users
+        </p>
+      </div>
+
+      <!-- Grid item 2: form-flex-container -->
+      <div class="form-flex-container">
+
+        <!-- Flex item 1: Form -->
+        <div class="flex-form">
+
+          <!-- Small screen head -->
+          <div class="small-screen-head text-center">
+
+            <!-- Small screen main heading -->
+            <h1 class="display-3">Shade</h1>
+
+            <!-- Small screen sub-heading -->
+            <p class="lead">
+              <em>an</em> Online Social Network <br>
+              <em>for</em> Privacy-Concerned Users
+            </p>
+          </div>
+
+          <!-- Alert box, when required -->
+          <% if (alertMessage) { %>
           <div class="alert alert-<%= alertType %>">
             <%= alertMessage %>
           </div>
-        <% } %>
+          <% } %>
 
-        <!-- Heading -->
-        <h1><%= title %></h1>
+          <!-- Heading -->
+          <h1><%= title %></h1>
 
-        <!-- Log In / Register form -->
-        <form action="/<%= type %>" method="POST">
-          <!-- Sub-text -->
-          <div class="form-group">
-            <small class="form-text text-muted">
-              <%= subText %> <a href="/<%= otherType %>"><%= otherTitle %></a>
-            </small>
-          </div>
+          <!-- Log In / Register form -->
+          <form action="/<%= type %>" method="POST">
 
-          <!-- Username form group -->
-          <div class="form-group">
-            <!-- Username label -->
-            <label for="username">Username</label>
+            <!-- Sub-text -->
+            <div class="form-group">
+              <small class="form-text text-muted">
+                <%= subText %> <a href="/<%= otherType %>"><%= otherTitle %></a>
+              </small>
+            </div>
 
-            <!-- Username input box -->
-            <input
-              type="text"
-              class="form-control form-control-sm"
-              id="username"
-              name="username"
-              placeholder="Enter username"
-              required
-            />
-          </div>
+            <!-- Username form group -->
+            <div class="form-group">
 
-          <!-- Password form group -->
-          <div class="form-group">
-            <!-- Password label -->
-            <label for="password">Password</label>
+              <!-- Username label -->
+              <label for="username">Username</label>
 
-            <!-- Password input box -->
-            <input
-              type="password"
-              class="form-control form-control-sm"
-              id="password"
-              name="password"
-              placeholder="Enter password"
-              required
-            />
-          </div>
+              <!-- Username input box -->
+              <input
+                type="text"
+                class="form-control form-control-sm"
+                id="username"
+                name="username"
+                placeholder="Enter username"
+                required
+              />
+            </div>
 
-          <% if (type === 'register') { %>
+            <!-- Password form group -->
+            <div class="form-group">
+
+              <!-- Password label -->
+              <label for="password">Password</label>
+
+              <!-- Password input box -->
+              <input
+                type="password"
+                class="form-control form-control-sm"
+                id="password"
+                name="password"
+                placeholder="Enter password"
+                required
+              />
+            </div>
+
+            <% if (type === 'register') { %>
             <!-- Consent form group -->
             <div class="form-group custom-control custom-checkbox">
+
               <!-- Consent checkbox -->
               <input
                 type="checkbox"
@@ -103,13 +138,14 @@ if (type === 'register') {
                 I would like to share my data with Shade.
               </label>
             </div>
-          <% } %>
+            <% } %>
 
-          <!-- Submit button -->
-          <button type="submit" class="btn btn-outline-primary btn-sm">
-            Submit
-          </button>
-        </form>
+            <!-- Submit button -->
+            <button type="submit" class="btn btn-outline-primary btn-sm">
+              Submit
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   </body>
