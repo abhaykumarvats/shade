@@ -67,11 +67,6 @@ input[type]:focus {
     display: none;
   }
 
-  /* Stretch form to full height */
-  #form-flex-container {
-    height: 100vh;
-  }
-
   /* Display small screen heading */
   #small-screen-head {
     display: block;
