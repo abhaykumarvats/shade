@@ -1,3 +1,9 @@
+/* Set default colors */
+body {
+  color: darkslategray;
+  background-color: whitesmoke;
+}
+
 /* Flexbox container */
 .flex-container {
   height: 100vh;

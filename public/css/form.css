@@ -1,65 +1,84 @@
-/* Set default color */
+/* Set default colors */
 body {
-  color: black;
+  color: darkslategray;
+  background-color: whitesmoke;
 }
 
-/* Grid container */
-.grid-container {
+/* Change background- and border- color of inputs */
+input[type] {
+  background-color: whitesmoke;
+  border: 1px solid darkslategray;
+}
+
+/* Set colors on of input:focus */
+input[type]:focus {
+  color: darkslategray;
+  background-color: whitesmoke;
+}
+/* Implement CSS grid on main container */
+#main-grid-container {
   display: grid;
   grid-template: auto / 50vw 50vw;
 }
 
-/* Flexbox containers */
-.head-flex-container,
-.form-flex-container {
+/* Implement CSS flexbox on head and form containers */
+#head-flex-container,
+#form-flex-container {
   height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.head-flex-container {
+/* Change head container colors */
+#head-flex-container {
   flex-direction: column;
-  color: white;
-  background-color: black;
+  color: ghostwhite;
+  background-color: darkslategray;
 }
 
-/* Flexbox item: Form */
-.flex-form {
+/* Set form width */
+#flex-form {
   width: 50%;
 }
 
-/* Hide small-screen-head on large screens */
-.small-screen-head {
+/* Hide small screen heading */
+#small-screen-head {
   display: none;
 }
 
 /* If screen width is less than 768px */
 @media all and (max-width: 768px) {
-  .flex-form {
+  /* Set form width */
+  #flex-form {
     width: 70%;
   }
 }
 
 /* If screen width is less than 576px */
 @media all and (max-width: 576px) {
-  .grid-container {
+  /* Remove CSS grid from main container */
+  #main-grid-container {
     display: block;
   }
 
-  .head-flex-container {
+  /* Hide head container */
+  #head-flex-container {
     display: none;
   }
 
-  .form-flex-container {
+  /* Stretch form to full height */
+  #form-flex-container {
     height: 100vh;
   }
 
-  .small-screen-head {
+  /* Display small screen heading */
+  #small-screen-head {
     display: block;
   }
 
-  .flex-form {
+  /* Set form width */
+  #flex-form {
     width: 70%;
   }
 }
