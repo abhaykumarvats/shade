@@ -39,7 +39,7 @@ otherType = 'register'; %> <% subText = "Don't have an account?"; %> <% } %>
 
       <!-- Grid item 2: form-flex-container -->
       <div id="form-flex-container">
-        <!-- Flex item 1: Form -->
+        <!-- Flex item: Form -->
         <div id="flex-form">
           <!-- Small screen head -->
           <div id="small-screen-head" class="text-center">
@@ -86,6 +86,13 @@ otherType = 'register'; %> <% subText = "Don't have an account?"; %> <% } %>
                 placeholder="Enter username"
                 required
               />
+
+              <% if (type === 'register') { %>
+              <!-- Username small text -->
+              <small class="form-text text-muted">
+                Alphanumerics only, no spaces.
+              </small>
+              <% } %>
             </div>
 
             <!-- Password form group -->
