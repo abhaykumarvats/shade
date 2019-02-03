@@ -1,20 +1,3 @@
-/* Set default colors */
-body {
-  color: darkslategray;
-  background-color: whitesmoke;
-}
-
-/* Change background- and border- color of inputs */
-input[type] {
-  background-color: whitesmoke;
-  border: 1px solid darkslategray;
-}
-
-/* Set colors on of input:focus */
-input[type]:focus {
-  color: darkslategray;
-  background-color: whitesmoke;
-}
 /* Implement CSS grid on main container */
 #main-grid-container {
   display: grid;
@@ -33,8 +16,8 @@ input[type]:focus {
 /* Change head container colors */
 #head-flex-container {
   flex-direction: column;
-  color: ghostwhite;
-  background-color: darkslategray;
+  color: white;
+  background-color: black;
 }
 
 /* Set form width */
