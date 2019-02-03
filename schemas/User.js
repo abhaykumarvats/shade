@@ -33,8 +33,15 @@ const userSchema = new mongoose.Schema({
   connections: {
     friends: [String],
     family: [String],
-    acquaintance: [String]
-  }
+    acquaintances: [String],
+    pending: [String]
+  },
+  notifs: [
+    {
+      notifType: String,
+      notifContent: String
+    }
+  ]
 });
 
 // Convert userSchema into User model, and export
