@@ -50,6 +50,14 @@
     display: none;
   }
 
+  #form-flex-container {
+    display: block;
+  }
+
+  #form-flex-container > * {
+    margin: 0 auto;
+  }
+
   /* Display small screen heading */
   #small-screen-head {
     display: block;
