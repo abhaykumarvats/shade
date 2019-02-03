@@ -65,13 +65,18 @@ module.exports = (app) => {
     .post((req, res, next) => {
       // Authenticate user with LocalStrategy
       passport.authenticate('local', (err, user, message) => {
-        // If error, render login form with alert
-        if (err)
+        // If error
+        if (err) {
+          // Log error
+          console.error(err);
+
+          // Render login form with alert
           res.render('form', {
             type: 'login',
             alertMessage: 'An error occured.',
             alertType: 'danger'
           });
+        }
         // If user not found, render login form with alert
         else if (!user)
           res.render('form', {
@@ -82,13 +87,18 @@ module.exports = (app) => {
         // User found, try to log in
         else
           req.login(user, (err) => {
-            // If error, render login form with alert
-            if (err)
+            // If error
+            if (err) {
+              // Log error
+              console.error(err);
+
+              // Render login form with alert
               res.render('form', {
                 type: 'login',
                 alertMessage: 'An error occured.',
                 alertType: 'danger'
               });
+            }
             // Successful login, redirect to /home
             else res.redirect('/home');
           });
@@ -109,13 +119,18 @@ module.exports = (app) => {
     .post((req, res) => {
       // Find if user is already registered
       User.findOne({ username: req.body.username }, (err, user) => {
-        // If error, render register form with alert
-        if (err)
+        // If error
+        if (err) {
+          // Log error
+          console.error(err);
+
+          // Render register form with alert
           res.render('form', {
             type: 'register',
             alertMessage: 'An error occured.',
             alertType: 'danger'
           });
+        }
         // If user is already registered, render register form with alert
         else if (user)
           res.render('form', {
@@ -137,13 +152,18 @@ module.exports = (app) => {
 
           // Save new user into database
           User.create(user, (err, user) => {
-            // If error, render register form with alert
-            if (err)
+            // If error
+            if (err) {
+              // Log error
+              console.error(err);
+
+              // Render register form with alert
               res.render('form', {
                 type: 'register',
                 alertMessage: 'An error occured.',
                 alertType: 'danger'
               });
+            }
             // Registration successful, render login form with alert
             else
               res.render('form', {
