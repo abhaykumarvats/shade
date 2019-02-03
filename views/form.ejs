@@ -33,36 +33,32 @@ if (type === 'register') {
 
   <body>
     <!-- Grid container -->
-    <div class="grid-container">
+    <div id="main-grid-container">
 
       <!-- Grid item 1: head-flex-container -->
-      <div class="head-flex-container text-center">
-
+      <div id="head-flex-container" class="text-center">
         <!-- Flex item 1: Main heading -->
         <h1 class="display-3">Shade</h1>
 
         <!-- Flex item 2: Sub-heading -->
         <p class="lead">
-          <em>an</em> Online Social Network <br>
+          <em>an</em> Online Social Network<br>
           <em>for</em> Privacy-Concerned Users
         </p>
       </div>
 
       <!-- Grid item 2: form-flex-container -->
-      <div class="form-flex-container">
-
+      <div id="form-flex-container">
         <!-- Flex item 1: Form -->
-        <div class="flex-form">
-
+        <div id="flex-form">
           <!-- Small screen head -->
-          <div class="small-screen-head text-center">
-
+          <div id="small-screen-head" class="text-center">
             <!-- Small screen main heading -->
             <h1 class="display-3">Shade</h1>
 
             <!-- Small screen sub-heading -->
             <p class="lead">
-              <em>an</em> Online Social Network <br>
+              <em>an</em> Online Social Network<br>
               <em>for</em> Privacy-Concerned Users
             </p>
           </div>
@@ -79,7 +75,6 @@ if (type === 'register') {
 
           <!-- Log In / Register form -->
           <form action="/<%= type %>" method="POST">
-
             <!-- Sub-text -->
             <div class="form-group">
               <small class="form-text text-muted">
@@ -89,7 +84,6 @@ if (type === 'register') {
 
             <!-- Username form group -->
             <div class="form-group">
-
               <!-- Username label -->
               <label for="username">Username</label>
 
@@ -106,7 +100,6 @@ if (type === 'register') {
 
             <!-- Password form group -->
             <div class="form-group">
-
               <!-- Password label -->
               <label for="password">Password</label>
 
@@ -124,7 +117,6 @@ if (type === 'register') {
             <% if (type === 'register') { %>
             <!-- Consent form group -->
             <div class="form-group custom-control custom-checkbox">
-
               <!-- Consent checkbox -->
               <input
                 type="checkbox"
