@@ -1,17 +1,8 @@
-<%
-let title, otherTitle, otherType, subText;
-if (type === 'register') {
-  title = 'Register';
-  otherTitle = 'Log In';
-  otherType = 'login';
-  subText = 'Already have an account?';
-} else if (type === 'login') {
-  title = 'Log In';
-  otherTitle = 'Register';
-  otherType = 'register';
-  subText = "Don't have an account?";
-}
-%>
+<% let title, otherTitle, otherType, subText; %> <% if (type === 'register') {
+%> <% title = 'Register'; %> <% otherTitle = 'Log In'; %> <% otherType =
+'login'; %> <% subText = 'Already have an account?'; %> <% } else if (type ===
+'login') { %> <% title = 'Log In'; %> <% otherTitle = 'Register'; %> <%
+otherType = 'register'; %> <% subText = "Don't have an account?"; %> <% } %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -34,7 +25,6 @@ if (type === 'register') {
   <body>
     <!-- Grid container -->
     <div id="main-grid-container">
-
       <!-- Grid item 1: head-flex-container -->
       <div id="head-flex-container" class="text-center">
         <!-- Flex item 1: Main heading -->
@@ -42,7 +32,7 @@ if (type === 'register') {
 
         <!-- Flex item 2: Sub-heading -->
         <p class="lead">
-          <em>an</em> Online Social Network<br>
+          <em>an</em> Online Social Network<br />
           <em>for</em> Privacy-Concerned Users
         </p>
       </div>
@@ -58,12 +48,12 @@ if (type === 'register') {
 
             <!-- Small screen sub-heading -->
             <p class="lead">
-              <em>an</em> Online Social Network<br>
+              <em>an</em> Online Social Network<br />
               <em>for</em> Privacy-Concerned Users
             </p>
           </div>
 
-          <!-- Alert box, when required -->
+          <!-- Alert box -->
           <% if (alertMessage) { %>
           <div class="alert alert-<%= alertType %>">
             <%= alertMessage %>
