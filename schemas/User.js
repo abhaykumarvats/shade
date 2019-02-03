@@ -9,26 +9,24 @@ mongoose.connect(process.env.DATABASE_URI, {
 
 // Create userSchema from mongoose.Schema
 const userSchema = new mongoose.Schema({
-  about: {
-    name: String,
-    username: {
-      type: String,
-      lowercase: true,
-      required: true,
-      unique: true
-    },
-    password: {
-      type: String,
-      required: true
-    },
-    consent: {
-      type: Boolean,
-      required: true
-    },
-    joined: {
-      type: Date,
-      default: Date.now
-    }
+  name: String,
+  username: {
+    type: String,
+    lowercase: true,
+    required: true,
+    unique: true
+  },
+  password: {
+    type: String,
+    required: true
+  },
+  consent: {
+    type: Boolean,
+    required: true
+  },
+  joined: {
+    type: Date,
+    default: Date.now
   },
   connections: {
     friends: [String],
