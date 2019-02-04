@@ -12,6 +12,31 @@ const User = require('./schemas/User');
 
 // Export routes module
 module.exports = (app) => {
+  // Function to validate registration inputs
+  function validateInputs(req, res, next) {
+    const username = req.body.username;
+    const password = req.body.password;
+
+    // If username is invalid
+    if (username.search(/[^a-z]/i) >= 0 || username.length < 4)
+      // Render register form with alert
+      res.render('form', {
+        type: 'register',
+        alertMessage: 'Invalid Username',
+        alertType: 'danger'
+      });
+    // If password is invalid
+    else if (password.length < 6)
+      // Render register form with alert
+      res.render('form', {
+        type: 'register',
+        alertMessage: 'Invalid Password',
+        alertType: 'danger'
+      });
+    // Continue with registration
+    else return next();
+  }
+
   // GET requests handler, for /
   app.route('/').get((req, res) => {
     // Redirect to /login
@@ -31,7 +56,7 @@ module.exports = (app) => {
     else
       res.render('form', {
         type: 'login',
-        alertMessage: 'Log in to continue.',
+        alertMessage: 'Log in to Continue',
         alertType: 'danger'
       });
   });
@@ -46,7 +71,7 @@ module.exports = (app) => {
     else
       res.render('form', {
         type: 'login',
-        alertMessage: 'Log in to continue.',
+        alertMessage: 'Log in to Continue',
         alertType: 'danger'
       });
   });
@@ -73,7 +98,7 @@ module.exports = (app) => {
           // Render login form with alert
           res.render('form', {
             type: 'login',
-            alertMessage: 'An error occured.',
+            alertMessage: 'An Error Occured',
             alertType: 'danger'
           });
         }
@@ -95,7 +120,7 @@ module.exports = (app) => {
               // Render login form with alert
               res.render('form', {
                 type: 'login',
-                alertMessage: 'An error occured.',
+                alertMessage: 'An Error Occured',
                 alertType: 'danger'
               });
             }
@@ -116,7 +141,7 @@ module.exports = (app) => {
       // User is not logged in, render register form
       else res.render('form', { type: 'register', alertMessage: null });
     })
-    .post((req, res) => {
+    .post(validateInputs, (req, res) => {
       // Find if user is already registered
       User.findOne({ username: req.body.username }, (err, user) => {
         // If error
@@ -127,7 +152,7 @@ module.exports = (app) => {
           // Render register form with alert
           res.render('form', {
             type: 'register',
-            alertMessage: 'An error occured.',
+            alertMessage: 'An Error Occured',
             alertType: 'danger'
           });
         }
@@ -135,7 +160,7 @@ module.exports = (app) => {
         else if (user)
           res.render('form', {
             type: 'register',
-            alertMessage: 'User already exists.',
+            alertMessage: 'User Already Exists',
             alertType: 'danger'
           });
         // Else, proceed with registration
@@ -160,7 +185,7 @@ module.exports = (app) => {
               // Render register form with alert
               res.render('form', {
                 type: 'register',
-                alertMessage: 'An error occured.',
+                alertMessage: 'An Error Occured',
                 alertType: 'danger'
               });
             }
@@ -168,7 +193,7 @@ module.exports = (app) => {
             else
               res.render('form', {
                 type: 'login',
-                alertMessage: 'Registration successful.',
+                alertMessage: 'Registration Successful',
                 alertType: 'success'
               });
           });
