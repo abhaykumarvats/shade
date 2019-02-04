@@ -137,5 +137,13 @@ otherType = 'register'; %> <% subText = "Don't have an account?"; %> <% } %>
         </div>
       </div>
     </div>
+
+    <% if (type === 'register') { %>
+    <!-- jQuery script -->
+    <script src="/public/js/jquery-3.3.1.min.js"></script>
+
+    <!-- Form script -->
+    <script src="/public/js/form.js"></script>
+    <% } %>
   </body>
 </html>
