@@ -1,3 +1,9 @@
+/* Change form test display and margin */
+.form-text {
+  display: inline-block;
+  margin: 0;
+}
+
 /* Implement CSS grid on main container */
 #main-grid-container {
   display: grid;
