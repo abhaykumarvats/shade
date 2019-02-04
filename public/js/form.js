@@ -13,13 +13,13 @@ $(document).ready(() => {
       usernameSmallText
         .removeClass('text-success')
         .addClass('text-danger')
-        .text('Alphabet characters only');
+        .text('Alphabet Characters Only');
     // If username is short
     else if (username.length < 4)
       usernameSmallText
         .removeClass('text-success')
         .addClass('text-danger')
-        .text('Minimum 4 characters');
+        .text('Minimum 4 Characters');
     // Show success small text
     else
       usernameSmallText
@@ -40,7 +40,7 @@ $(document).ready(() => {
       passwordSmallText
         .removeClass('text-success')
         .addClass('text-danger')
-        .text('Minimum 6 characters');
+        .text('Minimum 6 Characters');
     // Show success small text
     else
       passwordSmallText
@@ -61,7 +61,7 @@ $(document).ready(() => {
       usernameSmallText
         .removeClass('text-success')
         .addClass('text-danger')
-        .text('Alphabet characters only');
+        .text('Alphabet Characters Only');
       return false;
     }
     // If username is short
@@ -69,7 +69,7 @@ $(document).ready(() => {
       usernameSmallText
         .removeClass('text-success')
         .addClass('text-danger')
-        .text('Minimum 4 characters');
+        .text('Minimum 4 Characters');
       return false;
     }
 
@@ -78,7 +78,7 @@ $(document).ready(() => {
       passwordSmallText
         .removeClass('text-success')
         .addClass('text-danger')
-        .text('Minimum 6 characters');
+        .text('Minimum 6 Characters');
       return false;
     }
 
