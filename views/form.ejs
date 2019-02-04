@@ -75,7 +75,11 @@ otherType = 'register'; %> <% subText = "Don't have an account?"; %> <% } %>
             <!-- Username form group -->
             <div class="form-group">
               <!-- Username label -->
-              <label for="username">Username</label>
+              <label for="username">
+                Username
+                <!-- Username small text -->
+                <small id="username-small-text" class="form-text"></small>
+              </label>
 
               <!-- Username input box -->
               <input
@@ -86,19 +90,16 @@ otherType = 'register'; %> <% subText = "Don't have an account?"; %> <% } %>
                 placeholder="Enter username"
                 required
               />
-
-              <% if (type === 'register') { %>
-              <!-- Username small text -->
-              <small class="form-text text-muted">
-                Alphanumerics only. No spaces.
-              </small>
-              <% } %>
             </div>
 
             <!-- Password form group -->
             <div class="form-group">
               <!-- Password label -->
-              <label for="password">Password</label>
+              <label for="password">
+                Password
+                <!-- Password small text -->
+                <small id="password-small-text" class="form-text"></small>
+              </label>
 
               <!-- Password input box -->
               <input
