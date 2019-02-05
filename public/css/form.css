@@ -1,3 +1,13 @@
+/* Set body background color */
+body {
+  background-color: whitesmoke;
+}
+
+/* Set input border */
+input[type] {
+  border: 1px solid black;
+}
+
 /* Change form test display and margin */
 .form-text {
   display: inline-block;
@@ -23,7 +33,7 @@
 #head-flex-container {
   flex-direction: column;
   color: white;
-  background-color: black;
+  background-color: darkslategray;
 }
 
 /* Set form width */
