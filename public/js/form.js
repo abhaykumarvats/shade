@@ -76,6 +76,8 @@ $(document).ready(() => {
         .removeClass('text-success')
         .addClass('text-danger')
         .text('Minimum 6 Characters');
+    // Remove small text
+    else passwordSmallText.text('');
   });
 
   // Trigger on form submission
