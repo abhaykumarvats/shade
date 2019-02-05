@@ -18,7 +18,7 @@ module.exports = (app) => {
     const password = req.body.password;
 
     // If username is invalid
-    if (username.search(/[^a-z]/i) >= 0 || username.length < 4)
+    if (username.match(/[^a-z]/i) || username.length < 4)
       // Render register form with alert
       res.render('form', {
         type: 'register',

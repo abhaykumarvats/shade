@@ -9,7 +9,7 @@ $(document).ready(() => {
     // If username field is empty
     if (!username) usernameSmallText.text('');
     // If non-alphabet character is present
-    else if (username.search(/[^a-z]/i) >= 0)
+    else if (username.match(/[^a-z]/i))
       usernameSmallText
         .removeClass('text-success')
         .addClass('text-danger')
@@ -57,7 +57,7 @@ $(document).ready(() => {
     passwordSmallText = $('#password-small-text');
 
     // If non-alphabet character is present
-    if (username.search(/[^a-z]/i) >= 0) {
+    if (username.match(/[^a-z]/i)) {
       usernameSmallText
         .removeClass('text-success')
         .addClass('text-danger')
