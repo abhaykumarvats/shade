@@ -38,7 +38,7 @@ input[type] {
 
 /* Set form width */
 #flex-form {
-  width: 50%;
+  width: 60%;
 }
 
 /* Hide small screen heading */
@@ -74,6 +74,6 @@ input[type] {
 
   /* Set form width */
   #flex-form {
-    width: 70%;
+    width: 80%;
   }
 }
