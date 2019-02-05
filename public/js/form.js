@@ -51,7 +51,7 @@ $(document).ready(() => {
   });
 
   // Trigger on form submission
-  $('#submit').click(() => {
+  $('#form').submit(() => {
     username = $('#username').val();
     usernameSmallText = $('#username-small-text');
     password = $('#password').val();
@@ -84,6 +84,9 @@ $(document).ready(() => {
     }
 
     // Inputs are valid
+    $('#submit')
+      .prop('disabled', true)
+      .text('Please Wait...');
     return true;
   });
 });
