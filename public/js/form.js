@@ -1,6 +1,37 @@
 $(document).ready(() => {
   let username, usernameSmallText, password, passwordSmallText;
 
+  // Function to add username check on link
+  function addCheck() {
+    // Trigger when check is clicked
+    $('#check').click(() => {
+      username = $('#username').val();
+      usernameSmallText = $('#username-small-text');
+
+      // Show Please Wait text
+      usernameSmallText
+        .removeClass('text-danger text-success')
+        .text('Please Wait...');
+
+      // Check if username is available
+      $.getJSON('/check/' + username, (json) => {
+        // Available
+        if (json.available)
+          usernameSmallText
+            .removeClass('text-danger')
+            .addClass('text-success')
+            .text('Available!');
+        // Not available
+        else
+          usernameSmallText
+            .removeClass('text-success')
+            .addClass('text-danger')
+            .text('Not Available');
+      });
+
+      return false;
+    });
+  }
 
   // Trigger on every input change in username field
   $('#username').on('input', () => {
@@ -21,12 +52,15 @@ $(document).ready(() => {
         .removeClass('text-success')
         .addClass('text-danger')
         .text('Minimum 4 Characters');
-    // Show success small text
-    else
+    // Show check link
+    else {
       usernameSmallText
-        .removeClass('text-danger')
-        .addClass('text-success')
-        .text('OK');
+        .removeClass('text-danger text-success')
+        .html('<a href="#" id="check">Check</a>');
+
+      // Add username check on link
+      addCheck();
+    }
   });
 
   // Trigger on every input change in password field

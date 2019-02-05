@@ -74,6 +74,10 @@ button {
   display: none;
 }
 
+#check {
+  text-decoration: none;
+}
+
 /* If screen area is less than 576px * 576px */
 @media all and (max-width: 576px), all and (max-height: 576px) {
   /* Add body padding */
