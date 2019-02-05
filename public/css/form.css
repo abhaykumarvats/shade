@@ -46,8 +46,8 @@ input[type] {
   display: none;
 }
 
-/* If screen width is less than 768px */
-@media all and (max-width: 768px) {
+/* If screen area is less than 576px * 576px */
+@media all and (max-width: 576px), all and (max-height: 576px) {
   /* Add body padding */
   body {
     padding: 5%;
