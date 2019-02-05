@@ -1,8 +1,9 @@
 $(document).ready(() => {
   let username, usernameSmallText, password, passwordSmallText;
 
-  // Trigger on every keypress in username field
-  $('#username').keyup(() => {
+
+  // Trigger on every input change in username field
+  $('#username').on('input', () => {
     username = $('#username').val();
     usernameSmallText = $('#username-small-text');
 
@@ -28,8 +29,8 @@ $(document).ready(() => {
         .text('OK');
   });
 
-  // Trigger on every keypress in password field
-  $('#password').keyup(() => {
+  // Trigger on every input change in password field
+  $('#password').on('input', () => {
     password = $('#password').val();
     passwordSmallText = $('#password-small-text');
 
