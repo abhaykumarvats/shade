@@ -3,18 +3,19 @@ body {
   background-color: whitesmoke;
 }
 
-/* Set input outline */
+/* Set input border */
 input[type] {
-  border: none;
-  outline: black solid 1px;
+  border-radius: 0;
+  border: 1px solid black;
   background-color: whitesmoke;
 }
 
-/* Set input outline on focus */
+/* Set input border on focus */
 input[type]:focus {
-  border: none;
   box-shadow: none;
-  outline: #007bff solid 2px;
+  border-radius: 0;
+  border-color: #007bff;
+  background-color: whitesmoke;
 }
 
 /* Set button border and box shadow */
@@ -23,23 +24,23 @@ button {
   box-shadow: none !important;
 }
 
+/* Set checkbox style  */
+.custom-checkbox .custom-control-label::before {
+  border-radius: 0;
+  border: 1px solid black;
+  background-color: whitesmoke;
+}
+
+/* Set checkbox focus style */
+.custom-checkbox .custom-control-input:focus ~ .custom-control-label::before {
+  box-shadow: none !important;
+  border-color: #007bff;
+}
+
 /* Change label group display and margin */
 .label-group > * {
   display: inline-block;
   margin: 0 0 0.25rem;
-}
-
-/* Remove checkbox border decorations  */
-.custom-checkbox .custom-control-label::before {
-  border: none;
-  border-radius: 0;
-  outline: black solid 1px;
-  background-color: whitesmoke;
-}
-
-/* Remove checkbox focus box shadow */
-.custom-checkbox .custom-control-input:focus ~ .custom-control-label::before {
-  box-shadow: none !important;
 }
 
 /* Implement CSS grid on main container */
