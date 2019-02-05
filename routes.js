@@ -204,7 +204,7 @@ module.exports = (app) => {
   // GET requests handler, for /check/:username
   app.route('/check/:username').get((req, res) => {
     // Check if user exists
-    User.count({ username: req.params.username }, (err, count) => {
+    User.countDocuments({ username: req.params.username }, (err, count) => {
       // If error
       if (err) {
         console.error(err);
