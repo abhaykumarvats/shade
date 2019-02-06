@@ -39,26 +39,13 @@ module.exports = (app) => {
 
   // GET requests handler, for /
   app.route('/').get((req, res) => {
-    // Redirect to /login
-    res.redirect('/login');
-  });
-
-  /**
-   * TODO: Implement below two handlers
-   */
-  // GET requests handler, for /home
-  app.route('/home').get((req, res) => {
     // Check if user is logged in
     if (req.isAuthenticated())
       // TODO: User is logged in, render home page
       res.send('Home page. <a href="/logout">Log Out.</a><br>' + req.user);
-    // User is not logged in, render login form with alert
-    else
-      res.render('form', {
-        type: 'login',
-        alertMessage: 'Log in to Continue',
-        alertType: 'danger'
-      });
+    // Redirect to /login
+    else res.redirect('/login');
+  });
 
   // GET requests handler, for /:username
   app.route('/:username').get((req, res) => {
