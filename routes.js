@@ -124,8 +124,8 @@ module.exports = (app) => {
                 alertType: 'danger'
               });
             }
-            // Successful login, redirect to /home
-            else res.redirect('/home');
+            // Successful login, redirect to /profile
+            else res.redirect('/profile');
           });
       })(req, res, next);
     });
