@@ -62,8 +62,8 @@ module.exports = (app) => {
   app.route('/').get((req, res) => {
     // Check if user is logged in
     if (req.isAuthenticated())
-      // TODO: User is logged in, render home page
-      res.send('Home page. <a href="/logout">Log Out.</a><br>' + req.user);
+      // User is logged in, render home page
+      res.render('home', { username: req.user.username });
     // Redirect to /login
     else res.redirect('/login');
   });
@@ -74,8 +74,8 @@ module.exports = (app) => {
     .get((req, res) => {
       // Check if user is logged in
       if (req.isAuthenticated())
-        // User is logged in, redirect to /home
-        res.redirect('/home');
+        // User is logged in, redirect to /
+        res.redirect('/');
       // User is not logged in, render login form
       else res.render('form', { type: 'login', alertMessage: null });
     })
@@ -116,8 +116,8 @@ module.exports = (app) => {
                 alertType: 'danger'
               });
             }
-            // Successful login, redirect to /profile
-            else res.redirect('/profile');
+            // Successful login, redirect to /
+            else res.redirect('/');
           });
       })(req, res, next);
     });
@@ -128,8 +128,8 @@ module.exports = (app) => {
     .get((req, res) => {
       // Check if user is logged in
       if (req.isAuthenticated())
-        // User is logged in, redirect to /home
-        res.redirect('/home');
+        // User is logged in, redirect to /
+        res.redirect('/');
       // User is not logged in, render register form
       else res.render('form', { type: 'register', alertMessage: null });
     })
@@ -193,6 +193,14 @@ module.exports = (app) => {
       });
     });
 
+  // GET requests handler, for /logout
+  app.route('/logout').get((req, res) => {
+    // Log user out
+    req.logout();
+
+    // Redirect to login page
+    res.redirect('/login');
+  });
 
   // GET requests handler, for /:username
   app.route('/:username').get(checkUsername, (req, res) => {
@@ -215,32 +223,23 @@ module.exports = (app) => {
 
   // GET requests handler, for /check/:username
   app.route('/check/:username').get((req, res) => {
-    // Check if user exists
+    // Check if user is already registered
     User.countDocuments({ username: req.params.username }, (err, count) => {
       // If error
       if (err) {
         console.error(err);
-        res.send('Error');
+        res.render('error', { errorMessage: 'An Error Occured' });
       }
-      // If user exists
+      // If user is already registered
       else if (count) res.json({ available: false });
-      // User doesn't exist
+      // User isn't registered
       else res.json({ available: true });
     });
   });
 
-  // GET requests handler, for /logout
-  app.route('/logout').get((req, res) => {
-    // Log user out
-    req.logout();
-
-    // Redirect to login page
-    res.redirect('/login');
-  });
-
-  // 404 handler
+  // Error handler
   app.use((req, res) => {
-    // Send 404.html
-    res.sendFile(path.join(__dirname, 'views/404.html'));
+    // Render error view
+    res.render('error', { errorMessage: 'Not Found' });
   });
 };
