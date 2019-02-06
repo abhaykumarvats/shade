@@ -1,0 +1,83 @@
+* {
+  border: 1px solid red;
+}
+
+body {
+  background-color: whitesmoke;
+  font-size: small;
+  font-family: 'Montserrat';
+}
+
+nav {
+  display: flex;
+  width: 30vw;
+  height: 25px;
+  margin: 15px auto;
+  border: 1px solid black;
+  transition: border-color 0.5s ease;
+}
+
+a.nav-item {
+  flex: 1;
+  color: black;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.5s ease;
+}
+
+a.nav-item:hover {
+  color: white;
+  background-color: darkslategray;
+}
+
+a.nav-item:nth-child(2) {
+  color: white;
+  background-color: darkslategray;
+}
+
+hr {
+  background-color: black;
+}
+
+#main-grid-container {
+  display: grid;
+  grid-template: auto / 30vw 40vw 30vw;
+}
+
+#connections-flex-container,
+#posts-flex-container,
+#about-flex-container {
+  display: flex;
+  flex-flow: column;
+}
+
+#connections-flex-container {
+  align-items: flex-end;
+}
+
+#about-flex-container {
+  align-items: flex-start;
+}
+
+#about-section {
+  border-radius: 0;
+  border: 1px solid black;
+}
+
+.card-header {
+  color: white;
+  background-color: darkslategray;
+  border-radius: 0 !important;
+}
+
+.list-group-item > span {
+  float: right;
+}
+
+@media all and (max-width: 576px), all and (max-height: 576px) {
+  nav {
+    width: 80vw;
+  }
+}

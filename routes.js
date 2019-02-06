@@ -65,8 +65,16 @@ module.exports = (app) => {
   app.route('/profile').get((req, res) => {
     // Check if user is logged in
     if (req.isAuthenticated())
-      // TODO: User is logged in, render profile page
-      res.send('Profile page. <a href="/logout">Log Out.</a><br>' + req.user);
+      res.render('profile', {
+        name: req.user.name,
+        username: req.user.username,
+        consent: req.user.consent,
+        joined: new Date(req.user.joined)
+          .toDateString()
+          .split(' ')
+          .slice(1, 4)
+          .join(' ')
+      });
     // User is not logged in, render login form with alert
     else
       res.render('form', {

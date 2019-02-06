@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Metadata -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+    <!-- Title -->
+    <title><%= username %> &middot; Profile</title>
+
+    <!-- Bootstrap stylesheet -->
+    <link rel="stylesheet" href="/public/css/bootstrap.min.css" />
+
+    <!-- Montserrat font stylesheet -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Montserrat"
+      rel="stylesheet"
+    />
+
+    <!-- Profile stylesheet -->
+    <link rel="stylesheet" href="/public/css/profile.css" />
+  </head>
+  <body>
+    <!-- Navigation bar -->
+    <nav>
+      <!-- Navigation links -->
+      <a href="/home" class="nav-item"><span>Home</span></a>
+      <a href="#" class="nav-item" onclick="return false;">
+        <span>Profile</span>
+      </a>
+      <a href="/logout" class="nav-item"><span>Log Out</span></a>
+    </nav>
+
+    <!-- Main grid container -->
+    <div id="main-grid-container">
+      <!-- Grid item 1: Connections flex container -->
+      <div id="connections-flex-container"></div>
+
+      <!-- Grid item 2: Posts flex container -->
+      <div id="posts-flex-container"></div>
+
+      <!-- Grid item 3: About flex container -->
+      <div id="about-flex-container">
+        <!-- About card -->
+        <div id="about-section" class="card w-50">
+          <!-- About card header -->
+          <h5 class="card-header">About</h5>
+
+          <!-- About card body -->
+          <div class="card-body">
+            <!-- Username -->
+            <h5 class="card-title text-center"><%= username %></h5>
+          </div>
+
+          <!-- About list group -->
+          <ul class="list-group  list-group-flush">
+            <!-- Name -->
+            <li class="list-group-item">
+              Name
+              <span class="text-capitalize text-muted"><%= name %></span>
+            </li>
+
+            <!-- Shaded -->
+            <li class="list-group-item">
+              Shaded
+              <span class="text-capitalize text-muted">
+                <%= !consent %>
+              </span>
+            </li>
+
+            <!-- Joined -->
+            <li class="list-group-item">
+              Joined<span class="text-muted"><%= joined %></span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- jQuery script -->
+    <script src="/public/js/jquery-3.3.1.min.js"></script>
+
+    <!-- Popper script -->
+    <script src="/public/js/popper.min.js"></script>
+
+    <!-- Bootstrap script -->
+    <script src="/public/js/bootstrap.min.js"></script>
+  </body>
+</html>
