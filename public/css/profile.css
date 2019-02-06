@@ -3,7 +3,6 @@
 } */
 
 body {
-  background-color: whitesmoke;
   font-size: small;
 }
 
@@ -19,7 +18,6 @@ nav {
 a.nav-item {
   flex: 1;
   color: black;
-  background-color: whitesmoke;
   text-decoration: none;
   display: flex;
   align-items: center;
