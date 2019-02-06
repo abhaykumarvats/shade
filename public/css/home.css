@@ -51,6 +51,43 @@ a.nav-item {
   background-color: slategray;
 }
 
+#main-container {
+  width: 50vw;
+  margin: 0 auto;
+}
+
+#search-container {
+  width: 25vw;
+  margin: 0 auto;
+}
+
+input[type] {
+  border-radius: 0;
+  border: 1px solid black;
+}
+
+input[type]:focus {
+  box-shadow: none;
+  border-radius: 0;
+  border-color: #007bff;
+}
+
+button {
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+#search-result,
+#search-container,
+#notifs-container {
+  display: none;
+}
+
+#search-result {
+  margin: 15px auto;
+  border-radius: 0;
+}
+
 @media all and (max-width: 768px) {
   nav {
     width: 50vw;

@@ -22,7 +22,7 @@
     <!-- Main navigation bar -->
     <nav id="main-nav">
       <!-- Navigation links -->
-      <a href="#" class="nav-item active" onclick="return false;">
+      <a href="#" class="nav-item active">
         <span>Home</span>
       </a>
       <a href="/<%= username %>" class="nav-item">
@@ -36,19 +36,53 @@
     <!-- Home navigation bar -->
     <nav id="home-nav">
       <!-- Navigation links -->
-      <a href="#" class="nav-item active" onclick="return false;">
+      <a href="#" class="nav-item active" id="activity-tab">
         <span>Activity</span>
       </a>
-      <a href="#" class="nav-item" onclick="return false;">
+      <a href="#" class="nav-item" id="search-tab">
         <span>Search</span>
       </a>
-      <a href="#" class="nav-item" onclick="return false;">
+      <a href="#" class="nav-item" id="notifs-tab">
         <span>Notifications</span>
       </a>
     </nav>
 
     <!-- Main container -->
-    <div id="main-container"></div>
+    <div id="main-container">
+      <!-- Activity container -->
+      <div id="activity-container"></div>
+
+      <!-- Search container -->
+      <div id="search-container">
+        <!-- Search input group -->
+        <div class="input-group">
+          <!-- Search input box -->
+          <input
+            type="text"
+            class="form-control form-control-sm"
+            id="search-input"
+            placeholder="Enter Username"
+          />
+
+          <!-- Search button -->
+          <div class="input-group-append">
+            <button
+              class="btn btn-outline-primary btn-sm"
+              type="button"
+              id="search-button"
+            >
+              Search
+            </button>
+          </div>
+        </div>
+
+        <!-- Search result -->
+        <div class="card" id="search-result"></div>
+      </div>
+
+      <!-- Notifs container -->
+      <div id="notifs-container"></div>
+    </div>
 
     <!-- jQuery script -->
     <script src="/public/js/jquery-3.3.1.min.js"></script>
