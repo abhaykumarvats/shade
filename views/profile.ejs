@@ -86,5 +86,14 @@
 
     <!-- Bootstrap script -->
     <script src="/public/js/bootstrap.min.js"></script>
+
+    <!-- Profile script -->
+    <% if (type === 'own') { %>
+    <script src="/public/js/profile-own.js"></script>
+    <% } else if (type === 'other') { %>
+    <script src="/public/js/profile-other.js"></script>
+    <% } else if (type === 'public') { %>
+    <script src="/public/js/profile-public.js"></script>
+    <% } %>
   </body>
 </html>
