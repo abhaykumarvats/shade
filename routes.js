@@ -37,6 +37,27 @@ module.exports = (app) => {
     else return next();
   }
 
+  // Function to check username existence
+  function checkUsername(req, res, next) {
+    const username = req.params.username;
+
+    // Check is username exists
+    User.countDocuments({ username: username }, (err, count) => {
+      // If error
+      if (err) {
+        // Log error
+        console.error(err);
+
+        // Render error view
+        res.render('error', { errorMessage: 'An Error Occured' });
+      }
+      // Username doesn't exist, render error view
+      else if (!count) res.render('error', { errorMessage: 'No Such User' });
+      // Username exists
+      else return next();
+    });
+  }
+
   // GET requests handler, for /
   app.route('/').get((req, res) => {
     // Check if user is logged in
@@ -45,25 +66,6 @@ module.exports = (app) => {
       res.send('Home page. <a href="/logout">Log Out.</a><br>' + req.user);
     // Redirect to /login
     else res.redirect('/login');
-  });
-
-  // GET requests handler, for /:username
-  app.route('/:username').get((req, res) => {
-    // If user is logged in
-    if (req.isAuthenticated()) {
-      // User is accesssing own profile
-      if (req.params.username === req.user.username) {
-        // Render user's own profile
-        res.render('profile', { type: 'own', username: req.user.username });
-      } else {
-        // Render username's profile
-        res.render('profile', { type: 'other', username: req.params.username });
-      }
-    }
-    // User is not logged in, render public profile
-    else {
-      res.render('profile', { type: 'public', username: req.params.username });
-    }
   });
 
   // GET and POST requests handler, for /login
@@ -190,6 +192,26 @@ module.exports = (app) => {
         }
       });
     });
+
+
+  // GET requests handler, for /:username
+  app.route('/:username').get(checkUsername, (req, res) => {
+    // If user is logged in
+    if (req.isAuthenticated()) {
+      // If user is accesssing own profile
+      if (req.params.username === req.user.username) {
+        // Render user's own profile
+        res.render('profile', { type: 'own', username: req.user.username });
+      } else {
+        // Render username's profile
+        res.render('profile', { type: 'other', username: req.params.username });
+      }
+    }
+    // User is not logged in, render public profile
+    else {
+      res.render('profile', { type: 'public', username: req.params.username });
+    }
+  });
 
   // GET requests handler, for /check/:username
   app.route('/check/:username').get((req, res) => {
