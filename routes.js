@@ -150,7 +150,7 @@ module.exports = (app) => {
         else if (user)
           res.render('form', {
             type: 'register',
-            alertMessage: 'User Already Exists',
+            alertMessage: 'User Already Registered',
             alertType: 'danger'
           });
         // Else, proceed with registration
