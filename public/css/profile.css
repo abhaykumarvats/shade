@@ -5,9 +5,7 @@
 body {
   background-color: whitesmoke;
   font-size: small;
-  font-family: 'Montserrat';
 }
-
 nav {
   display: flex;
   width: 30vw;
