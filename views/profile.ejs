@@ -22,29 +22,39 @@
     <!-- Main navigation bar -->
     <nav id="main-nav">
       <!-- Navigation links -->
+      <% if (type !== 'public') { %>
       <a href="/" class="nav-item">
         <span>Home</span>
       </a>
+      <% } %>
       <a href="#" class="nav-item active" onclick="return false;">
         <span>Profile</span>
       </a>
+      <% if (type !== 'public') { %>
       <a href="/logout" class="nav-item">
         <span>Log Out</span>
       </a>
+      <% } else { %>
+      <a href="/login" class="nav-item">
+        <span>Log In</span>
+      </a>
+      <% } %>
     </nav>
 
     <!-- Profile navigation bar -->
     <nav id="profile-nav">
       <!-- Navigation links -->
       <a href="#" class="nav-item active" onclick="return false;">
-        <span>Posts</span>
+        <span>Activity</span>
       </a>
+      <% if (type !== 'public') { %>
       <a href="#" class="nav-item" onclick="return false;">
         <span>Connections</span>
       </a>
       <a href="#" class="nav-item" onclick="return false;">
         <span>About</span>
       </a>
+      <% } %>
     </nav>
 
     <!-- Main container -->
@@ -52,12 +62,6 @@
 
     <!-- jQuery script -->
     <script src="/public/js/jquery-3.3.1.min.js"></script>
-
-    <!-- Popper script -->
-    <script src="/public/js/popper.min.js"></script>
-
-    <!-- Bootstrap script -->
-    <script src="/public/js/bootstrap.min.js"></script>
 
     <!-- Profile script -->
     <% if (type === 'own') { %>

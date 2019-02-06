@@ -6,6 +6,7 @@ body {
   background-color: whitesmoke;
   font-size: small;
 }
+
 nav {
   display: flex;
   width: 25vw;
