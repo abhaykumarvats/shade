@@ -9,7 +9,6 @@ mongoose.connect(process.env.DATABASE_URI, {
 
 // Create userSchema from mongoose.Schema
 const userSchema = new mongoose.Schema({
-  name: String,
   username: {
     type: String,
     required: true,
