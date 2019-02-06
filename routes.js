@@ -59,29 +59,24 @@ module.exports = (app) => {
         alertMessage: 'Log in to Continue',
         alertType: 'danger'
       });
-  });
 
-  // GET requests handler, for /profile
-  app.route('/profile').get((req, res) => {
-    // Check if user is logged in
-    if (req.isAuthenticated())
-      res.render('profile', {
-        name: req.user.name,
-        username: req.user.username,
-        consent: req.user.consent,
-        joined: new Date(req.user.joined)
-          .toDateString()
-          .split(' ')
-          .slice(1, 4)
-          .join(' ')
-      });
-    // User is not logged in, render login form with alert
-    else
-      res.render('form', {
-        type: 'login',
-        alertMessage: 'Log in to Continue',
-        alertType: 'danger'
-      });
+  // GET requests handler, for /:username
+  app.route('/:username').get((req, res) => {
+    // If user is logged in
+    if (req.isAuthenticated()) {
+      // User is accesssing own profile
+      if (req.params.username === req.user.username) {
+        // Render user's own profile
+        res.render('profile', { type: 'own', username: req.user.username });
+      } else {
+        // Render username's profile
+        res.render('profile', { type: 'other', username: req.params.username });
+      }
+    }
+    // User is not logged in, render public profile
+    else {
+      res.render('profile', { type: 'public', username: req.params.username });
+    }
   });
 
   // GET and POST requests handler, for /login
