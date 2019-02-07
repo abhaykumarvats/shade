@@ -44,17 +44,17 @@
     <!-- Profile navigation bar -->
     <nav id="profile-nav">
       <!-- Navigation links -->
-      <a href="#" class="nav-item active">
+      <a href="#" class="nav-item active" id="activity-tab">
         <span>Activity</span>
       </a>
       <% if (type !== 'public') { %>
-      <a href="#" class="nav-item">
+      <a href="#" class="nav-item" id="connections-tab">
         <span>Connections</span>
       </a>
-      <a href="#" class="nav-item">
+      <% } %>
+      <a href="#" class="nav-item" id="about-tab">
         <span>About</span>
       </a>
-      <% } %>
     </nav>
 
     <!-- Main container -->
