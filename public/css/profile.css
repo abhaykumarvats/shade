@@ -51,14 +51,25 @@ a.nav-item {
   background-color: slategray;
 }
 
+#main-container {
+  width: 25vw;
+  margin: 0 auto;
+}
+
+#connections-container,
+#about-container {
+  display: none;
+}
 @media all and (max-width: 768px) {
-  nav {
+  nav,
+  #main-container {
     width: 50vw;
   }
 }
 
 @media all and (max-width: 576px) {
-  nav {
+  nav,
+  #main-container {
     width: 75vw;
   }
 }
