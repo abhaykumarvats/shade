@@ -60,6 +60,11 @@ a.nav-item {
 #about-container {
   display: none;
 }
+
+div.alert {
+  border-radius: 0;
+}
+
 @media all and (max-width: 768px) {
   nav,
   #main-container {
