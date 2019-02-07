@@ -58,27 +58,30 @@ $(document).ready(() => {
 
   // Trigger when search-button is clicked
   searchButton.click(() => {
-    const searchInput = $('#search-input');
+    const searchInputField = $('#search-input');
+    const searchInputValue = searchInputField.val();
     const searchResult = $('#search-result');
 
-    $.getJSON('/check/' + searchInput.val(), (json) => {
-      searchResult.css('display', 'block');
+    if (!searchInputValue) searchResult.css('display', 'none');
+    else
+      $.getJSON('/check/' + searchInputValue, (json) => {
+        searchResult.css('display', 'block');
 
-      if (!json.available) {
-        searchResult.html(
-          '<div class="card-body"><h5 class="card-title">' +
-            searchInput.val() +
-            '</h5><h6 class="card-subtitle mb-2 text-muted">Registered User</h6><a href="/' +
-            searchInput.val() +
-            '" class="card-link">Visit Profile</a></div>'
-        );
-      } else {
-        searchResult.html(
-          '<div class="card-body"><h5 class="card-title">' +
-            searchInput.val() +
-            '</h5><h6 class="card-subtitle mb-2 text-muted">Not Registered</h6></div>'
-        );
-      }
-    });
+        if (!json.available) {
+          searchResult.html(
+            '<div class="card-body"><h5 class="card-title">' +
+              searchInputValue +
+              '</h5><h6 class="card-subtitle mb-2 text-muted">Registered User</h6><a href="/' +
+              searchInputValue +
+              '" class="card-link">Visit Profile</a></div>'
+          );
+        } else {
+          searchResult.html(
+            '<div class="card-body"><h5 class="card-title">' +
+              searchInputValue +
+              '</h5><h6 class="card-subtitle mb-2 text-muted">Not Registered</h6></div>'
+          );
+        }
+      });
   });
 });
