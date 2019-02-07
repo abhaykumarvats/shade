@@ -58,7 +58,22 @@
     </nav>
 
     <!-- Main container -->
-    <div id="main-container"></div>
+    <div id="main-container">
+      <!-- Activity container -->
+      <div id="activity-container"></div>
+
+      <!-- Connections container -->
+      <div id="connections-container"></div>
+
+      <!-- About container -->
+      <div id="about-container">
+        <% if (type === 'public') { %>
+        <div class="alert alert-primary">
+          Log in to connect with <strong><%= username %></strong>.
+        </div>
+        <% } %>
+      </div>
+    </div>
 
     <!-- jQuery script -->
     <script src="/public/js/jquery-3.3.1.min.js"></script>
