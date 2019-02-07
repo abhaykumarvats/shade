@@ -4,8 +4,9 @@ const passport = require('passport');
 // Require bcrypt for password hashing
 const bcrypt = require('bcryptjs');
 
-// Require User model
+// Require models
 const User = require('./schemas/User');
+const Post = require('./schemas/Post');
 
 // Export routes module
 module.exports = (app) => {
@@ -253,6 +254,34 @@ module.exports = (app) => {
     else {
       res.render('profile', { type: 'public', username: paramUsername });
     }
+  });
+
+  // POST requests handler, for /:username/post
+  app.route('/:username/post').post((req, res) => {
+    if (req.isAuthenticated()) {
+      const username = req.user.username;
+      const content = req.body.content;
+      const audience = req.body.audience;
+
+      if (audience === 'public') {
+        const post = {
+          username: username,
+          content: content,
+          meantFor: ['public']
+        };
+
+        Post.create(post, (err, post) => {
+          if (err) {
+            console.error(err);
+            res.render('error', { errorMessage: 'An Error Occured' });
+          } else {
+            res.redirect('/' + username);
+          }
+        });
+      } else {
+        // TODO
+      }
+    } else res.redirect('/login');
   });
 
   // GET requests handler, for /check/:username
