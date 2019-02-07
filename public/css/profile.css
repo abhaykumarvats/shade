@@ -75,6 +75,16 @@ a.nav-item {
   display: none;
 }
 
+/* Remove margin from post form elements */
+#post-form > div {
+  margin: 0;
+}
+
+/* Remove bottom border from textarea */
+textarea {
+  border-bottom: none !important;
+}
+
 /* Set alert padding and text align */
 .alert {
   padding: 0.25rem;
