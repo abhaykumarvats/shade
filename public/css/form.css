@@ -1,13 +1,11 @@
 /* Set input border */
 input[type] {
   border-radius: 0;
-  border: 1px solid black;
 }
 
 /* Set input border on focus */
 input[type]:focus {
   box-shadow: none;
-  border-radius: 0;
   border-color: #007bff;
 }
 
@@ -20,7 +18,6 @@ button {
 /* Set checkbox style  */
 .custom-checkbox .custom-control-label::before {
   border-radius: 0;
-  border: 1px solid black;
 }
 
 /* Set checkbox focus style */

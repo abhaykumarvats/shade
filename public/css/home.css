@@ -53,12 +53,10 @@ a.nav-item {
 
 input[type] {
   border-radius: 0;
-  border: 1px solid black;
 }
 
 input[type]:focus {
   box-shadow: none;
-  border-radius: 0;
   border-color: #007bff;
 }
 
