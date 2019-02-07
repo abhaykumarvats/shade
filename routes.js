@@ -4,9 +4,6 @@ const passport = require('passport');
 // Require bcrypt for password hashing
 const bcrypt = require('bcryptjs');
 
-// Require path for path joining
-const path = require('path');
-
 // Require User model
 const User = require('./schemas/User');
 
@@ -39,10 +36,8 @@ module.exports = (app) => {
 
   // Function to check username existence
   function checkUsername(req, res, next) {
-    const username = req.params.username;
-
     // Check is username exists
-    User.countDocuments({ username: username }, (err, count) => {
+    User.countDocuments({ username: req.params.username }, (err, count) => {
       // If error
       if (err) {
         // Log error
