@@ -284,6 +284,33 @@ module.exports = (app) => {
     } else res.redirect('/login');
   });
 
+  // GET requests handler, for /:username/about
+  app.route('/:username/about').get((req, res) => {
+    // If user is logged in
+    if (req.isAuthenticated()) {
+      // Retrieve username, consent, joined fields of requested user
+      User.findOne(
+        { username: req.params.username },
+        '-_id consent joined',
+        (err, user) => {
+          // If error
+          if (err) {
+            // Log error
+            console.error(err);
+
+            // Render error view
+            res.render('error', { errorMessage: 'An Error Occured' });
+          } else {
+            // Send user object as json
+            res.json(user);
+          }
+        }
+      );
+    }
+    // User is not logged in, render error view
+    else res.render('error', { errorMessage: 'Not Allowed' });
+  });
+
   // GET requests handler, for /check/:username
   app.route('/check/:username').get((req, res) => {
     // Check if user is already registered
