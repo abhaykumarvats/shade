@@ -199,20 +199,59 @@ module.exports = (app) => {
 
   // GET requests handler, for /:username
   app.route('/:username').get(checkUsername, (req, res) => {
+    const paramUsername = req.params.username;
+
     // If user is logged in
     if (req.isAuthenticated()) {
+      const loggedUsername = req.user.username;
+
       // If user is accesssing own profile
-      if (req.params.username === req.user.username) {
+      if (paramUsername === loggedUsername) {
         // Render user's own profile
-        res.render('profile', { type: 'own', username: req.user.username });
-      } else {
-        // Render username's profile
-        res.render('profile', { type: 'other', username: req.params.username });
+        res.render('profile', { type: 'own', username: loggedUsername });
+      }
+      // User is accessing other's profile
+      else {
+        // Check if user is in connections
+        User.findOne(
+          { username: paramUsername },
+          'connections',
+          (err, user) => {
+            // If error
+            if (err) {
+              // Log error
+              console.error(err);
+
+              // Render error view
+              res.render('error', { errorMessage: 'An Error Occured' });
+            } else {
+              const connections = user.connections;
+
+              // User is in in conenctions
+              if (
+                connections.friends.includes(loggedUsername) ||
+                connections.family.includes(loggedUsername) ||
+                connections.acquaintances.includes(loggedUsername)
+              )
+                // Render user specific profile
+                res.render('profile', {
+                  type: 'other',
+                  username: paramUsername
+                });
+              // User is not in connections, render public profile
+              else
+                res.render('profile', {
+                  type: 'public',
+                  username: paramUsername
+                });
+            }
+          }
+        );
       }
     }
     // User is not logged in, render public profile
     else {
-      res.render('profile', { type: 'public', username: req.params.username });
+      res.render('profile', { type: 'public', username: paramUsername });
     }
   });
 
