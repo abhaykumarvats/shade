@@ -60,7 +60,50 @@
     <!-- Main container -->
     <div id="main-container">
       <!-- Activity container -->
-      <div id="activity-container"></div>
+      <div id="activity-container">
+        <% if (type === 'own') { %>
+        <!-- Post form -->
+        <form action="/<%= username %>/post" method="POST" id="post-form">
+          <!-- Post textarea -->
+          <div class="form-group">
+            <textarea
+              name="content"
+              id="content"
+              class="form-control"
+              placeholder="Write something..."
+              required
+            ></textarea>
+          </div>
+
+          <!-- Post input group -->
+          <div class="input-group">
+            <!-- Post audience select -->
+            <select
+              name="audience"
+              id="audience"
+              class="custom-select custom-select-sm"
+            >
+              <option value="0" selected>Select an audience...</option>
+              <option value="friends">Friends</option>
+              <option value="family">Family</option>
+              <option value="acquaintances">Acquaintances</option>
+              <option value="public">Public</option>
+            </select>
+
+            <!-- Post button -->
+            <div class="input-group-append">
+              <button
+                type="submit"
+                class="btn btn-sm btn-outline-primary"
+                id="post-button"
+              >
+                Post
+              </button>
+            </div>
+          </div>
+        </form>
+        <% } %>
+      </div>
 
       <!-- Connections container -->
       <div id="connections-container"></div>
