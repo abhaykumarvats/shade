@@ -3,6 +3,7 @@
 *::before,
 *::after {
   border-radius: 0 !important;
+  box-shadow: none !important;
 }
 
 /* Implement CSS grid on main container */
@@ -45,19 +46,11 @@ div.alert {
 
 /* Set input border on focus */
 input[type]:focus {
-  box-shadow: none;
   border-color: #007bff;
-}
-
-/* Set button border and box shadow */
-button {
-  border-radius: 0 !important;
-  box-shadow: none !important;
 }
 
 /* Set checkbox focus style */
 .custom-checkbox .custom-control-input:focus ~ .custom-control-label::before {
-  box-shadow: none !important;
   border-color: #007bff;
 }
 

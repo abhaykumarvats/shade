@@ -3,6 +3,7 @@
 *::before,
 *::after {
   border-radius: 0 !important;
+  box-shadow: none !important;
 }
 
 /* Use small font size */
@@ -64,14 +65,7 @@ a.nav-item {
 
 /* Set input border on focus */
 input[type]:focus {
-  box-shadow: none;
   border-color: #007bff;
-}
-
-/* Change button styles */
-button {
-  border-radius: 0 !important;
-  box-shadow: none !important;
 }
 
 /* Set main container width and margin */
