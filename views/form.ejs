@@ -90,7 +90,6 @@ otherType = 'register'; %> <% subText = "Don't have an account?"; %> <% } %>
                 id="username"
                 name="username"
                 placeholder="Enter username"
-                required
               />
             </div>
 
@@ -112,7 +111,6 @@ otherType = 'register'; %> <% subText = "Don't have an account?"; %> <% } %>
                 id="password"
                 name="password"
                 placeholder="Enter password"
-                required
               />
             </div>
 
@@ -143,12 +141,15 @@ otherType = 'register'; %> <% subText = "Don't have an account?"; %> <% } %>
       </div>
     </div>
 
-    <% if (type === 'register') { %>
     <!-- jQuery script -->
     <script src="/public/js/jquery-3.3.1.min.js"></script>
 
-    <!-- Form script -->
-    <script src="/public/js/form.js"></script>
+    <% if (type === 'register') { %>
+    <!-- Register script -->
+    <script src="/public/js/register.js"></script>
+    <% } else { %>
+    <!-- Login script -->
+    <script src="/public/js/login.js"></script>
     <% } %>
   </body>
 </html>
