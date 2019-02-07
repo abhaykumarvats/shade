@@ -2,6 +2,12 @@
   border: 1px solid red;
 } */
 
+*,
+*::before,
+*::after {
+  border-radius: 0 !important;
+}
+
 body {
   font-size: small;
 }

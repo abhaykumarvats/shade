@@ -1,6 +1,7 @@
-/* Set input border */
-input[type] {
-  border-radius: 0;
+*,
+*::before,
+*::after {
+  border-radius: 0 !important;
 }
 
 /* Set input border on focus */
@@ -13,11 +14,6 @@ input[type]:focus {
 button {
   border-radius: 0 !important;
   box-shadow: none !important;
-}
-
-/* Set checkbox style  */
-.custom-checkbox .custom-control-label::before {
-  border-radius: 0;
 }
 
 /* Set checkbox focus style */
