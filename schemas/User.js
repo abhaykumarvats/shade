@@ -35,7 +35,11 @@ const userSchema = new mongoose.Schema({
   notifs: [
     {
       notifType: String,
-      notifContent: String
+      notifContent: String,
+      notifDate: {
+        type: Date,
+        default: Date.now
+      }
     }
   ]
 });
