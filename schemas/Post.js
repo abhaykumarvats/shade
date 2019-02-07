@@ -25,7 +25,7 @@ const postSchema = new mongoose.Schema({
     type: [String],
     required: true
   },
-  seenby: [String]
+  seenBy: [String]
 });
 
 // Convert postSchema into Post model, and export
