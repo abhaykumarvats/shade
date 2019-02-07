@@ -59,7 +59,7 @@ button {
 
 /* Set form width */
 #flex-form {
-  width: 60%;
+  width: 50%;
 }
 
 /* Hide small screen heading */
@@ -99,6 +99,6 @@ button {
 
   /* Set form width */
   #flex-form {
-    width: 80%;
+    width: 75%;
   }
 }
