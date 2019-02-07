@@ -10,6 +10,8 @@ $(document).ready(() => {
   const searchButton = $('#search-button');
   const searchResult = $('#search-result');
 
+  const redColor = '#dc3545';
+
   // Trigger when activity-tab is clicked
   activityTab.click(() => {
     // Add 'active' class to activityTab, and remove from others
@@ -62,29 +64,57 @@ $(document).ready(() => {
     const searchInputValue = searchInputField.val();
 
     // If empty input
-    if (!searchInputValue) searchResult.css('display', 'none');
-    // Check username existence
-    else
-      $.getJSON('/check/' + searchInputValue, (json) => {
-        searchResult.css('display', 'block');
+    if (!searchInputValue) {
+      searchResult.css('display', 'none');
+      searchInputField.css('border-color', redColor);
+    } else {
+      // Show Loading... card
+      searchResult
+        .css('display', 'block')
+        .html(
+          '<div class="card-body">' +
+            '<h5 class="card-title">' +
+            'Please wait...' +
+            '</h5>' +
+            '</div>'
+        );
 
+      // Remove border-color
+      searchInputField.css('border-color', '');
+
+      // Check username existence
+      $.getJSON('/check/' + searchInputValue, (json) => {
         // User is registered
         if (!json.available) {
           searchResult.html(
-            '<div class="card-body"><h5 class="card-title">' +
+            '<div class="card-body">' +
+              '<h5 class="card-title">' +
               searchInputValue +
-              '</h5><h6 class="card-subtitle mb-2 text-muted">Registered User</h6><a href="/' +
+              '</h5>' +
+              '<h6 class="card-subtitle mb-2 text-muted">' +
+              'Registered User' +
+              '</h6>' +
+              '<a href="/' +
               searchInputValue +
-              '" class="card-link">Visit Profile</a></div>'
+              '" class="card-link">' +
+              'Visit Profile' +
+              '</a>' +
+              '</div>'
           );
         } else {
           // User is not registered
           searchResult.html(
-            '<div class="card-body"><h5 class="card-title">' +
+            '<div class="card-body">' +
+              '<h5 class="card-title">' +
               searchInputValue +
-              '</h5><h6 class="card-subtitle mb-2 text-muted">Not Registered</h6></div>'
+              '</h5>' +
+              '<h6 class="card-subtitle mb-2 text-muted">' +
+              'Not Registered' +
+              '</h6>' +
+              '</div>'
           );
         }
       });
+    }
   });
 });
