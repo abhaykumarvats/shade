@@ -18,6 +18,8 @@ $(document).ready(() => {
     searchContainer.css('display', 'none');
     notifsContainer.css('display', 'none');
     activityContainer.css('display', 'block');
+
+    return false;
   });
 
   // Trigger when search-tab is clicked
@@ -33,6 +35,8 @@ $(document).ready(() => {
     activityContainer.css('display', 'none');
     notifsContainer.css('display', 'none');
     searchContainer.css('display', 'block');
+
+    return false;
   });
 
   // Trigger when notifs-tab is clicked
@@ -48,6 +52,8 @@ $(document).ready(() => {
     activityContainer.css('display', 'none');
     searchContainer.css('display', 'none');
     notifsContainer.css('display', 'block');
+
+    return false;
   });
 
   // Trigger when search-button is clicked
