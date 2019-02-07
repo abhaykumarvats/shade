@@ -51,16 +51,6 @@ a.nav-item {
   background-color: slategray;
 }
 
-#main-container {
-  width: 50vw;
-  margin: 0 auto;
-}
-
-#search-container {
-  width: 25vw;
-  margin: 0 auto;
-}
-
 input[type] {
   border-radius: 0;
   border: 1px solid black;
@@ -77,6 +67,11 @@ button {
   box-shadow: none !important;
 }
 
+#main-container {
+  width: 25vw;
+  margin: 0 auto;
+}
+
 #search-result,
 #search-container,
 #notifs-container {
@@ -89,13 +84,15 @@ button {
 }
 
 @media all and (max-width: 768px) {
-  nav {
+  nav,
+  #main-container {
     width: 50vw;
   }
 }
 
 @media all and (max-width: 576px) {
-  nav {
+  nav,
+  #main-container {
     width: 75vw;
   }
 }
