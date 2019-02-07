@@ -76,7 +76,7 @@ a.nav-item {
 }
 
 /* Set alert padding and text align */
-div.alert {
+.alert {
   padding: 0.25rem;
   text-align: center;
 }
