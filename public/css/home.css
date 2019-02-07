@@ -1,17 +1,16 @@
-/* * {
-  border: 1px solid red;
-} */
-
+/* Set border radius to 0 for all elements */
 *,
 *::before,
 *::after {
   border-radius: 0 !important;
 }
 
+/* Use small font size */
 body {
   font-size: small;
 }
 
+/* Implement flexbox on nav, and add styles */
 nav {
   display: flex;
   width: 25vw;
@@ -21,6 +20,7 @@ nav {
   transition: border-color 0.5s ease;
 }
 
+/* Set nav items styles */
 a.nav-item {
   flex: 1;
   color: black;
@@ -31,65 +31,79 @@ a.nav-item {
   transition: all 0.5s ease;
 }
 
+/* Make home nav sticky */
 #home-nav {
   position: sticky;
   top: 15px;
   z-index: 10;
 }
 
+/* Change main nav item color on hover */
 #main-nav > a.nav-item:hover {
   color: white;
   background-color: darkslategray;
 }
 
+/* Change home nav item color on hover */
 #home-nav > a.nav-item:hover {
   color: white;
   background-color: slategray;
 }
 
+/* Set colors for active main nav item */
 #main-nav > a.nav-item.active {
   color: white;
   background-color: darkslategray;
 }
 
+/* Set colors for active home nav item */
 #home-nav > a.nav-item.active {
   color: white;
   background-color: slategray;
 }
 
+/* Set input border on focus */
 input[type]:focus {
   box-shadow: none;
   border-color: #007bff;
 }
 
+/* Change button styles */
 button {
   border-radius: 0 !important;
   box-shadow: none !important;
 }
 
+/* Set main container width and margin */
 #main-container {
   width: 25vw;
   margin: 0 auto;
 }
 
+/* Hide containers */
 #search-result,
 #search-container,
 #notifs-container {
   display: none;
 }
 
+/* Set margin on search result */
 #search-result {
   margin: 15px auto;
 }
 
+/* If screen width is less than 768px; */
 @media all and (max-width: 768px) {
+  /* Set nav and main container width */
   nav,
   #main-container {
     width: 50vw;
   }
 }
 
+/* If screen width is less than 576px */
 @media all and (max-width: 576px) {
+  /* Set nav and main containe width */
   nav,
   #main-container {
     width: 75vw;

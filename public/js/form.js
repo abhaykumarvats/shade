@@ -114,9 +114,6 @@ $(document).ready(() => {
     }
 
     // Inputs are valid
-    $('#submit')
-      .prop('disabled', true)
-      .text('Please Wait...');
     return true;
   });
 });
