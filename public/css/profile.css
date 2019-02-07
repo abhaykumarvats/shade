@@ -62,7 +62,8 @@ a.nav-item {
 }
 
 div.alert {
-  border-radius: 0;
+  padding: 0.25rem;
+  text-align: center;
 }
 
 @media all and (max-width: 768px) {
