@@ -342,8 +342,38 @@ module.exports = (app) => {
     else res.redirect('/login');
   });
 
+  // Function to validate new fields
+  function validateNewFields(req, res, next) {
+    const field = req.params.field;
+
+    // If username change is required
+    if (field === 'username') {
+      const username = req.body.new_username;
+
+      // If username is invalid
+      if (username.match(/[^a-z]/i) || username.length < 4)
+        // Render error view
+        res.render('error', { errorMessage: 'Invalid Username' });
+      // Continue with username change
+      else return next();
+    }
+    // If password change is required
+    else if (field === 'password') {
+      // If old password is invalid
+      if (req.body.old_password.length < 6)
+        // Render error view
+        res.render('error', { errorMessage: 'Wrong Old Password' });
+      // If new password is invalid
+      else if (req.body.new_password.length < 6)
+        // Render error view
+        res.render('error', { errorMessage: 'Invalid New Password' });
+      // Continue with password change
+      else return next();
+    }
+  }
+
   // POST requests handler, for /:username/change/:field
-  app.route('/:username/change/:field').post((req, res) => {
+  app.route('/:username/change/:field').post(validateNewFields, (req, res) => {
     // If user is logged in
     if (req.isAuthenticated()) {
       const paramUsername = req.params.username;
