@@ -14,30 +14,84 @@ $(document).ready(() => {
   const username = $('#username').text();
   const aboutList = $('#about-list');
 
+  const newUsernameSmallText = $('#new-username-small-text');
+
   const redColor = '#dc3545';
 
+  // Function to add username check on link
+  function addCheck() {
+    // Trigger when check is clicked
+    $('#check').click(() => {
+      const newUsernameValue = $('#new-username').val();
+
+      // Show Please Wait text
+      newUsernameSmallText
+        .removeClass('text-danger text-success')
+        .text('Please Wait...');
+
+      // Check if new username is available
+      $.getJSON('/check/' + newUsernameValue, (json) => {
+        // Available
+        if (json.available)
+          newUsernameSmallText
+            .removeClass('text-danger')
+            .addClass('text-success')
+            .text('Available!');
+        // Not available
+        else
+          newUsernameSmallText
+            .removeClass('text-success')
+            .addClass('text-danger')
+            .text('Not Available');
+      });
+
+      return false;
+    });
+  }
+
+  // Show Loading... text while loading 'about' info
+  aboutList.html(
+    '<a href="#" class="list-group-item disabled" tabindex="-1">' +
+      '<h6 class="mb-0">' +
+      'Loading...' +
+      '</h6>' +
+      '</a>'
+  );
+
+  // Get 'about' info
   $.getJSON('/' + username + '/about', (json) => {
+    // Populate aboutList with 'about' info
     aboutList.html(
-      '<a href="#" class="list-group-item list-group-item-action">' +
-        '<h6 class="mb-1">Username</h6>' +
-        '<p class="mb-1">' +
+      '<a href="#" class="list-group-item list-group-item-action" ' +
+        'data-toggle="modal" data-target="#username-change-modal">' +
+        '<h6 class="mb-0">' +
+        'Username' +
+        '</h6>' +
+        '<p class="mb-0">' +
         username +
         '</p>' +
         '</a>' +
         '<a href="#" class="list-group-item list-group-item-action">' +
-        '<h6 class="mb-1">Password</h6>' +
-        '<p class="mb-1"><em>Hidden</em>' +
+        '<h6 class="mb-0">' +
+        'Password' +
+        '</h6>' +
+        '<p class="mb-0">' +
+        '<em>Hidden</em>' +
         '</p>' +
         '</a>' +
         '<a href="#" class="list-group-item list-group-item-action">' +
-        '<h6 class="mb-1">Shaded</h6>' +
-        '<p class="mb-1">' +
+        '<h6 class="mb-0">' +
+        'Shaded' +
+        '</h6>' +
+        '<p class="mb-0">' +
         (json.consent ? 'No' : 'Yes') +
         '</p>' +
         '</a>' +
-        '<a href="#" class="list-group-item list-group-item-action disabled" tabindex="-1">' +
-        '<h6 class="mb-1">Joined</h6>' +
-        '<p class="mb-1">' +
+        '<a href="#" class="list-group-item disabled" tabindex="-1">' +
+        '<h6 class="mb-0">' +
+        'Joined' +
+        '</h6>' +
+        '<p class="mb-0">' +
         new Date(json.joined)
           .toString()
           .split(' ')
@@ -46,6 +100,60 @@ $(document).ready(() => {
         '</p>' +
         '</a>'
     );
+  });
+
+  // Trigger on every input change in new-username field
+  $('#new-username').on('input', () => {
+    const newUsernameValue = $('#new-username').val();
+
+    // If newUsername field is empty
+    if (!newUsernameValue) newUsernameSmallText.text('');
+    // If non-alphabet character is present
+    else if (newUsernameValue.match(/[^a-z]/i))
+      newUsernameSmallText
+        .removeClass('text-success')
+        .addClass('text-danger')
+        .text('Alphabet Characters Only');
+    // If newUsername is short
+    else if (newUsernameValue.length < 4)
+      newUsernameSmallText
+        .removeClass('text-success')
+        .addClass('text-danger')
+        .text('Minimum 4 Characters');
+    // Show check link
+    else {
+      newUsernameSmallText
+        .removeClass('text-danger text-success')
+        .html('<a href="#" id="check">Check</a>');
+
+      // Add username check on link
+      addCheck();
+    }
+  });
+
+  // Trigger on username-change-form submission
+  $('#username-change-form').submit(() => {
+    const newUsernameValue = $('#new-username').val();
+
+    // If non-alphabet character is present
+    if (newUsernameValue.match(/[^a-z]/i)) {
+      newUsernameSmallText
+        .removeClass('text-success')
+        .addClass('text-danger')
+        .text('Alphabet Characters Only');
+      return false;
+    }
+    // If newUsernameValue is short
+    else if (newUsernameValue.length < 4) {
+      newUsernameSmallText
+        .removeClass('text-success')
+        .addClass('text-danger')
+        .text('Minimum 4 Characters');
+      return false;
+    }
+
+    // Valid input
+    return true;
   });
 
   // Trigger when activityTab is clicked
@@ -115,7 +223,7 @@ $(document).ready(() => {
       postAudience.css('border-color', redColor);
       return false;
     }
-    // Post update
+    // Submit post
     else return true;
   });
 });
