@@ -195,7 +195,7 @@ module.exports = (app) => {
             else
               res.render('form', {
                 type: 'login',
-                alertMessage: 'Registration Successful',
+                alertMessage: 'Registration Successful!',
                 alertType: 'success'
               });
           });
@@ -272,11 +272,11 @@ module.exports = (app) => {
 
   // POST requests handler, for /:username/post
   app.route('/:username/post').post(validatePost, (req, res) => {
+    // If user is logged in
+    if (req.isAuthenticated()) {
     const paramUsername = req.params.username;
     const userUsername = req.user.username;
 
-    // If user is logged in
-    if (req.isAuthenticated()) {
       // If requested username and current username are same
       if (paramUsername === userUsername) {
         const content = req.body.content;
