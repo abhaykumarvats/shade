@@ -204,12 +204,12 @@ module.exports = (app) => {
 
     // If user is logged in
     if (req.isAuthenticated()) {
-      const loggedUsername = req.user.username;
+      const currentUsername = req.user.username;
 
       // If user is accesssing own profile
-      if (paramUsername === loggedUsername) {
+      if (paramUsername === currentUsername) {
         // Render user's own profile
-        res.render('profile', { type: 'own', username: loggedUsername });
+        res.render('profile', { type: 'own', username: currentUsername });
       }
       // User is accessing other's profile
       else {
@@ -230,9 +230,9 @@ module.exports = (app) => {
 
               // User is in in conenctions
               if (
-                connections.friends.includes(loggedUsername) ||
-                connections.family.includes(loggedUsername) ||
-                connections.acquaintances.includes(loggedUsername)
+                connections.friends.includes(currentUsername) ||
+                connections.family.includes(currentUsername) ||
+                connections.acquaintances.includes(currentUsername)
               )
                 // Render user specific profile
                 res.render('profile', {
@@ -275,10 +275,10 @@ module.exports = (app) => {
     // If user is logged in
     if (req.isAuthenticated()) {
       const paramUsername = req.params.username;
-      const userUsername = req.user.username;
+      const currentUsername = req.user.username;
 
       // If requested username and current username are same
-      if (paramUsername === userUsername) {
+      if (paramUsername === currentUsername) {
         const content = req.body.content;
         const audience = req.body.audience;
 
@@ -377,13 +377,13 @@ module.exports = (app) => {
     // If user is logged in
     if (req.isAuthenticated()) {
       const paramUsername = req.params.username;
-      const userUsername = req.user.username;
-      const paramField = req.params.field;
+      const currentUsername = req.user.username;
+      const field = req.params.field;
 
       // If requested user is same as current user
-      if (paramUsername === userUsername) {
+      if (paramUsername === currentUsername) {
         // If username change is required
-        if (paramField === 'username') {
+        if (field === 'username') {
           const newUsername = req.body.new_username;
 
           // Check new username existence
@@ -403,7 +403,7 @@ module.exports = (app) => {
             } else {
               // Username available, update
               User.updateOne(
-                { username: userUsername },
+                { username: currentUsername },
                 { username: newUsername },
                 (err, raw) => {
                   // If error
