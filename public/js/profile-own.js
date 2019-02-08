@@ -1,4 +1,6 @@
 $(document).ready(() => {
+  const username = $('#username').text();
+
   const activityTab = $('#activity-tab');
   const connectionsTab = $('#connections-tab');
   const aboutTab = $('#about-tab');
@@ -11,12 +13,85 @@ $(document).ready(() => {
   const postContent = $('#content');
   const postAudience = $('#audience');
 
-  const username = $('#username').text();
   const aboutList = $('#about-list');
 
   const newUsernameSmallText = $('#new-username-small-text');
 
+  const oldPasswordSmallText = $('#old-password-small-text');
+  const newPasswordSmallText = $('#new-password-small-text');
+
   const redColor = '#dc3545';
+
+  // Trigger when activityTab is clicked
+  activityTab.click(() => {
+    // Add 'active' class to activityTab, and remove from other
+    connectionsTab.removeClass('active');
+    aboutTab.removeClass('active');
+    activityTab.addClass('active');
+
+    // Show activityContainer, and hide other
+    connectionsContainer.css('display', 'none');
+    aboutContainer.css('display', 'none');
+    activityContainer.css('display', 'block');
+
+    return false;
+  });
+
+  // Trigger on every input change in postContent
+  postContent.on('input', () => {
+    postContent.css('border-color', '');
+  });
+
+  // Trigger on every input change in postAudience
+  postAudience.on('input', () => {
+    postAudience.css('border-color', '');
+  });
+
+  // Trigger on postForm submission
+  postForm.submit(() => {
+    // If postContent is empty
+    if (!postContent.val()) {
+      postContent.css('border-color', redColor);
+      return false;
+    }
+    // If postAudience is not selected
+    else if (postAudience.val() === '0') {
+      postAudience.css('border-color', redColor);
+      return false;
+    }
+    // Submit post
+    else return true;
+  });
+
+  // Trigger when connectionsTab is clicked
+  connectionsTab.click(() => {
+    // Add 'active' class to connectionsTab, and remove from other
+    activityTab.removeClass('active');
+    aboutTab.removeClass('active');
+    connectionsTab.addClass('active');
+
+    // Show connectionsContainer, and hide other
+    activityContainer.css('display', 'none');
+    aboutContainer.css('display', 'none');
+    connectionsContainer.css('display', 'block');
+
+    return false;
+  });
+
+  // Trigger when aboutTab is clicked
+  aboutTab.click(() => {
+    // Add 'active' class to aboutTab, and remove from other
+    activityTab.removeClass('active');
+    connectionsTab.removeClass('active');
+    aboutTab.addClass('active');
+
+    // Show aboutContainer, and hide other
+    activityContainer.css('display', 'none');
+    connectionsContainer.css('display', 'none');
+    aboutContainer.css('display', 'block');
+
+    return false;
+  });
 
   // Show Loading... text while loading 'about' info
   aboutList.html(
@@ -40,7 +115,8 @@ $(document).ready(() => {
         username +
         '</p>' +
         '</a>' +
-        '<a href="#" class="list-group-item list-group-item-action">' +
+        '<a href="#" class="list-group-item list-group-item-action" ' +
+        'data-toggle="modal" data-target="#password-change-modal">' +
         '<h6 class="mb-0">' +
         'Password' +
         '</h6>' +
@@ -141,6 +217,7 @@ $(document).ready(() => {
         .removeClass('text-success')
         .addClass('text-danger')
         .text('Alphabet Characters Only');
+
       return false;
     }
     // If newUsernameValue is short
@@ -149,6 +226,7 @@ $(document).ready(() => {
         .removeClass('text-success')
         .addClass('text-danger')
         .text('Minimum 4 Characters');
+
       return false;
     }
 
@@ -156,74 +234,63 @@ $(document).ready(() => {
     return true;
   });
 
-  // Trigger when activityTab is clicked
-  activityTab.click(() => {
-    // Add 'active' class to activityTab, and remove from other
-    connectionsTab.removeClass('active');
-    aboutTab.removeClass('active');
-    activityTab.addClass('active');
+  // Trigger on every input change in old password field
+  $('#old-password').on('input', () => {
+    const oldPassword = $('#old-password').val();
 
-    // Show activityContainer, and hide other
-    connectionsContainer.css('display', 'none');
-    aboutContainer.css('display', 'none');
-    activityContainer.css('display', 'block');
-
-    return false;
+    // If old password field is empty
+    if (!oldPassword) oldPasswordSmallText.text('');
+    // If old password is short
+    else if (oldPassword.length < 6)
+      oldPasswordSmallText
+        .removeClass('text-success')
+        .addClass('text-danger')
+        .text('Minimum 6 Characters');
+    // Remove small text
+    else oldPasswordSmallText.text('');
   });
 
-  // Trigger when connectionsTab is clicked
-  connectionsTab.click(() => {
-    // Add 'active' class to connectionsTab, and remove from other
-    activityTab.removeClass('active');
-    aboutTab.removeClass('active');
-    connectionsTab.addClass('active');
+  // Trigger on every input change in new password field
+  $('#new-password').on('input', () => {
+    const newPassword = $('#new-password').val();
 
-    // Show connectionsContainer, and hide other
-    activityContainer.css('display', 'none');
-    aboutContainer.css('display', 'none');
-    connectionsContainer.css('display', 'block');
-
-    return false;
+    // If new password field is empty
+    if (!newPassword) newPasswordSmallText.text('');
+    // If new password is short
+    else if (newPassword.length < 6)
+      newPasswordSmallText
+        .removeClass('text-success')
+        .addClass('text-danger')
+        .text('Minimum 6 Characters');
+    // Remove small text
+    else newPasswordSmallText.text('');
   });
 
-  // Trigger when aboutTab is clicked
-  aboutTab.click(() => {
-    // Add 'active' class to aboutTab, and remove from other
-    activityTab.removeClass('active');
-    connectionsTab.removeClass('active');
-    aboutTab.addClass('active');
+  // Trigger on password-change-form submission
+  $('#password-change-form').submit(() => {
+    const oldPassword = $('#old-password').val();
+    const newPassword = $('#new-password').val();
 
-    // Show aboutContainer, and hide other
-    activityContainer.css('display', 'none');
-    connectionsContainer.css('display', 'none');
-    aboutContainer.css('display', 'block');
+    // If invalid old password
+    if (oldPassword.length < 6) {
+      oldPasswordSmallText
+        .removeClass('text-success')
+        .addClass('text-danger')
+        .text('Minimum 6 Characters');
 
-    return false;
-  });
-
-  // Trigger on every input change in postContent
-  postContent.on('input', () => {
-    postContent.css('border-color', '');
-  });
-
-  // Trigger on every input change in postAudience
-  postAudience.on('input', () => {
-    postAudience.css('border-color', '');
-  });
-
-  // Trigger on postForm submission
-  postForm.submit(() => {
-    // If postContent is empty
-    if (!postContent.val()) {
-      postContent.css('border-color', redColor);
       return false;
     }
-    // If postAudience is not selected
-    else if (postAudience.val() === '0') {
-      postAudience.css('border-color', redColor);
+    // If invalid new password
+    else if (newPassword.length < 6) {
+      newPasswordSmallText
+        .removeClass('text-success')
+        .addClass('text-danger')
+        .text('Minimum 6 Characters');
+
       return false;
     }
-    // Submit post
-    else return true;
+
+    // Valid inputs
+    return true;
   });
 });
