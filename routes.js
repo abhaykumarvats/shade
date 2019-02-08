@@ -272,30 +272,47 @@ module.exports = (app) => {
 
   // POST requests handler, for /:username/post
   app.route('/:username/post').post(validatePost, (req, res) => {
+    const paramUsername = req.params.username;
+    const userUsername = req.user.username;
+
+    // If user is logged in
     if (req.isAuthenticated()) {
-      const username = req.user.username;
-      const content = req.body.content;
-      const audience = req.body.audience;
+      // If requested username and current username are same
+      if (paramUsername === userUsername) {
+        const content = req.body.content;
+        const audience = req.body.audience;
 
-      if (audience === 'public') {
-        const post = {
-          username: username,
-          content: content,
-          meantFor: ['public']
-        };
+        // If audience is set to 'public'
+        if (audience === 'public') {
+          // Prepare post object
+          const post = {
+            username: username,
+            content: content,
+            meantFor: ['public']
+          };
 
-        Post.create(post, (err, post) => {
-          if (err) {
-            console.error(err);
-            res.render('error', { errorMessage: 'An Error Occured' });
-          } else {
-            res.redirect('/' + username);
-          }
-        });
-      } else {
-        // TODO
+          // Save post in database
+          Post.create(post, (err, post) => {
+            // If error
+            if (err) {
+              // Log error
+              console.error(err);
+
+              // Render error view
+              res.render('error', { errorMessage: 'An Error Occured' });
+            }
+            // Post saved successfully, redirect to /username
+            else res.redirect('/' + username);
+          });
+        } else {
+          // TODO
+        }
       }
-    } else res.redirect('/login');
+      // Requested username and current username are not same
+      else res.render('error', { errorMessage: 'Not Allowed' });
+    }
+    // User is not logged in
+    else res.redirect('/login');
   });
 
   // GET requests handler, for /:username/about
