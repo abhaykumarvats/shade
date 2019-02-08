@@ -8,7 +8,8 @@ $(document).ready(() => {
   const aboutContainer = $('#about-container');
 
   const postForm = $('#post-form');
-  const postButton = $('#post-button');
+  const postContent = $('#content');
+  const postAudience = $('#audience');
 
   const redColor = '#dc3545';
 
@@ -57,10 +58,18 @@ $(document).ready(() => {
     return false;
   });
 
-  postForm.submit(() => {
-    const postContent = $('#content');
-    const postAudience = $('#audience');
+  // Trigger on every input change in postContent
+  postContent.on('input', () => {
+    postContent.css('border-color', '');
+  });
 
+  // Trigger on every input change in postAudience
+  postAudience.on('input', () => {
+    postAudience.css('border-color', '');
+  });
+
+  // Trigger on postForm submission
+  postForm.submit(() => {
     // If postContent is empty
     if (!postContent.val()) {
       postContent.css('border-color', redColor);
