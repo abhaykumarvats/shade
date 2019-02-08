@@ -38,7 +38,7 @@ module.exports = (app) => {
   passport.use(
     new LocalStrategy((username, password, done) => {
       // Try to find user in database
-      User.findOne({ username: username }, (err, user) => {
+      User.findOne({ username: username }, 'username password', (err, user) => {
         // Error in retrieving user
         if (err) return done(err);
 
