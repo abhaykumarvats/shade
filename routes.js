@@ -430,8 +430,62 @@ module.exports = (app) => {
               );
             }
           });
-        } else {
-          // TODO
+        }
+        // If password change is required
+        else if (field === 'password') {
+          const oldPassword = req.body.old_password;
+          const newPassword = req.body.new_password;
+
+          // Retrieve saved password
+          User.findOne(
+            { username: currentUsername },
+            'password',
+            (err, user) => {
+              // If error
+              if (err) {
+                // Log error
+                console.error(err);
+
+                // Render error view
+                res.render('error', { errorMessage: 'An Error Occured' });
+              }
+              // If wrong password is entered
+              else if (!bcrypt.compareSync(oldPassword, user.password))
+                // Render error view
+                res.render('error', { errorMessage: 'Wrong Old Password' });
+              else {
+                // Convert new password into its hash
+                const hashedPassword = bcrypt.hashSync(newPassword, 8);
+                // Change password
+                User.updateOne(
+                  { username: currentUsername },
+                  { password: hashedPassword },
+                  (err, raw) => {
+                    // If error
+                    if (err) {
+                      // Log error
+                      console.error(err);
+
+                      // Render error view
+                      res.render('error', { errorMessage: 'An Error Occured' });
+                    }
+                    // Password changed successfully
+                    else {
+                      // Log user out
+                      req.logout();
+
+                      // Render login form with alert
+                      res.render('form', {
+                        type: 'login',
+                        alertMessage: 'Password Changed Successfully!',
+                        alertType: 'success'
+                      });
+                    }
+                  }
+                );
+              }
+            }
+          );
         }
       }
       // Requested user is not same as current user
