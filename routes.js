@@ -338,7 +338,10 @@ module.exports = (app) => {
         }
       );
     }
-    // User is not logged in, render error view
+    // User is not logged in, redirect to /login
+    else res.redirect('/login');
+  });
+
     else res.render('error', { errorMessage: 'Not Allowed' });
   });
 
