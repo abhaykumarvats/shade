@@ -11,7 +11,42 @@ $(document).ready(() => {
   const postContent = $('#content');
   const postAudience = $('#audience');
 
+  const username = $('#username').text();
+  const aboutList = $('#about-list');
+
   const redColor = '#dc3545';
+
+  $.getJSON('/' + username + '/about', (json) => {
+    aboutList.html(
+      '<a href="#" class="list-group-item list-group-item-action">' +
+        '<h6 class="mb-1">Username</h6>' +
+        '<p class="mb-1">' +
+        username +
+        '</p>' +
+        '</a>' +
+        '<a href="#" class="list-group-item list-group-item-action">' +
+        '<h6 class="mb-1">Password</h6>' +
+        '<p class="mb-1"><em>Hidden</em>' +
+        '</p>' +
+        '</a>' +
+        '<a href="#" class="list-group-item list-group-item-action">' +
+        '<h6 class="mb-1">Shaded</h6>' +
+        '<p class="mb-1">' +
+        (json.consent ? 'No' : 'Yes') +
+        '</p>' +
+        '</a>' +
+        '<a href="#" class="list-group-item list-group-item-action disabled" tabindex="-1">' +
+        '<h6 class="mb-1">Joined</h6>' +
+        '<p class="mb-1">' +
+        new Date(json.joined)
+          .toString()
+          .split(' ')
+          .slice(1, 4)
+          .join(' ') +
+        '</p>' +
+        '</a>'
+    );
+  });
 
   // Trigger when activityTab is clicked
   activityTab.click(() => {
