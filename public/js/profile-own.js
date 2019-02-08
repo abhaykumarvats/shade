@@ -18,37 +18,6 @@ $(document).ready(() => {
 
   const redColor = '#dc3545';
 
-  // Function to add username check on link
-  function addCheck() {
-    // Trigger when check is clicked
-    $('#check').click(() => {
-      const newUsernameValue = $('#new-username').val();
-
-      // Show Please Wait text
-      newUsernameSmallText
-        .removeClass('text-danger text-success')
-        .text('Please Wait...');
-
-      // Check if new username is available
-      $.getJSON('/check/' + newUsernameValue, (json) => {
-        // Available
-        if (json.available)
-          newUsernameSmallText
-            .removeClass('text-danger')
-            .addClass('text-success')
-            .text('Available!');
-        // Not available
-        else
-          newUsernameSmallText
-            .removeClass('text-success')
-            .addClass('text-danger')
-            .text('Not Available');
-      });
-
-      return false;
-    });
-  }
-
   // Show Loading... text while loading 'about' info
   aboutList.html(
     '<a href="#" class="list-group-item disabled" tabindex="-1">' +
@@ -101,6 +70,37 @@ $(document).ready(() => {
         '</a>'
     );
   });
+
+  // Function to add username check on link
+  function addCheck() {
+    // Trigger when check is clicked
+    $('#check').click(() => {
+      const newUsernameValue = $('#new-username').val();
+
+      // Show Please Wait text
+      newUsernameSmallText
+        .removeClass('text-danger text-success')
+        .text('Please Wait...');
+
+      // Check if new username is available
+      $.getJSON('/check/' + newUsernameValue, (json) => {
+        // Available
+        if (json.available)
+          newUsernameSmallText
+            .removeClass('text-danger')
+            .addClass('text-success')
+            .text('Available!');
+        // Not available
+        else
+          newUsernameSmallText
+            .removeClass('text-success')
+            .addClass('text-danger')
+            .text('Not Available');
+      });
+
+      return false;
+    });
+  }
 
   // Trigger on every input change in new-username field
   $('#new-username').on('input', () => {
