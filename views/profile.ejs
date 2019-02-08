@@ -16,6 +16,70 @@
     <link rel="stylesheet" href="/public/css/profile.css" />
   </head>
   <body>
+    <!-- Modals for 'own' profile view -->
+    <% if (type === 'own') { %>
+    <!-- Username change modal -->
+    <div class="modal fade" id="username-change-modal" tabindex="-1">
+      <!-- Modal dialog -->
+      <div class="modal-dialog modal-dialog-centered modal-sm">
+        <!-- Modal content -->
+        <div class="modal-content">
+          <!-- Modal header -->
+          <div class="modal-header">
+            <!-- Modal title -->
+            <h5 class="modal-title">Change Username</h5>
+
+            <!-- Close button -->
+            <button type="button" class="close" data-dismiss="modal">
+              <span>&times;</span>
+            </button>
+          </div>
+
+          <!-- Modal body -->
+          <div class="modal-body">
+            <!-- Username change form -->
+            <form
+              action="/<%= username %>/change/username"
+              method="POST"
+              id="username-change-form"
+            >
+              <!-- Form group -->
+              <div class="form-group">
+                <!-- Label group -->
+                <div id="label-group">
+                  <!-- New username label -->
+                  <label for="new-username">New Username</label>
+
+                  <!-- New username small text -->
+                  <small id="new-username-small-text" class="form-text"></small>
+                </div>
+
+                <!-- Input group -->
+                <div class="input-group">
+                  <!-- New username input -->
+                  <input
+                    type="text"
+                    name="new_username"
+                    class="form-control form-control-sm"
+                    id="new-username"
+                    placeholder="Enter username"
+                  />
+
+                  <!-- 'Change' submit button -->
+                  <div class="input-group-append">
+                    <button type="submit" class="btn btn-sm btn-primary">
+                      Change
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% } %>
+
     <!-- Username heading -->
     <h1 class="display-4 text-center" id="username"><%= username %></h1>
 
@@ -113,9 +177,14 @@
       <!-- About container -->
       <div id="about-container">
         <% if (type === 'own') { %>
+        <!-- About info list -->
         <div class="list-group" id="about-list"></div>
-        <p class="text-right">Click any field to change.</p>
+
+        <!-- About small text -->
+        <p class="text-right"><small>Click on a field to change.</small></p>
+
         <% } else if (type === 'public') { %>
+        <!-- Primary alert box -->
         <div class="alert alert-primary">
           Log in to connect with <strong><%= username %></strong>.
         </div>
@@ -126,12 +195,19 @@
     <!-- jQuery script -->
     <script src="/public/js/jquery-3.3.1.min.js"></script>
 
-    <!-- Profile script -->
     <% if (type === 'own') { %>
+    <!-- Bootstrap script -->
+    <script src="/public/js/bootstrap.min.js"></script>
+
+    <!-- Own profile script -->
     <script src="/public/js/profile-own.js"></script>
+
     <% } else if (type === 'other') { %>
+    <!-- Other profile script -->
     <script src="/public/js/profile-other.js"></script>
+
     <% } else if (type === 'public') { %>
+    <!-- Public profile script -->
     <script src="/public/js/profile-public.js"></script>
     <% } %>
   </body>
