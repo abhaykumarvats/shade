@@ -54,6 +54,20 @@ module.exports = (app) => {
     });
   }
 
+  // Function to validate post
+  function validatePost(req, res, next) {
+    const content = req.body.content;
+    const audience = req.body.audience;
+
+    // If content is empty or audience is not selected
+    if (!content.length || audience === '0') {
+      // Render error view
+      res.render('error', { errorMessage: 'Invalid Post' });
+    }
+    // Proceed with posting
+    else return next();
+  }
+
   // GET requests handler, for /
   app.route('/').get((req, res) => {
     // Check if user is logged in
@@ -257,7 +271,7 @@ module.exports = (app) => {
   });
 
   // POST requests handler, for /:username/post
-  app.route('/:username/post').post((req, res) => {
+  app.route('/:username/post').post(validatePost, (req, res) => {
     if (req.isAuthenticated()) {
       const username = req.user.username;
       const content = req.body.content;
