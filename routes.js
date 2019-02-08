@@ -274,8 +274,8 @@ module.exports = (app) => {
   app.route('/:username/post').post(validatePost, (req, res) => {
     // If user is logged in
     if (req.isAuthenticated()) {
-    const paramUsername = req.params.username;
-    const userUsername = req.user.username;
+      const paramUsername = req.params.username;
+      const userUsername = req.user.username;
 
       // If requested username and current username are same
       if (paramUsername === userUsername) {
@@ -342,7 +342,73 @@ module.exports = (app) => {
     else res.redirect('/login');
   });
 
-    else res.render('error', { errorMessage: 'Not Allowed' });
+  // POST requests handler, for /:username/change/:field
+  app.route('/:username/change/:field').post((req, res) => {
+    // If user is logged in
+    if (req.isAuthenticated()) {
+      const paramUsername = req.params.username;
+      const userUsername = req.user.username;
+      const paramField = req.params.field;
+
+      // If requested user is same as current user
+      if (paramUsername === userUsername) {
+        // If username change is required
+        if (paramField === 'username') {
+          const newUsername = req.body.new_username;
+
+          // Check new username existence
+          User.countDocuments({ username: newUsername }, (err, count) => {
+            // If error
+            if (err) {
+              // Log error
+              console.error(err);
+
+              // Render error view
+              res.render('error', { errorMessage: 'An Error Occured' });
+            }
+            // If username is not available
+            else if (count) {
+              // Render error view
+              res.render('error', { errorMessage: 'Username Not Available' });
+            } else {
+              // Username available, update
+              User.updateOne(
+                { username: userUsername },
+                { username: newUsername },
+                (err, raw) => {
+                  // If error
+                  if (err) {
+                    // Log error
+                    console.error(err);
+
+                    // Render error view
+                    res.render('error', { errorMessage: 'An Error Occured' });
+                  }
+                  // Username update successful
+                  else {
+                    // Log user out
+                    req.logout();
+
+                    // Render login form with alert
+                    res.render('form', {
+                      type: 'login',
+                      alertMessage: 'Username Changed Successfully!',
+                      alertType: 'success'
+                    });
+                  }
+                }
+              );
+            }
+          });
+        } else {
+          // TODO
+        }
+      }
+      // Requested user is not same as current user
+      else res.render('error', { errorMessage: 'Not Allowed' });
+    }
+    // User is not logged in, redirect to /login
+    else res.redirect('/login');
   });
 
   // GET requests handler, for /check/:username
