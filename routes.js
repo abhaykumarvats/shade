@@ -10,64 +10,6 @@ const Post = require('./schemas/Post');
 
 // Export routes module
 module.exports = (app) => {
-  // Function to validate registration inputs
-  function validateInputs(req, res, next) {
-    const username = req.body.username;
-    const password = req.body.password;
-
-    // If username is invalid
-    if (username.match(/[^a-z]/i) || username.length < 4)
-      // Render register form with alert
-      res.render('form', {
-        type: 'register',
-        alertMessage: 'Invalid Username',
-        alertType: 'danger'
-      });
-    // If password is invalid
-    else if (password.length < 6)
-      // Render register form with alert
-      res.render('form', {
-        type: 'register',
-        alertMessage: 'Invalid Password',
-        alertType: 'danger'
-      });
-    // Continue with registration
-    else return next();
-  }
-
-  // Function to check username existence
-  function checkUsername(req, res, next) {
-    // Check is username exists
-    User.countDocuments({ username: req.params.username }, (err, count) => {
-      // If error
-      if (err) {
-        // Log error
-        console.error(err);
-
-        // Render error view
-        res.render('error', { errorMessage: 'An Error Occured' });
-      }
-      // Username doesn't exist, render error view
-      else if (!count) res.render('error', { errorMessage: 'No Such User' });
-      // Username exists
-      else return next();
-    });
-  }
-
-  // Function to validate post
-  function validatePost(req, res, next) {
-    const content = req.body.content;
-    const audience = req.body.audience;
-
-    // If content is empty or audience is not selected
-    if (!content.length || audience === '0') {
-      // Render error view
-      res.render('error', { errorMessage: 'Invalid Post' });
-    }
-    // Proceed with posting
-    else return next();
-  }
-
   // GET requests handler, for /
   app.route('/').get((req, res) => {
     // Check if user is logged in
@@ -132,6 +74,31 @@ module.exports = (app) => {
       })(req, res, next);
     });
 
+  // Function to validate registration inputs
+  function validateRegistrationInputs(req, res, next) {
+    const username = req.body.username;
+    const password = req.body.password;
+
+    // If username is invalid
+    if (username.match(/[^a-z]/i) || username.length < 4)
+      // Render register form with alert
+      res.render('form', {
+        type: 'register',
+        alertMessage: 'Invalid Username',
+        alertType: 'danger'
+      });
+    // If password is invalid
+    else if (password.length < 6)
+      // Render register form with alert
+      res.render('form', {
+        type: 'register',
+        alertMessage: 'Invalid Password',
+        alertType: 'danger'
+      });
+    // Continue with registration
+    else return next();
+  }
+
   // GET and POST requests handler, for /register
   app
     .route('/register')
@@ -143,7 +110,7 @@ module.exports = (app) => {
       // User is not logged in, render register form
       else res.render('form', { type: 'register', alertMessage: null });
     })
-    .post(validateInputs, (req, res) => {
+    .post(validateRegistrationInputs, (req, res) => {
       // Find if user is already registered
       User.findOne({ username: req.body.username }, (err, user) => {
         // If error
@@ -212,8 +179,27 @@ module.exports = (app) => {
     res.redirect('/login');
   });
 
+  // Function to check username existence
+  function checkUsernameExistence(req, res, next) {
+    // Check if username exists
+    User.countDocuments({ username: req.params.username }, (err, count) => {
+      // If error
+      if (err) {
+        // Log error
+        console.error(err);
+
+        // Render error view
+        res.render('error', { errorMessage: 'An Error Occured' });
+      }
+      // Username doesn't exist, render error view
+      else if (!count) res.render('error', { errorMessage: 'No Such User' });
+      // Username exists
+      else return next();
+    });
+  }
+
   // GET requests handler, for /:username
-  app.route('/:username').get(checkUsername, (req, res) => {
+  app.route('/:username').get(checkUsernameExistence, (req, res) => {
     const paramUsername = req.params.username;
 
     // If user is logged in
@@ -269,6 +255,20 @@ module.exports = (app) => {
       res.render('profile', { type: 'public', username: paramUsername });
     }
   });
+
+  // Function to validate post
+  function validatePost(req, res, next) {
+    const content = req.body.content;
+    const audience = req.body.audience;
+
+    // If content is empty or audience is not selected
+    if (!content.length || audience === '0') {
+      // Render error view
+      res.render('error', { errorMessage: 'Invalid Post' });
+    }
+    // Proceed with posting
+    else return next();
+  }
 
   // POST requests handler, for /:username/post
   app.route('/:username/post').post(validatePost, (req, res) => {
