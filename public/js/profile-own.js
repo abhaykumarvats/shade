@@ -21,6 +21,8 @@ $(document).ready(() => {
   const oldPasswordSmallText = $('#old-password-small-text');
   const newPasswordSmallText = $('#new-password-small-text');
 
+  const consentPasswordSmallText = $('#consent-password-small-text');
+
   const redColor = '#dc3545';
 
   // Trigger when activityTab is clicked
@@ -125,7 +127,8 @@ $(document).ready(() => {
         '<em>Hidden</em>' +
         '</p>' +
         '</a>' +
-        '<a href="#" class="list-group-item list-group-item-action">' +
+        '<a href="#" class="list-group-item list-group-item-action" ' +
+        'data-toggle="modal" data-target="#consent-change-modal">' +
         '<h6 class="mb-0">' +
         'Shaded' +
         '</h6>' +
@@ -318,6 +321,40 @@ $(document).ready(() => {
     }
 
     // Valid inputs
+    return true;
+  });
+
+  // Trigger on every input in consent-password field
+  $('#consent-password').on('input', () => {
+    const consentPasswordValue = $('#consent-password').val();
+
+    // If consent password field is empty
+    if (!consentPasswordValue) consentPasswordSmallText.text('');
+    // If consent password is short
+    else if (consentPasswordValue.length < 6)
+      consentPasswordSmallText
+        .removeClass('text-success')
+        .addClass('text-danger')
+        .text('Minimum 6 Characters');
+    // Remove small text
+    else consentPasswordSmallText.text('');
+  });
+
+  // Trigger on every consent-change-form submission
+  $('#consent-change-form').submit(() => {
+    const consentPasswordValue = $('#consent-password').val();
+
+    // If consent password is short
+    if (consentPasswordValue.length < 6) {
+      consentPasswordSmallText
+        .removeClass('text-success')
+        .addClass('text-danger')
+        .text('Minimum 6 Characters');
+
+      return false;
+    }
+
+    // Valid input
     return true;
   });
 });
