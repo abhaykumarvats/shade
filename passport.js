@@ -41,16 +41,13 @@ module.exports = (app) => {
       User.findOne({ username: username }, 'username password', (err, user) => {
         // Error in retrieving user
         if (err) return done(err);
-
         // Incorrect username
-        if (!user) return done(null, false, 'No Such User');
-
+        else if (!user) return done(null, false, 'No Such User');
         // Incorrect password
-        if (!bcrypt.compareSync(password, user.password))
+        else if (!bcrypt.compareSync(password, user.password))
           return done(null, false, 'Wrong Password Entered');
-
         // Correct username and password
-        return done(null, user);
+        else return done(null, user);
       });
     })
   );
