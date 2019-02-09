@@ -385,6 +385,7 @@ module.exports = (app) => {
         // If username change is required
         if (field === 'username') {
           const newUsername = req.body.new_username;
+          const password = req.body.password;
 
           // Check new username existence
           User.countDocuments({ username: newUsername }, (err, count) => {
@@ -400,12 +401,13 @@ module.exports = (app) => {
             else if (count) {
               // Render error view
               res.render('error', { errorMessage: 'Username Not Available' });
-            } else {
-              // Username available, update
-              User.updateOne(
+            }
+            // Check if entered password is correct
+            else {
+              User.findOne(
                 { username: currentUsername },
-                { username: newUsername },
-                (err, raw) => {
+                'password',
+                (err, user) => {
                   // If error
                   if (err) {
                     // Log error
@@ -414,17 +416,42 @@ module.exports = (app) => {
                     // Render error view
                     res.render('error', { errorMessage: 'An Error Occured' });
                   }
-                  // Username update successful
-                  else {
-                    // Log user out
-                    req.logout();
-
-                    // Render login form with alert
-                    res.render('form', {
-                      type: 'login',
-                      alertMessage: 'Username Changed Successfully!',
-                      alertType: 'success'
+                  // If entered password is not correct
+                  else if (!bcrypt.compareSync(password, user.password))
+                    // Render error view
+                    res.render('error', {
+                      errorMessage: 'Wrong Password Entered'
                     });
+                  // Password is correct, change username
+                  else {
+                    User.updateOne(
+                      { username: currentUsername },
+                      { username: newUsername },
+                      (err, raw) => {
+                        // If error
+                        if (err) {
+                          // Log error
+                          console.error(err);
+
+                          // Render error view
+                          res.render('error', {
+                            errorMessage: 'An Error Occured'
+                          });
+                        }
+                        // Username change successful
+                        else {
+                          // Log user out
+                          req.logout();
+
+                          // Render login form with alert
+                          res.render('form', {
+                            type: 'login',
+                            alertMessage: 'Username Changed Successfully!',
+                            alertType: 'success'
+                          });
+                        }
+                      }
+                    );
                   }
                 }
               );
