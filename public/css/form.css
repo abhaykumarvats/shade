@@ -49,11 +49,6 @@ input[type]:focus {
   border-color: #007bff;
 }
 
-/* Set checkbox focus style */
-.custom-checkbox .custom-control-input:focus ~ .custom-control-label::before {
-  border-color: #007bff;
-}
-
 /* Change label group display and margin */
 #label-group > * {
   display: inline-block;
