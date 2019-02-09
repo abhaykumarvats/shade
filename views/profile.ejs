@@ -43,9 +43,9 @@
               method="POST"
               id="username-change-form"
             >
-              <!-- Form group -->
+              <!-- New username form group -->
               <div class="form-group">
-                <!-- Label group -->
+                <!-- New username label group -->
                 <div id="label-group">
                   <!-- New username label -->
                   <label for="new-username">New Username</label>
@@ -53,26 +53,41 @@
                   <!-- New username small text -->
                   <small id="new-username-small-text" class="form-text"></small>
                 </div>
-
-                <!-- Input group -->
-                <div class="input-group">
-                  <!-- New username input -->
-                  <input
-                    type="text"
-                    name="new_username"
-                    class="form-control form-control-sm"
-                    id="new-username"
-                    placeholder="Enter new username"
-                  />
-
-                  <!-- 'Save' submit button -->
-                  <div class="input-group-append">
-                    <button type="submit" class="btn btn-sm btn-primary">
-                      Save
-                    </button>
-                  </div>
-                </div>
+                <!-- New username input -->
+                <input
+                  type="text"
+                  name="new_username"
+                  class="form-control form-control-sm"
+                  id="new-username"
+                  placeholder="Enter new username"
+                />
               </div>
+
+              <!-- Password form group -->
+              <div class="form-group">
+                <!-- Password label group -->
+                <div id="label-group">
+                  <!-- Password label -->
+                  <label for="password">Password</label>
+
+                  <!-- Password small text -->
+                  <small id="password-small-text" class="form-text"></small>
+                </div>
+
+                <!-- Password input -->
+                <input
+                  type="password"
+                  name="password"
+                  id="password"
+                  class="form-control form-control-sm"
+                  placeholder="Enter password"
+                />
+              </div>
+
+              <!-- 'Save'  submit button -->
+              <button type="submit" class="btn btn-sm btn-primary">
+                Save
+              </button>
             </form>
           </div>
         </div>
