@@ -170,6 +170,87 @@
         </div>
       </div>
     </div>
+
+    <!-- Consent change modal -->
+    <div class="modal fade" id="consent-change-modal" tabindex="-1">
+      <!-- Modal dialog -->
+      <div class="modal-dialog modal-dialog-centered modal-sm">
+        <!-- Modal content -->
+        <div class="modal-content">
+          <!-- Modal header -->
+          <div class="modal-header">
+            <!-- Modal title -->
+            <h5 class="modal-title">Change Consent</h5>
+
+            <!-- Close button -->
+            <button type="button" class="close" data-dismiss="modal">
+              <span>&times;</span>
+            </button>
+          </div>
+
+          <!-- Modal body -->
+          <div class="modal-body">
+            <!-- Consent change form -->
+            <form
+              action="/<%= username %>/change/consent"
+              method="POST"
+              id="consent-change-form"
+            >
+              <!-- Consent form group -->
+              <div class="form-group">
+                <!-- Consent custom control -->
+                <div class="custom-control custom-checkbox">
+                  <!-- Consent checkbox -->
+                  <input
+                    type="checkbox"
+                    name="consent"
+                    class="custom-control-input"
+                    id="consent"
+                  />
+
+                  <!-- Consent label -->
+                  <label for="consent" class="custom-control-label">
+                    I would like to share my data with Shade.
+                    <small class="text-secondary">
+                      (Check/Uncheck as suitable.)
+                    </small>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Consent password form group -->
+              <div class="form-group">
+                <!-- Consent password label group -->
+                <div id="label-group">
+                  <!-- Consent password label -->
+                  <label for="consent-password">Password</label>
+
+                  <!-- Consent password small text -->
+                  <small
+                    id="consent-password-small-text"
+                    class="form-text"
+                  ></small>
+                </div>
+
+                <!-- New password input -->
+                <input
+                  type="password"
+                  name="consent_password"
+                  class="form-control form-control-sm"
+                  id="consent-password"
+                  placeholder="Enter password"
+                />
+              </div>
+
+              <!-- 'Save' submit button -->
+              <button type="submit" class="btn btn-sm btn-primary">
+                Save
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
     <% } %>
 
     <!-- Username heading -->
