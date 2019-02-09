@@ -16,6 +16,7 @@ $(document).ready(() => {
   const aboutList = $('#about-list');
 
   const newUsernameSmallText = $('#new-username-small-text');
+  const passwordSmallText = $('#password-small-text');
 
   const oldPasswordSmallText = $('#old-password-small-text');
   const newPasswordSmallText = $('#new-password-small-text');
@@ -207,9 +208,26 @@ $(document).ready(() => {
     }
   });
 
+  // Trigger on every input in password field
+  $('#password').on('input', () => {
+    const passwordValue = $('#password').val();
+
+    // If password field is empty
+    if (!passwordValue) passwordSmallText.text('');
+    // If password is short
+    else if (passwordValue.length < 6)
+      passwordSmallText
+        .removeClass('text-success')
+        .addClass('text-danger')
+        .text('Minimum 6 Characters');
+    // Remove small text
+    else passwordSmallText.text('');
+  });
+
   // Trigger on username-change-form submission
   $('#username-change-form').submit(() => {
     const newUsernameValue = $('#new-username').val();
+    const passwordValue = $('#password').val();
 
     // If non-alphabet character is present
     if (newUsernameValue.match(/[^a-z]/i)) {
@@ -229,8 +247,17 @@ $(document).ready(() => {
 
       return false;
     }
+    // If password is short
+    else if (passwordValue.length < 6) {
+      passwordSmallText
+        .removeClass('text-success')
+        .addClass('text-danger')
+        .text('Minimum 6 Characters');
 
-    // Valid input
+      return false;
+    }
+
+    // Valid inputs
     return true;
   });
 
