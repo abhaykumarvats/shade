@@ -348,12 +348,17 @@ module.exports = (app) => {
 
     // If username change is required
     if (field === 'username') {
-      const username = req.body.new_username;
-
       // If username is invalid
-      if (username.match(/[^a-z]/i) || username.length < 4)
+      if (
+        req.body.new_username.match(/[^a-z]/i) ||
+        req.body.new_username.length < 4
+      )
         // Render error view
         res.render('error', { errorMessage: 'Invalid Username' });
+      // If password is invalid
+      else if (req.body.password.length < 6)
+        // Render error view
+        res.render('error', { errorMessage: 'Wrong Password Entered' });
       // Continue with username change
       else return next();
     }
@@ -370,6 +375,15 @@ module.exports = (app) => {
       // Continue with password change
       else return next();
     }
+    // If consent change is required
+    else if (field === 'consent') {
+      // If consent password is invalid
+      if (req.body.consent_password.length < 6)
+        // Render error view
+        res.render('error', { errorMessage: 'Wrong Old Password' });
+      // Continue with consent change
+      else return next();
+    }
   }
 
   // POST requests handler, for /:username/change/:field
@@ -378,10 +392,11 @@ module.exports = (app) => {
     if (req.isAuthenticated()) {
       const paramUsername = req.params.username;
       const currentUsername = req.user.username;
-      const field = req.params.field;
 
       // If requested user is same as current user
       if (paramUsername === currentUsername) {
+        const field = req.params.field;
+
         // If username change is required
         if (field === 'username') {
           const newUsername = req.body.new_username;
@@ -514,6 +529,61 @@ module.exports = (app) => {
             }
           );
         }
+        // If consent change is required
+        else if (field === 'consent') {
+          const consentPassword = req.body.consent_password;
+
+          // Check if entered password is correct
+          User.findOne(
+            { username: currentUsername },
+            'password',
+            (err, user) => {
+              // If error
+              if (err) {
+                // Log error
+                console.error(err);
+
+                // Render error view
+                res.render('error', { errorMessage: 'An Error Occured ' });
+              }
+              // If entered password is not correct
+              else if (!bcrypt.compareSync(consentPassword, user.password))
+                // Render error view
+                res.render('error', { errorMessage: 'Wrong Password Entered' });
+              else {
+                // Password is correct, change consent
+                User.updateOne(
+                  { username: currentUsername },
+                  { consent: req.body.consent ? true : false },
+                  (err, raw) => {
+                    // If error
+                    if (err) {
+                      // Log error
+                      console.error(err);
+
+                      // Render error view
+                      res.render('error', { errorMessage: 'An Error Occured' });
+                    }
+                    // Consent changed successfully
+                    else {
+                      // Log user out
+                      req.logout();
+
+                      // Render login form with alert
+                      res.render('form', {
+                        type: 'login',
+                        alertMessage: 'Consent Changed Successfullly!',
+                        alertType: 'success'
+                      });
+                    }
+                  }
+                );
+              }
+            }
+          );
+        }
+        // Wrong field
+        else res.render('error', { errorMessage: 'Not Found' });
       }
       // Requested user is not same as current user
       else res.render('error', { errorMessage: 'Not Allowed' });
