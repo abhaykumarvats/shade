@@ -9,10 +9,6 @@ $(document).ready(() => {
   const connectionsContainer = $('#connections-container');
   const aboutContainer = $('#about-container');
 
-  const postForm = $('#post-form');
-  const postContent = $('#content');
-  const postAudience = $('#audience');
-
   const aboutList = $('#about-list');
 
   const newUsernameSmallText = $('#new-username-small-text');
@@ -40,18 +36,21 @@ $(document).ready(() => {
     return false;
   });
 
-  // Trigger on every input change in postContent
-  postContent.on('input', () => {
-    postContent.css('border-color', '');
+  // Trigger on every input change in content field
+  $('#content').on('input', () => {
+    $('#content').css('border-color', '');
   });
 
-  // Trigger on every input change in postAudience
-  postAudience.on('input', () => {
-    postAudience.css('border-color', '');
+  // Trigger on every input change in audience field
+  $('#audience').on('input', () => {
+    $('#audience').css('border-color', '');
   });
 
-  // Trigger on postForm submission
-  postForm.submit(() => {
+  // Trigger on post-form submission
+  $('#post-form').submit(() => {
+    const postContent = $('#content');
+    const postAudience = $('#audience');
+
     // If postContent is empty
     if (!postContent.val()) {
       postContent.css('border-color', redColor);
