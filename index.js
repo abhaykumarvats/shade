@@ -9,10 +9,12 @@ const path = require('path');
 const port = process.env.PORT || 3000;
 
 // Require passport module for authentication
-const passport = require('./passport');
+const passport = require('./passport/passport');
 
-// Require routes module for route handling
-const routes = require('./routes');
+// Require routes modules for route handling
+const loginRoutes = require('./routes/login-routes');
+const profileRoutes = require('./routes/profile-routes');
+const helperRoutes = require('./routes/helper-routes');
 
 // Serve static files from /public directory
 app.use('/public', express.static(path.join(__dirname, 'public')));
@@ -23,9 +25,11 @@ app.use(express.urlencoded({ extended: false }));
 // Set ejs as view engine
 app.set('view engine', 'ejs');
 
-// Instantiate passport and routes modules
+// Instantiate modules
 passport(app);
-routes(app);
+loginRoutes(app);
+profileRoutes(app);
+helperRoutes(app);
 
 // Start server and listen for requests
 app.listen(port, () => console.log('Listening on port', port));
