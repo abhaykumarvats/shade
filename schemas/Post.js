@@ -17,15 +17,14 @@ const postSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  postedOn: {
+  date: {
     type: Date,
     default: Date.now
   },
-  meantFor: {
+  audience: {
     type: [String],
     required: true
-  },
-  seenBy: [String]
+  }
 });
 
 // Convert postSchema into Post model, and export
