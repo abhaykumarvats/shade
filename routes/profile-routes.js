@@ -116,7 +116,7 @@ module.exports = (app) => {
           const post = {
             username: username,
             content: content,
-            meantFor: ['public']
+            audience: ['public']
           };
 
           // Save post in database
