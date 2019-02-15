@@ -56,7 +56,7 @@ module.exports = (app) => {
             } else {
               const connections = user.connections;
 
-              // User is in in conenctions
+              // User is in in connections
               if (
                 connections.friends.includes(currentUsername) ||
                 connections.family.includes(currentUsername) ||
@@ -64,13 +64,13 @@ module.exports = (app) => {
               )
                 // Render user specific profile
                 res.render('profile', {
-                  type: 'other',
+                  type: 'connection',
                   username: paramUsername
                 });
               // User is not in connections, render public profile
               else
                 res.render('profile', {
-                  type: 'public',
+                  type: 'other',
                   username: paramUsername
                 });
             }
