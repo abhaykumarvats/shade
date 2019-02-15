@@ -129,10 +129,10 @@ $(document).ready(() => {
         '<a href="#" class="list-group-item list-group-item-action" ' +
         'data-toggle="modal" data-target="#consent-change-modal">' +
         '<h6 class="mb-0">' +
-        'Shaded' +
+        'Consent' +
         '</h6>' +
         '<p class="mb-0">' +
-        (json.consent ? 'No' : 'Yes') +
+        (json.consent ? 'Yes' : 'No') +
         '</p>' +
         '</a>' +
         '<a href="#" class="list-group-item disabled" tabindex="-1">' +
