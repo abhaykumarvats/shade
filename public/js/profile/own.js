@@ -112,40 +112,40 @@ $(document).ready(() => {
         'data-toggle="modal" data-target="#username-change-modal">' +
         '<h6 class="mb-0">' +
         'Username' +
-        '</h6>' +
-        '<p class="mb-0">' +
+        '<small class="text-muted float-right">' +
         username +
-        '</p>' +
+        '</small>' +
+        '</h6>' +
         '</a>' +
         '<a href="#" class="list-group-item list-group-item-action" ' +
         'data-toggle="modal" data-target="#password-change-modal">' +
         '<h6 class="mb-0">' +
         'Password' +
-        '</h6>' +
-        '<p class="mb-0">' +
+        '<small class="text-muted float-right">' +
         '<em>Hidden</em>' +
-        '</p>' +
+        '</small>' +
+        '</h6>' +
         '</a>' +
         '<a href="#" class="list-group-item list-group-item-action" ' +
         'data-toggle="modal" data-target="#consent-change-modal">' +
         '<h6 class="mb-0">' +
         'Consent' +
-        '</h6>' +
-        '<p class="mb-0">' +
+        '<small class="text-muted float-right">' +
         (json.consent ? 'Yes' : 'No') +
-        '</p>' +
+        '</small>' +
+        '</h6>' +
         '</a>' +
         '<a href="#" class="list-group-item disabled" tabindex="-1">' +
         '<h6 class="mb-0">' +
         'Joined' +
-        '</h6>' +
-        '<p class="mb-0">' +
+        '<small class="text-muted float-right">' +
         new Date(json.joined)
           .toString()
           .split(' ')
           .slice(1, 4)
           .join(' ') +
-        '</p>' +
+        '</small>' +
+        '</h6>' +
         '</a>'
     );
   });
