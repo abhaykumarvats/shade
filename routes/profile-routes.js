@@ -114,7 +114,7 @@ module.exports = (app) => {
         if (audience === 'public') {
           // Prepare post object
           const post = {
-            username: username,
+            username: currentUsername,
             content: content,
             audience: ['public']
           };
@@ -129,8 +129,8 @@ module.exports = (app) => {
               // Render error view
               res.render('error', { errorMessage: 'An Error Occured' });
             }
-            // Post saved successfully, redirect to /username
-            else res.redirect('/' + username);
+            // Post saved successfully, redirect to /currentUsername
+            else res.redirect('/' + currentUsername);
           });
         } else {
           // TODO
