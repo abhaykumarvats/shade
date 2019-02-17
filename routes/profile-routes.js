@@ -143,6 +143,29 @@ module.exports = (app) => {
     else res.redirect('/login');
   });
 
+  // GET requests handler, for /:username/posts/public
+  app.route('/:username/posts/public/:skip/:limit').get((req, res) => {
+    // Find public posts of requested user
+    Post.find({ username: req.params.username, audience: 'public' })
+      .skip(Number(req.params.skip))
+      .limit(Number(req.params.limit))
+      .sort('-date')
+      .select('username content date')
+      .exec((err, posts) => {
+        // If error
+        if (err) {
+          // Log error
+          console.error(err);
+
+          // Render error view
+          res.render('error', { errorMessage: 'An Error Occured' });
+        } else {
+          // Send posts as json
+          res.json(posts);
+        }
+      });
+  });
+
   // Function to validate new fields
   function validateNewFields(req, res, next) {
     const field = req.params.field;
