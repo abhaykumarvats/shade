@@ -185,6 +185,8 @@ module.exports = (app) => {
       // Continue with consent change
       else return next();
     }
+    // Invalid field
+    else res.render('error', { errorMessage: 'An Error Occured' });
   }
 
   // POST requests handler, for /:username/change/:field
