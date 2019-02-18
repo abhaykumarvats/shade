@@ -60,7 +60,7 @@ $(document).ready(() => {
           activityEndText
             .removeAttr('href')
             .addClass('text-muted')
-            .text("That's it, folks!")
+            .text("That's all, folks!")
             .off('click');
         }
       } else {
@@ -91,7 +91,7 @@ $(document).ready(() => {
           activityEndText
             .removeAttr('href')
             .addClass('text-muted')
-            .text("That's it, folks!")
+            .text("That's all, folks!")
             .off('click');
         } else {
           // Show 'More' link
