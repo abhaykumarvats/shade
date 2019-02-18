@@ -8,61 +8,10 @@ $(document).ready(() => {
   const aboutContainer = $('#about-container');
 
   const activityList = $('#activity-list');
-  const activitySmallText = $('#activity-small-text');
+  const activityEndText = $('#activity-end-text');
 
   let skip = 0;
   const limit = 10;
-
-  // Show Loading... small text
-  activitySmallText.addClass('text-muted').html('<small>Loading...</small>');
-
-  // Get user's public posts
-  $.getJSON(username + '/posts/public/' + skip + '/' + limit, (json) => {
-    const jsonLength = json.length;
-
-    // No initial posts found
-    if (!jsonLength) {
-      activitySmallText
-        .addClass('text-muted')
-        .html('<small>Nothing to see here!</small>');
-    } else {
-      // For each public post
-      for (let i = 0; i < jsonLength; i++) {
-        // Append a list group item
-        activityList.append(
-          '<li class="list-group-item">' +
-            '<h6 class="mb-0">' +
-            json[i].username +
-            '<small class="text-muted float-right">' +
-            new Date(json[i].date)
-              .toString()
-              .split(' ')
-              .slice(1, 4)
-              .join(' ') +
-            '</small>' +
-            '</h6>' +
-            '<p class="mb-0">' +
-            json[i].content +
-            '</p>' +
-            '</li>'
-        );
-      }
-
-      // If less than 10 posts were found
-      if (jsonLength < 10) {
-        activitySmallText
-          .addClass('text-muted')
-          .html("<small>That's it, folks!</small>");
-      } else {
-        // Show 'More' link
-        activitySmallText
-          .removeClass('text-muted')
-          .html('<a href="#" id="more"><small>More</small></a>');
-
-        // TODO
-      }
-    }
-  });
 
   // Trigger when activityTab is clicked
   activityTab.click(() => {
@@ -86,6 +35,88 @@ $(document).ready(() => {
     // Show aboutContainer, and hide other
     activityContainer.css('display', 'none');
     aboutContainer.css('display', 'block');
+
+    return false;
+  });
+
+  // Function to get public posts
+  function getPublicPosts(skip, limit) {
+    // Get user's public posts
+    $.getJSON(username + '/posts/public/' + skip + '/' + limit, (json) => {
+      const jsonLength = json.length;
+
+      // No posts found
+      if (!jsonLength) {
+        // If no initial posts found
+        if (!skip) {
+          activityEndText
+            .removeAttr('href')
+            .addClass('text-muted')
+            .text('Nothing to see here!');
+        }
+        // If no further posts found
+        else {
+          activityEndText
+            .removeAttr('href')
+            .addClass('text-muted')
+            .text("That's it, folks!");
+        }
+      } else {
+        // For each public post
+        for (let i = 0; i < jsonLength; i++) {
+          // Append a list group item
+          activityList.append(
+            '<li class="list-group-item">' +
+              '<h6 class="mb-0">' +
+              json[i].username +
+              '<small class="text-muted float-right">' +
+              new Date(json[i].date)
+                .toString()
+                .split(' ')
+                .slice(0, 4)
+                .join(' ') +
+              '</small>' +
+              '</h6>' +
+              '<p class="mb-0">' +
+              json[i].content +
+              '</p>' +
+              '</li>'
+          );
+        }
+
+        // If less than 10 posts were found
+        if (jsonLength < 10) {
+          activityEndText
+            .removeAttr('href')
+            .addClass('text-muted')
+            .text("That's it, folks!");
+        } else {
+          // Show 'More' link
+          activityEndText
+            .attr('href', '#')
+            .removeClass('text-muted')
+            .text('More');
+        }
+      }
+    });
+  }
+
+  // Show 'Show Posts' text
+  activityEndText.attr('href', '#').text('Show Posts');
+
+  // Trigger when activity-end-text is clicked
+  $('#activity-end-text').click(() => {
+    // Show Loading... text
+    activityEndText
+      .removeAttr('href')
+      .addClass('text-muted')
+      .text('Loading...');
+
+    // Get public posts
+    getPublicPosts(skip, limit);
+
+    // Increment 'skip' by 10
+    skip += 10;
 
     return false;
   });
