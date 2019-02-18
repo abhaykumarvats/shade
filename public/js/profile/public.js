@@ -104,9 +104,6 @@ $(document).ready(() => {
     });
   }
 
-  // Show 'Show Posts' text
-  activityEndText.attr('href', '#').text('Show Posts');
-
   // Trigger when activity-end-text is clicked
   $('#activity-end-text').click(() => {
     // Show Loading... text
