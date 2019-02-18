@@ -52,14 +52,16 @@ $(document).ready(() => {
           activityEndText
             .removeAttr('href')
             .addClass('text-muted')
-            .text('Nothing to see here!');
+            .text('Nothing to see here!')
+            .off('click');
         }
         // If no further posts found
         else {
           activityEndText
             .removeAttr('href')
             .addClass('text-muted')
-            .text("That's it, folks!");
+            .text("That's it, folks!")
+            .off('click');
         }
       } else {
         // For each public post
@@ -89,7 +91,8 @@ $(document).ready(() => {
           activityEndText
             .removeAttr('href')
             .addClass('text-muted')
-            .text("That's it, folks!");
+            .text("That's it, folks!")
+            .off('click');
         } else {
           // Show 'More' link
           activityEndText
