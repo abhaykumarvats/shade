@@ -147,9 +147,9 @@ module.exports = (app) => {
   app.route('/:username/posts/public/:skip/:limit').get((req, res) => {
     // Find public posts of requested user
     Post.find({ username: req.params.username, audience: 'public' })
+      .sort('-date')
       .skip(Number(req.params.skip))
       .limit(Number(req.params.limit))
-      .sort('-date')
       .select('username content date')
       .exec((err, posts) => {
         // If error
