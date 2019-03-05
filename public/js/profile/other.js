@@ -10,6 +10,8 @@ $(document).ready(() => {
   const activityList = $('#activity-list');
   const activityEndText = $('#activity-end-text');
 
+  const aboutList = $('#about-list');
+
   let skip = 0;
   const limit = 10;
 
@@ -119,5 +121,49 @@ $(document).ready(() => {
     skip += 10;
 
     return false;
+  });
+
+  // Show Loading... text while loading 'about' info
+  aboutList.html(
+    '<a href="#" class="list-group-item disabled" tabindex="-1">' +
+      '<h6 class="mb-0">' +
+      'Loading...' +
+      '</h6>' +
+      '</a>'
+  );
+
+  // Get 'about' info
+  $.getJSON('/' + username + '/about', (json) => {
+    // Populate aboutList with 'about' info
+    aboutList.html(
+      '<a href="#" class="list-group-item disabled" tabindex="-1">' +
+        '<h6 class="mb-0">' +
+        'Username' +
+        '<small class="text-muted float-right">' +
+        username +
+        '</small>' +
+        '</h6>' +
+        '</a>' +
+        '<a href="#" class="list-group-item disabled" tabindex="-1">' +
+        '<h6 class="mb-0">' +
+        'Consent' +
+        '<small class="text-muted float-right">' +
+        (json.consent ? 'Yes' : 'No') +
+        '</small>' +
+        '</h6>' +
+        '</a>' +
+        '<a href="#" class="list-group-item disabled" tabindex="-1">' +
+        '<h6 class="mb-0">' +
+        'Joined' +
+        '<small class="text-muted float-right">' +
+        new Date(json.joined)
+          .toString()
+          .split(' ')
+          .slice(1, 4)
+          .join(' ') +
+        '</small>' +
+        '</h6>' +
+        '</a>'
+    );
   });
 });
