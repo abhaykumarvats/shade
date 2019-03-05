@@ -28,19 +28,6 @@ $(document).ready(() => {
     return false;
   });
 
-  // Trigger when aboutTab is clicked
-  aboutTab.click(() => {
-    // Add 'active' class to aboutTab, and remove from other
-    activityTab.removeClass('active');
-    aboutTab.addClass('active');
-
-    // Show aboutContainer, and hide other
-    activityContainer.css('display', 'none');
-    aboutContainer.css('display', 'block');
-
-    return false;
-  });
-
   // Function to get public posts
   function getPublicPosts(skip, limit) {
     // Get user's public posts
@@ -119,6 +106,19 @@ $(document).ready(() => {
 
     // Increment 'skip' by 10
     skip += 10;
+
+    return false;
+  });
+
+  // Trigger when aboutTab is clicked
+  aboutTab.click(() => {
+    // Add 'active' class to aboutTab, and remove from other
+    activityTab.removeClass('active');
+    aboutTab.addClass('active');
+
+    // Show aboutContainer, and hide other
+    activityContainer.css('display', 'none');
+    aboutContainer.css('display', 'block');
 
     return false;
   });
