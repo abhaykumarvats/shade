@@ -37,7 +37,7 @@ module.exports = (app) => {
       // If user is accesssing own profile
       if (paramUsername === currentUsername) {
         // Render user's own profile
-        res.render('profile', { type: 'own', username: currentUsername });
+        res.render('own', { username: currentUsername });
       }
       // User is accessing other's profile
       else {
@@ -63,16 +63,9 @@ module.exports = (app) => {
                 connections.acquaintances.includes(currentUsername)
               )
                 // Render user specific profile
-                res.render('profile', {
-                  type: 'connection',
-                  username: paramUsername
-                });
+                res.render('connection', { username: paramUsername });
               // User is not in connections, render public profile
-              else
-                res.render('profile', {
-                  type: 'other',
-                  username: paramUsername
-                });
+              else res.render('other', { username: paramUsername });
             }
           }
         );
@@ -80,7 +73,7 @@ module.exports = (app) => {
     }
     // User is not logged in, render public profile
     else {
-      res.render('profile', { type: 'public', username: paramUsername });
+      res.render('public', { username: paramUsername });
     }
   });
 

@@ -16,8 +16,6 @@
     <link rel="stylesheet" href="/public/css/profile.css" />
   </head>
   <body>
-    <!-- Modals for 'own' profile view -->
-    <% if (type === 'own') { %>
     <!-- Username change modal -->
     <div class="modal fade" id="username-change-modal" tabindex="-1">
       <!-- Modal dialog -->
@@ -251,7 +249,6 @@
         </div>
       </div>
     </div>
-    <% } %>
 
     <!-- Username heading -->
     <h1 class="display-4 text-center" id="username"><%= username %></h1>
@@ -259,23 +256,15 @@
     <!-- Main navigation bar -->
     <nav id="main-nav">
       <!-- Navigation links -->
-      <% if (type !== 'public') { %>
       <a href="/" class="nav-item">
         <span>Home</span>
       </a>
-      <% } %>
       <a href="#" class="nav-item active" onclick="return false;">
         <span>Profile</span>
       </a>
-      <% if (type !== 'public') { %>
       <a href="/logout" class="nav-item">
         <span>Log Out</span>
       </a>
-      <% } else { %>
-      <a href="/login" class="nav-item">
-        <span>Log In</span>
-      </a>
-      <% } %>
     </nav>
 
     <!-- Profile navigation bar -->
@@ -284,11 +273,9 @@
       <a href="#" class="nav-item active" id="activity-tab">
         <span>Activity</span>
       </a>
-      <% if (type === 'own') { %>
       <a href="#" class="nav-item" id="connections-tab">
         <span>Connections</span>
       </a>
-      <% } %>
       <a href="#" class="nav-item" id="about-tab">
         <span>About</span>
       </a>
@@ -298,7 +285,6 @@
     <div id="main-container">
       <!-- Activity container -->
       <div id="activity-container">
-        <% if (type === 'own') { %>
         <!-- Post form -->
         <form action="/<%= username %>/post" method="POST" id="post-form">
           <!-- Post textarea -->
@@ -341,7 +327,6 @@
 
         <!-- Horizontal line -->
         <hr />
-        <% } %>
 
         <!-- Activity list group -->
         <ul class="list-group" id="activity-list"></ul>
@@ -357,43 +342,21 @@
 
       <!-- About container -->
       <div id="about-container">
-        <% if (type === 'own') { %>
         <!-- About info list -->
         <div class="list-group" id="about-list"></div>
 
         <!-- About small text -->
         <p class="text-right"><small>Click on a field to change.</small></p>
-
-        <% } else if (type === 'public') { %>
-        <!-- Primary alert box -->
-        <div class="alert alert-primary">
-          Log in to connect with <strong><%= username %></strong>.
-        </div>
-        <% } %>
       </div>
     </div>
 
     <!-- jQuery script -->
     <script src="/public/js/vendor/jquery-3.3.1.min.js"></script>
 
-    <% if (type === 'own') { %>
     <!-- Bootstrap script -->
     <script src="/public/js/vendor/bootstrap.min.js"></script>
 
     <!-- Own profile script -->
     <script src="/public/js/profile/own.js"></script>
-
-    <% } else if (type === 'connection') { %>
-    <!-- Connection profile script -->
-    <script src="/public/js/profile/connection.js"></script>
-
-    <% } else if (type === 'other') { %>
-    <!-- Other profile script -->
-    <script src="/public/js/profile/other.js"></script>
-
-    <% } else if (type === 'public') { %>
-    <!-- Public profile script -->
-    <script src="/public/js/profile/public.js"></script>
-    <% } %>
   </body>
 </html>
