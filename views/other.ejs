@@ -64,6 +64,43 @@
       <div id="about-container">
         <!-- About info list -->
         <div class="list-group" id="about-list"></div>
+
+        <!-- Connect dropdown -->
+        <div class="dropdown text-center">
+          <!-- Connect button -->
+          <button
+            type="button"
+            class="btn btn-sm btn-primary dropdown-toggle"
+            data-toggle="dropdown"
+          >
+            Click here to connect with <strong><%= username %></strong>
+          </button>
+
+          <!-- Connect dropdown menu -->
+          <div class="dropdown-menu">
+            <a
+              href="/<%= username %>/connectas/friend"
+              class="dropdown-item"
+              onclick="return false;"
+            >
+              Connect as <strong>Friend</strong>
+            </a>
+            <a
+              href="/<%= username %>/connectas/family"
+              class="dropdown-item"
+              onclick="return false;"
+            >
+              Connect as <strong>Family</strong>
+            </a>
+            <a
+              href="/<%= username %>/connectas/acquaintance"
+              class="dropdown-item"
+              onclick="return false;"
+            >
+              Connect as <strong>Acquaintance</strong>
+            </a>
+          </div>
+        </div>
       </div>
     </div>
 
