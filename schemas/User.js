@@ -30,7 +30,7 @@ const userSchema = new mongoose.Schema({
     friends: [String],
     family: [String],
     acquaintances: [String],
-    pending: [String]
+    following: [String]
   },
   notifs: [
     {
