@@ -89,6 +89,10 @@ textarea {
   text-decoration: none;
 }
 
+.dropdown {
+  margin: 15px auto;
+}
+
 /* If screen width is less than 768px */
 @media all and (max-width: 768px) {
   /* Set nav and main container width */
