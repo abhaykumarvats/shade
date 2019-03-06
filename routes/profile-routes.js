@@ -439,4 +439,88 @@ module.exports = (app) => {
     // User is not logged in, redirect to /login
     else res.redirect('/login');
   });
+
+  // GET requests handler, for /:username/connectas/:choice
+  app.route('/:username/connectas/:choice').get((req, res) => {
+    // If user is logged in
+    if (req.isAuthenticated()) {
+      const paramUsername = req.params.username;
+      const currentUsername = req.user.username;
+
+      // If user is trying to connect with itself
+      if (paramUsername === currentUsername) {
+        // Render error view
+        res.render('error', { errorMessage: 'Not Allowed' });
+      }
+      // User is trying to connect with other
+      else {
+        // Find user's connections
+        User.findOne(
+          { username: currentUsername },
+          'connections',
+          (err, user) => {
+            // If error
+            if (err) {
+              // Log error
+              console.error(err);
+
+              // Render error view
+              res.render('error', { errorMessage: 'An Error Occured' });
+            } else {
+              const friends = user.connections.friends;
+              const family = user.connections.family;
+              const acquaintances = user.connections.acquaintances;
+
+              // If user is already connected
+              if (
+                friends.includes(paramUsername) ||
+                family.includes(paramUsername) ||
+                acquaintances.includes(paramUsername)
+              ) {
+                // Render error view
+                res.render('error', {
+                  errorMessage: 'You are Already Connected'
+                });
+              }
+              // User is not connected
+              else {
+                const choice = req.params.choice;
+
+                // Push choice in appropriate field
+                if (choice === 'friend') {
+                  friends.push(paramUsername);
+                } else if (choice === 'family') {
+                  family.push(paramUsername);
+                } else if (choice === 'acquaintance') {
+                  acquaintances.push(paramUsername);
+                }
+
+                // Save updated user
+                user.save((err) => {
+                  // If error
+                  if (err) {
+                    // Log error
+                    console.error(err);
+
+                    // Render error view
+                    res.render('error', { errorMessage: 'An Error Occured' });
+                  }
+                  // User connected successfully
+                  else {
+                    // Reload profile
+                    res.redirect('/' + paramUsername);
+                  }
+                });
+              }
+            }
+          }
+        );
+      }
+    }
+    // User is not logged in
+    else {
+      // Redirect to /login
+      res.redirect('/login');
+    }
+  });
 };
