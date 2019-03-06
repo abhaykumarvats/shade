@@ -76,6 +76,7 @@ textarea {
 .alert {
   padding: 0.25rem;
   text-align: center;
+  margin: 15px auto;
 }
 
 #label-group > * {
