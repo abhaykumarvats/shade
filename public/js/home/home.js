@@ -7,6 +7,7 @@ $(document).ready(() => {
   const searchContainer = $('#search-container');
   const notifsContainer = $('#notifs-container');
 
+  const searchInputField = $('#search-input');
   const searchButton = $('#search-button');
   const searchResult = $('#search-result');
 
@@ -57,10 +58,9 @@ $(document).ready(() => {
     return false;
   });
 
-  // Trigger when search-button is clicked
-  searchButton.click(() => {
+  // Function to trigger search
+  function triggerSearch() {
     // Get input value
-    const searchInputField = $('#search-input');
     const searchInputValue = searchInputField.val();
 
     // If empty input
@@ -116,5 +116,16 @@ $(document).ready(() => {
         }
       });
     }
+  }
+
+  // Trigger when 'enter' is pressed
+  searchInputField.keyup((event) => {
+    // Keycode of 'enter' is 13
+    if (event.which === 13) triggerSearch();
+  });
+
+  // Trigger when search button is clicked
+  searchButton.click(() => {
+    triggerSearch();
   });
 });
