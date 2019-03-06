@@ -62,8 +62,21 @@
         <!-- About info list -->
         <div class="list-group" id="about-list"></div>
 
-        <!-- TODO -->
-        <p id="connection-info" class="text-center"></p>
+        <!-- Connection info alert -->
+        <div class="alert alert-success">
+          You are connected with <strong><%= username %></strong>.
+        </div>
+
+        <!-- Disconnect button -->
+        <div class="text-center">
+          <a
+            id="disconnect-button"
+            href="/<%= username %>/disconnect"
+            class="btn btn-sm btn-danger"
+          >
+            <strong>Disconnect</strong>
+          </a>
+        </div>
       </div>
     </div>
 
