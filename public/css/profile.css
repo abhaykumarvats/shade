@@ -3,7 +3,6 @@
 *::before,
 *::after {
   border-radius: 0 !important;
-  box-shadow: none !important;
 }
 
 /* Implement flexbox on nav, and add styles */
