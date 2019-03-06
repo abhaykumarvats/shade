@@ -65,15 +65,20 @@
         <!-- About info list -->
         <div class="list-group" id="about-list"></div>
 
+        <!-- Connection info alert -->
+        <div class="alert alert-danger">
+          You are not connected with <strong><%= username %></strong>.
+        </div>
+
         <!-- Connect dropdown -->
         <div class="dropdown text-center">
           <!-- Connect button -->
           <button
             type="button"
-            class="btn btn-sm btn-primary dropdown-toggle"
+            class="btn btn-sm btn-success dropdown-toggle"
             data-toggle="dropdown"
           >
-            Click here to connect with <strong><%= username %></strong>
+            <strong>Connect</strong>
           </button>
 
           <!-- Connect dropdown menu -->
