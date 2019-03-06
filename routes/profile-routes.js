@@ -43,7 +43,7 @@ module.exports = (app) => {
       else {
         // Check if user is in connections
         User.findOne(
-          { username: paramUsername },
+          { username: currentUsername },
           'connections',
           (err, user) => {
             // If error
@@ -54,13 +54,15 @@ module.exports = (app) => {
               // Render error view
               res.render('error', { errorMessage: 'An Error Occured' });
             } else {
-              const connections = user.connections;
+              const friends = user.connections.friends;
+              const family = user.connections.family;
+              const acquaintances = user.connections.acquaintances;
 
               // User is in in connections
               if (
-                connections.friends.includes(currentUsername) ||
-                connections.family.includes(currentUsername) ||
-                connections.acquaintances.includes(currentUsername)
+                friends.includes(paramUsername) ||
+                family.includes(paramUsername) ||
+                acquaintances.includes(paramUsername)
               )
                 // Render user specific profile
                 res.render('connection', { username: paramUsername });
