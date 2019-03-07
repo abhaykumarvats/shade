@@ -441,7 +441,7 @@ module.exports = (app) => {
   });
 
   // GET requests handler, for /:username/connectas/:choice
-  app.route('/:username/connectas/:choice').get((req, res) => {
+  app.route('/:username/connect/:choice').get((req, res) => {
     // If user is logged in
     if (req.isAuthenticated()) {
       const paramUsername = req.params.username;
