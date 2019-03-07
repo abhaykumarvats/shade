@@ -527,4 +527,85 @@ module.exports = (app) => {
       res.redirect('/login');
     }
   });
+
+  // GET requests handler, for /:username/disconnect
+  app.route('/:username/disconnect').get((req, res) => {
+    // If user is logged in
+    if (req.isAuthenticated()) {
+      const paramUsername = req.params.username;
+      const currentUsername = req.user.username;
+
+      // If user is trying to disconnect with itself
+      if (paramUsername === currentUsername) {
+        // Render error view
+        res.render('error', { errorMessage: 'Not Allowed' });
+      }
+      // User is trying to disconnect with other
+      else {
+        // Find user's connections
+        User.findOne(
+          { username: currentUsername },
+          'connections',
+          (err, user) => {
+            // If error
+            if (err) {
+              // Log error
+              console.error(err);
+
+              // Render error view
+              res.render('error', { errorMessage: 'An Error Occured' });
+            } else {
+              const friends = user.connections.friends;
+              const family = user.connections.family;
+              const acquaintances = user.connections.acquaintances;
+              const following = user.connections.following;
+
+              // If user is connected as friend
+              if (friends.includes(paramUsername)) {
+                friends.splice(friends.indexOf(paramUsername), 1);
+                following.splice(following.indexOf(paramUsername), 1);
+              }
+              // If user is connected as family
+              else if (family.includes(paramUsername)) {
+                family.splice(family.indexOf(paramUsername), 1);
+                following.splice(following.indexOf(paramUsername), 1);
+              }
+              // If user is connected as acquaintance
+              else if (acquaintances.includes(paramUsername)) {
+                acquaintances.splice(acquaintances.indexOf(paramUsername), 1);
+                following.splice(following.indexOf(paramUsername), 1);
+              }
+              // User is not connected
+              else {
+                // Render error view
+                res.render('error', { errorMessage: 'You are Not Connected' });
+              }
+
+              // Save updated user
+              user.save((err) => {
+                // If error
+                if (err) {
+                  // Log error
+                  console.error(err);
+
+                  // Render error view
+                  res.render('error', { errorMessage: 'An Error Occured' });
+                }
+                // User updated successfully
+                else {
+                  // Reload profile
+                  res.redirect('/' + paramUsername);
+                }
+              });
+            }
+          }
+        );
+      }
+    }
+    // User is not logged in
+    else {
+      // Redirect to /login
+      res.redirect('/login');
+    }
+  });
 };
