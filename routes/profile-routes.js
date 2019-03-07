@@ -470,6 +470,7 @@ module.exports = (app) => {
               const friends = user.connections.friends;
               const family = user.connections.family;
               const acquaintances = user.connections.acquaintances;
+              const following = user.connections.following;
 
               // If user is already connected
               if (
@@ -486,13 +487,16 @@ module.exports = (app) => {
               else {
                 const choice = req.params.choice;
 
-                // Push choice in appropriate field
+                // Push choice in appropriate fields
                 if (choice === 'friend') {
                   friends.push(paramUsername);
+                  following.push(paramUsername);
                 } else if (choice === 'family') {
                   family.push(paramUsername);
+                  following.push(paramUsername);
                 } else if (choice === 'acquaintance') {
                   acquaintances.push(paramUsername);
+                  following.push(paramUsername);
                 }
 
                 // Save updated user
