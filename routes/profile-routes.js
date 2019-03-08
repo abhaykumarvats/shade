@@ -440,7 +440,7 @@ module.exports = (app) => {
     else res.redirect('/login');
   });
 
-  // GET requests handler, for /:username/connectas/:choice
+  // GET requests handler, for /:username/connect/:choice
   app.route('/:username/connect/:choice').get((req, res) => {
     // If user is logged in
     if (req.isAuthenticated()) {
@@ -600,6 +600,47 @@ module.exports = (app) => {
             }
           }
         );
+      }
+    }
+    // User is not logged in
+    else {
+      // Redirect to /login
+      res.redirect('/login');
+    }
+  });
+
+  // GET requests handler, for /:username/connections
+  app.route('/:username/connections').get((req, res) => {
+    // If user is logged in
+    if (req.isAuthenticated()) {
+      const paramUsername = req.params.username;
+      const currentUsername = req.user.username;
+
+      // If user wants to see its connections
+      if (paramUsername === currentUsername) {
+        // Find user's connections
+        User.findOne(
+          { username: currentUsername },
+          '-_id connections',
+          (err, user) => {
+            // If error
+            if (err) {
+              // Log error
+              console.error(err);
+
+              // Render error view
+              res.render('error', { errorMessage: 'An Error Occured' });
+            } else {
+              // Send response as json
+              res.json(user);
+            }
+          }
+        );
+      }
+      // User wants to see someone else's connections
+      else {
+        // Render error view
+        res.render('error', { errorMessage: 'Not Allowed' });
       }
     }
     // User is not logged in
