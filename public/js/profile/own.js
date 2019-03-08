@@ -208,105 +208,108 @@ $(document).ready(() => {
     const acquaintancesLength = acquaintances.length;
     const followingLength = following.length;
 
-    // If there are no friends :(
-    if (!friendsLength) {
+    // If there are no connections :(
+    if (!followingLength) {
       // Show text accordingly
       friendsList.html(
         '<p class="text-center text-muted">Nothing to see here!</p>'
       );
-    } else {
-      // Remove any text
-      friendsList.html('');
-
-      // Append friends one by one in list
-      for (let i = 0, len = friendsLength; i < len; i++) {
-        friendsList.append(
-          '<a href="/' +
-            friends[i] +
-            '" class="list-group-item list-group-item-action">' +
-            '<div class="d-flex w-100 justify-content-between">' +
-            '<h6 class="mb-0">' +
-            friends[i] +
-            '</h6>' +
-            '<small>' +
-            'Visit Profile' +
-            '</small>' +
-            '</div>' +
-            '</a>'
-        );
-      }
-    }
-
-    // If there is no family :(
-    if (!familyLength) {
-      // Show text accordingly
       familyList.html(
         '<p class="text-center text-muted">Nothing to see here!</p>'
       );
-    } else {
-      // Remove any text
-      familyList.html('');
-
-      // Append family one by one in list
-      for (let i = 0, len = familyLength; i < len; i++) {
-        familyList.append(
-          '<a href="/' +
-            family[i] +
-            '" class="list-group-item list-group-item-action">' +
-            '<div class="d-flex w-100 justify-content-between">' +
-            '<h6 class="mb-0">' +
-            family[i] +
-            '</h6>' +
-            '<small>' +
-            'Visit Profile' +
-            '</small>' +
-            '</div>' +
-            '</a>'
-        );
-      }
-    }
-
-    // If there are no acquaintances :(
-    if (!acquaintancesLength) {
-      // Show text accordingly
       acquaintancesList.html(
         '<p class="text-center text-muted">Nothing to see here!</p>'
       );
-    } else {
-      // Remove any text
-      acquaintancesList.html('');
-
-      // Append acquaintances one by one in list
-      for (let i = 0, len = acquaintancesLength; i < len; i++) {
-        acquaintancesList.append(
-          '<a href="/' +
-            acquaintances[i] +
-            '" class="list-group-item list-group-item-action">' +
-            '<div class="d-flex w-100 justify-content-between">' +
-            '<h6 class="mb-0">' +
-            acquaintances[i] +
-            '</h6>' +
-            '<small>' +
-            'Visit Profile' +
-            '</small>' +
-            '</div>' +
-            '</a>'
-        );
-      }
-    }
-
-    // If there is are no connections :(
-    if (!followingLength) {
-      // Show text accordingly
       followingList.html(
         '<p class="text-center text-muted">Nothing to see here!</p>'
       );
     } else {
-      // Remove any text
+      // Remove any html
+      friendsList.html('');
+      familyList.html('');
+      acquaintancesList.html('');
       followingList.html('');
 
+      // If there are no friends :(
+      if (!friendsLength) {
+        // Show text accordingly
+        friendsList.html(
+          '<p class="text-center text-muted">Nothing to see here!</p>'
+        );
+      } else {
+        // Append friends one by one in list
+        for (let i = 0; i < friendsLength; i++) {
+          friendsList.append(
+            '<a href="/' +
+              friends[i] +
+              '" class="list-group-item list-group-item-action">' +
+              '<div class="d-flex w-100 justify-content-between">' +
+              '<h6 class="mb-0">' +
+              friends[i] +
+              '</h6>' +
+              '<small class="text-primary">' +
+              'Visit Profile' +
+              '</small>' +
+              '</div>' +
+              '</a>'
+          );
+        }
+      }
+
+      // If there is no family :(
+      if (!familyLength) {
+        // Show text accordingly
+        familyList.html(
+          '<p class="text-center text-muted">Nothing to see here!</p>'
+        );
+      } else {
+        // Append family one by one in list
+        for (let i = 0; i < familyLength; i++) {
+          familyList.append(
+            '<a href="/' +
+              family[i] +
+              '" class="list-group-item list-group-item-action">' +
+              '<div class="d-flex w-100 justify-content-between">' +
+              '<h6 class="mb-0">' +
+              family[i] +
+              '</h6>' +
+              '<small class="text-primary">' +
+              'Visit Profile' +
+              '</small>' +
+              '</div>' +
+              '</a>'
+          );
+        }
+      }
+
+      // If there are no acquaintances :(
+      if (!acquaintancesLength) {
+        // Show text accordingly
+        acquaintancesList.html(
+          '<p class="text-center text-muted">Nothing to see here!</p>'
+        );
+      } else {
+        // Append acquaintances one by one in list
+        for (let i = 0; i < acquaintancesLength; i++) {
+          acquaintancesList.append(
+            '<a href="/' +
+              acquaintances[i] +
+              '" class="list-group-item list-group-item-action">' +
+              '<div class="d-flex w-100 justify-content-between">' +
+              '<h6 class="mb-0">' +
+              acquaintances[i] +
+              '</h6>' +
+              '<small class="text-primary">' +
+              'Visit Profile' +
+              '</small>' +
+              '</div>' +
+              '</a>'
+          );
+        }
+      }
+
       // Append connections one by one in list
-      for (let i = 0, len = followingLength; i < len; i++) {
+      for (let i = 0; i < followingLength; i++) {
         followingList.append(
           '<a href="/' +
             following[i] +
@@ -315,7 +318,7 @@ $(document).ready(() => {
             '<h6 class="mb-0">' +
             following[i] +
             '</h6>' +
-            '<small>' +
+            '<small class="text-primary">' +
             'Visit Profile' +
             '</small>' +
             '</div>' +
