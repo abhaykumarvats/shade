@@ -11,7 +11,7 @@ nav {
   display: flex;
   width: 30vw;
   height: 25px;
-  margin: 15px auto;
+  margin: 10px auto;
   border: 1px solid black;
   font-size: small;
 }
@@ -78,7 +78,7 @@ input[type]:focus {
 
 /* Set margin on search result */
 #search-result {
-  margin: 15px auto;
+  margin: 10px auto;
 }
 
 /* If screen width is less than 768px; */

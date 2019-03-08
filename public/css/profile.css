@@ -11,7 +11,7 @@ nav {
   display: flex;
   width: 30vw;
   height: 25px;
-  margin: 15px auto;
+  margin: 10px auto;
   border: 1px solid black;
   font-size: small;
 }
@@ -65,7 +65,7 @@ a.nav-item {
 
 /* Remove margin from post form elements */
 #post-form > div {
-  margin: 0;
+  margin: 0 auto;
 }
 
 /* Remove bottom border from textarea */
@@ -77,7 +77,7 @@ textarea {
 .alert {
   padding: 0.25rem;
   text-align: center;
-  margin: 15px auto;
+  margin: 10px auto;
 }
 
 #label-group > * {
@@ -91,7 +91,7 @@ textarea {
 }
 
 .dropdown {
-  margin: 15px auto;
+  margin: 10px auto;
 }
 
 /* If screen width is less than 768px */
