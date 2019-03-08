@@ -9,7 +9,7 @@
 /* Implement flexbox on nav, and add styles */
 nav {
   display: flex;
-  width: 25vw;
+  width: 30vw;
   height: 25px;
   margin: 15px auto;
   border: 1px solid black;
@@ -53,7 +53,7 @@ a.nav-item {
 
 /* Set main container width and margin */
 #main-container {
-  width: 25vw;
+  width: 30vw;
   margin: 0 auto;
 }
 
@@ -99,7 +99,7 @@ textarea {
   /* Set nav and main container width */
   nav,
   #main-container {
-    width: 50vw;
+    width: 60vw;
   }
 }
 
@@ -108,6 +108,6 @@ textarea {
   /* Set nav and main container width */
   nav,
   #main-container {
-    width: 75vw;
+    width: 90vw;
   }
 }
