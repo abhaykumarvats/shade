@@ -39,6 +39,12 @@ a.nav-item {
   background-color: slategray;
 }
 
+/* Change connections nav item color on hover */
+#connections-nav > a.nav-item:hover {
+  color: white;
+  background-color: lightslategray;
+}
+
 /* Set colors for active main nav item */
 #main-nav > a.nav-item.active {
   color: white;
@@ -51,6 +57,12 @@ a.nav-item {
   background-color: slategray;
 }
 
+/* Set colors for active connections nav item */
+#connections-nav > a.nav-item.active {
+  color: white;
+  background-color: lightslategray;
+}
+
 /* Set main container width and margin */
 #main-container {
   width: 30vw;
@@ -59,7 +71,10 @@ a.nav-item {
 
 /* Hide containers */
 #connections-container,
-#about-container {
+#about-container,
+#family-container,
+#acquaintances-container,
+#following-container {
   display: none;
 }
 
