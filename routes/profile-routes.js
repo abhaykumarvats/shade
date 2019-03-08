@@ -632,7 +632,7 @@ module.exports = (app) => {
               res.render('error', { errorMessage: 'An Error Occured' });
             } else {
               // Send response as json
-              res.json(user);
+              res.json(user.connections);
             }
           }
         );
