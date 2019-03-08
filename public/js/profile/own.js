@@ -9,6 +9,21 @@ $(document).ready(() => {
   const connectionsContainer = $('#connections-container');
   const aboutContainer = $('#about-container');
 
+  const friendsTab = $('#friends-tab');
+  const familyTab = $('#family-tab');
+  const acquaintancesTab = $('#acquaintances-tab');
+  const followingTab = $('#following-tab');
+
+  const friendsContainer = $('#friends-container');
+  const familyContainer = $('#family-container');
+  const acquaintancesContainer = $('#acquaintances-container');
+  const followingContainer = $('#following-container');
+
+  const friendsList = $('#friends-list');
+  const familyList = $('#family-list');
+  const acquaintancesList = $('#acquantances-list');
+  const followingList = $('#following-list');
+
   const aboutList = $('#about-list');
 
   const newUsernameSmallText = $('#new-username-small-text');
@@ -76,6 +91,62 @@ $(document).ready(() => {
     activityContainer.css('display', 'none');
     aboutContainer.css('display', 'none');
     connectionsContainer.css('display', 'block');
+
+    return false;
+  });
+
+  friendsTab.click(() => {
+    familyTab.removeClass('active');
+    acquaintancesTab.removeClass('active');
+    followingTab.removeClass('active');
+    friendsTab.addClass('active');
+
+    familyContainer.css('display', 'none');
+    acquaintancesContainer.css('display', 'none');
+    followingContainer.css('display', 'none');
+    friendsContainer.css('display', 'block');
+
+    return false;
+  });
+
+  familyTab.click(() => {
+    acquaintancesTab.removeClass('active');
+    followingTab.removeClass('active');
+    friendsTab.removeClass('active');
+    familyTab.addClass('active');
+
+    acquaintancesContainer.css('display', 'none');
+    followingContainer.css('display', 'none');
+    friendsContainer.css('display', 'none');
+    familyContainer.css('display', 'block');
+
+    return false;
+  });
+
+  acquaintancesTab.click(() => {
+    familyTab.removeClass('active');
+    followingTab.removeClass('active');
+    friendsTab.removeClass('active');
+    acquaintancesTab.addClass('active');
+
+    familyContainer.css('display', 'none');
+    followingContainer.css('display', 'none');
+    friendsContainer.css('display', 'none');
+    acquaintancesContainer.css('display', 'block');
+
+    return false;
+  });
+
+  followingTab.click(() => {
+    familyTab.removeClass('active');
+    acquaintancesTab.removeClass('active');
+    friendsTab.removeClass('active');
+    followingTab.addClass('active');
+
+    familyContainer.css('display', 'none');
+    acquaintancesContainer.css('display', 'none');
+    friendsContainer.css('display', 'none');
+    followingContainer.css('display', 'block');
 
     return false;
   });
