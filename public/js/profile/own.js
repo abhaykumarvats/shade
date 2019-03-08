@@ -21,7 +21,7 @@ $(document).ready(() => {
 
   const friendsList = $('#friends-list');
   const familyList = $('#family-list');
-  const acquaintancesList = $('#acquantances-list');
+  const acquaintancesList = $('#acquaintances-list');
   const followingList = $('#following-list');
 
   const aboutList = $('#about-list');
@@ -95,12 +95,15 @@ $(document).ready(() => {
     return false;
   });
 
+  // Trigger when friends tab is clicked
   friendsTab.click(() => {
+    // Add 'active' class to friend tab, and remove from others
     familyTab.removeClass('active');
     acquaintancesTab.removeClass('active');
     followingTab.removeClass('active');
     friendsTab.addClass('active');
 
+    // Show friends container, and hide others
     familyContainer.css('display', 'none');
     acquaintancesContainer.css('display', 'none');
     followingContainer.css('display', 'none');
@@ -109,12 +112,15 @@ $(document).ready(() => {
     return false;
   });
 
+  // Trigger when family tab is clicked
   familyTab.click(() => {
+    // Add 'active' class to family tab, and remove from others
     acquaintancesTab.removeClass('active');
     followingTab.removeClass('active');
     friendsTab.removeClass('active');
     familyTab.addClass('active');
 
+    // Show family container, and hide others
     acquaintancesContainer.css('display', 'none');
     followingContainer.css('display', 'none');
     friendsContainer.css('display', 'none');
@@ -123,12 +129,15 @@ $(document).ready(() => {
     return false;
   });
 
+  // Trigger when acquaintances is clicked
   acquaintancesTab.click(() => {
+    // Add 'active' class to acquaintances tab, and remove from others
     familyTab.removeClass('active');
     followingTab.removeClass('active');
     friendsTab.removeClass('active');
     acquaintancesTab.addClass('active');
 
+    // Show acquaintances container, and hide others
     familyContainer.css('display', 'none');
     followingContainer.css('display', 'none');
     friendsContainer.css('display', 'none');
@@ -137,18 +146,183 @@ $(document).ready(() => {
     return false;
   });
 
+  // Trigger when following tab is clicked
   followingTab.click(() => {
+    // Add 'active' class to following tab, and remove from others
     familyTab.removeClass('active');
     acquaintancesTab.removeClass('active');
     friendsTab.removeClass('active');
     followingTab.addClass('active');
 
+    // Show following container, and hide others
     familyContainer.css('display', 'none');
     acquaintancesContainer.css('display', 'none');
     friendsContainer.css('display', 'none');
     followingContainer.css('display', 'block');
 
     return false;
+  });
+
+  // Show 'Loading...' text in all connection tabs
+  friendsList.html(
+    '<a href="#" class="list-group-item disabled" tabindex="-1">' +
+      '<h6 class="mb-0">' +
+      'Loading...' +
+      '</h6>' +
+      '</a>'
+  );
+
+  familyList.html(
+    '<a href="#" class="list-group-item disabled" tabindex="-1">' +
+      '<h6 class="mb-0">' +
+      'Loading...' +
+      '</h6>' +
+      '</a>'
+  );
+
+  acquaintancesList.html(
+    '<a href="#" class="list-group-item disabled" tabindex="-1">' +
+      '<h6 class="mb-0">' +
+      'Loading...' +
+      '</h6>' +
+      '</a>'
+  );
+
+  followingList.html(
+    '<a href="#" class="list-group-item disabled" tabindex="-1">' +
+      '<h6 class="mb-0">' +
+      'Loading...' +
+      '</h6>' +
+      '</a>'
+  );
+
+  // Get user's connections
+  $.getJSON('/' + username + '/connections', (json) => {
+    const friends = json.friends;
+    const family = json.family;
+    const acquaintances = json.acquaintances;
+    const following = json.following;
+
+    const friendsLength = friends.length;
+    const familyLength = family.length;
+    const acquaintancesLength = acquaintances.length;
+    const followingLength = following.length;
+
+    // If there are no friends :(
+    if (!friendsLength) {
+      // Show text accordingly
+      friendsList.html(
+        '<p class="text-center text-muted">Nothing to see here!</p>'
+      );
+    } else {
+      // Remove any text
+      friendsList.html('');
+
+      // Append friends one by one in list
+      for (let i = 0, len = friendsLength; i < len; i++) {
+        friendsList.append(
+          '<a href="/' +
+            friends[i] +
+            '" class="list-group-item list-group-item-action">' +
+            '<div class="d-flex w-100 justify-content-between">' +
+            '<h6 class="mb-0">' +
+            friends[i] +
+            '</h6>' +
+            '<small>' +
+            'Visit Profile' +
+            '</small>' +
+            '</div>' +
+            '</a>'
+        );
+      }
+    }
+
+    // If there is no family :(
+    if (!familyLength) {
+      // Show text accordingly
+      familyList.html(
+        '<p class="text-center text-muted">Nothing to see here!</p>'
+      );
+    } else {
+      // Remove any text
+      familyList.html('');
+
+      // Append family one by one in list
+      for (let i = 0, len = familyLength; i < len; i++) {
+        familyList.append(
+          '<a href="/' +
+            family[i] +
+            '" class="list-group-item list-group-item-action">' +
+            '<div class="d-flex w-100 justify-content-between">' +
+            '<h6 class="mb-0">' +
+            family[i] +
+            '</h6>' +
+            '<small>' +
+            'Visit Profile' +
+            '</small>' +
+            '</div>' +
+            '</a>'
+        );
+      }
+    }
+
+    // If there are no acquaintances :(
+    if (!acquaintancesLength) {
+      // Show text accordingly
+      acquaintancesList.html(
+        '<p class="text-center text-muted">Nothing to see here!</p>'
+      );
+    } else {
+      // Remove any text
+      acquaintancesList.html('');
+
+      // Append acquaintances one by one in list
+      for (let i = 0, len = acquaintancesLength; i < len; i++) {
+        acquaintancesList.append(
+          '<a href="/' +
+            acquaintances[i] +
+            '" class="list-group-item list-group-item-action">' +
+            '<div class="d-flex w-100 justify-content-between">' +
+            '<h6 class="mb-0">' +
+            acquaintances[i] +
+            '</h6>' +
+            '<small>' +
+            'Visit Profile' +
+            '</small>' +
+            '</div>' +
+            '</a>'
+        );
+      }
+    }
+
+    // If there is are no connections :(
+    if (!followingLength) {
+      // Show text accordingly
+      followingList.html(
+        '<p class="text-center text-muted">Nothing to see here!</p>'
+      );
+    } else {
+      // Remove any text
+      followingList.html('');
+
+      // Append connections one by one in list
+      for (let i = 0, len = followingLength; i < len; i++) {
+        followingList.append(
+          '<a href="/' +
+            following[i] +
+            '" class="list-group-item list-group-item-action">' +
+            '<div class="d-flex w-100 justify-content-between">' +
+            '<h6 class="mb-0">' +
+            following[i] +
+            '</h6>' +
+            '<small>' +
+            'Visit Profile' +
+            '</small>' +
+            '</div>' +
+            '</a>'
+        );
+      }
+    }
   });
 
   // Trigger when aboutTab is clicked
