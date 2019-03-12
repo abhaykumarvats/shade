@@ -5,6 +5,9 @@ const app = express();
 // Require path for path joining
 const path = require('path');
 
+// Require helmet for information security
+const helmet = require('helmet');
+
 // Retrieve port number from environment, or use 3000
 const port = process.env.PORT || 3000;
 
@@ -15,6 +18,10 @@ const passport = require('./passport/passport');
 const loginRoutes = require('./routes/login-routes');
 const profileRoutes = require('./routes/profile-routes');
 const helperRoutes = require('./routes/helper-routes');
+
+// To prevent attacks and caching
+app.use(helmet());
+app.use(helmet.noCache());
 
 // Serve static files from /public directory
 app.use('/public', express.static(path.join(__dirname, 'public')));
