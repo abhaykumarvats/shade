@@ -105,17 +105,11 @@ module.exports = (app) => {
         const content = req.body.content;
         const audience = req.body.audience;
 
-        // If audience is set to 'public'
-        if (audience === 'public') {
-          // Prepare post object
-          const post = {
-            username: currentUsername,
-            content: content,
-            audience: ['public']
-          };
-
-          // Save post in database
-          Post.create(post, (err, post) => {
+        // Find current user's connections
+        User.findOne(
+          { username: currentUsername },
+          '-_id connections',
+          (err, user) => {
             // If error
             if (err) {
               // Log error
@@ -123,13 +117,110 @@ module.exports = (app) => {
 
               // Render error view
               res.render('error', { errorMessage: 'An Error Occured' });
+            } else {
+              const friends = user.connections.friends;
+              const family = user.connections.family;
+              const acquaintances = user.connections.acquaintances;
+
+              // If audience is set to 'friends'
+              if (audience === 'friends') {
+                // Prepare post object
+                const post = {
+                  username: currentUsername,
+                  content: content,
+                  audience: friends
+                };
+
+                // Save post in database
+                Post.create(post, (err, post) => {
+                  // If error
+                  if (err) {
+                    // Log error
+                    console.error(err);
+
+                    // Render error view
+                    res.render('error', { errorMessage: 'An Error Occured' });
+                  }
+                  // Post saved successfully, redirect to /currentUsername
+                  else res.redirect('/' + currentUsername);
+                });
+              }
+              // If audience is set to 'family'
+              else if (audience === 'family') {
+                // Prepare post object
+                const post = {
+                  username: currentUsername,
+                  content: content,
+                  audience: family
+                };
+
+                // Save post in database
+                Post.create(post, (err, post) => {
+                  // If error
+                  if (err) {
+                    // Log error
+                    console.error(err);
+
+                    // Render error view
+                    res.render('error', { errorMessage: 'An Error Occured' });
+                  }
+                  // Post saved successfully, redirect to /currentUsername
+                  else res.redirect('/' + currentUsername);
+                });
+              }
+              // If audience is set to 'acquaintances'
+              else if (audience === 'acquaintances') {
+                // Prepare post object
+                const post = {
+                  username: currentUsername,
+                  content: content,
+                  audience: acquaintances
+                };
+
+                // Save post in database
+                Post.create(post, (err, post) => {
+                  // If error
+                  if (err) {
+                    // Log error
+                    console.error(err);
+
+                    // Render error view
+                    res.render('error', { errorMessage: 'An Error Occured' });
+                  }
+                  // Post saved successfully, redirect to /currentUsername
+                  else res.redirect('/' + currentUsername);
+                });
+              }
+              // If audience is set to 'public'
+              else if (audience === 'public') {
+                // Prepare post object
+                const post = {
+                  username: currentUsername,
+                  content: content,
+                  audience: ['public']
+                };
+
+                // Save post in database
+                Post.create(post, (err, post) => {
+                  // If error
+                  if (err) {
+                    // Log error
+                    console.error(err);
+
+                    // Render error view
+                    res.render('error', { errorMessage: 'An Error Occured' });
+                  }
+                  // Post saved successfully, redirect to /currentUsername
+                  else res.redirect('/' + currentUsername);
+                });
+              }
+              // Invalid post
+              else {
+                res.render('error', { errorMessage: 'Invalid Post' });
+              }
             }
-            // Post saved successfully, redirect to /currentUsername
-            else res.redirect('/' + currentUsername);
-          });
-        } else {
-          // TODO
-        }
+          }
+        );
       }
       // Requested username and current username are not same
       else res.render('error', { errorMessage: 'Not Allowed' });
