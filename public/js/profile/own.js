@@ -19,6 +19,9 @@ $(document).ready(() => {
   const acquaintancesContainer = $('#acquaintances-container');
   const followingContainer = $('#following-container');
 
+  const activityList = $('#activity-list');
+  const activityEndText = $('#activity-end-text');
+
   const friendsList = $('#friends-list');
   const familyList = $('#family-list');
   const acquaintancesList = $('#acquaintances-list');
@@ -35,6 +38,9 @@ $(document).ready(() => {
   const consentPasswordSmallText = $('#consent-password-small-text');
 
   const redColor = '#dc3545';
+
+  let skip = 0;
+  const limit = 10;
 
   // Trigger when activityTab is clicked
   activityTab.click(() => {
@@ -78,6 +84,88 @@ $(document).ready(() => {
     }
     // Submit post
     else return true;
+  });
+
+  // Function to get own posts
+  function getOwnPosts(skip, limit) {
+    // Get user's public posts
+    $.getJSON(username + '/posts/own/' + skip + '/' + limit, (json) => {
+      const jsonLength = json.length;
+
+      // No posts found
+      if (!jsonLength) {
+        // If no initial posts found
+        if (!skip) {
+          activityEndText
+            .removeAttr('href')
+            .addClass('text-muted')
+            .text('Nothing to see here!')
+            .off('click');
+        }
+        // If no further posts found
+        else {
+          activityEndText
+            .removeAttr('href')
+            .addClass('text-muted')
+            .text("That's all, folks!")
+            .off('click');
+        }
+      } else {
+        // For each public post
+        for (let i = 0; i < jsonLength; i++) {
+          // Append a list group item
+          activityList.append(
+            '<li class="list-group-item">' +
+              '<h6 class="mb-0">' +
+              json[i].username +
+              '<small class="text-muted float-right">' +
+              new Date(json[i].date)
+                .toString()
+                .split(' ')
+                .slice(0, 4)
+                .join(' ') +
+              '</small>' +
+              '</h6>' +
+              '<p class="mb-0">' +
+              json[i].content +
+              '</p>' +
+              '</li>'
+          );
+        }
+
+        // If less than 10 posts were found
+        if (jsonLength < 10) {
+          activityEndText
+            .removeAttr('href')
+            .addClass('text-muted')
+            .text("That's all, folks!")
+            .off('click');
+        } else {
+          // Show 'More' link
+          activityEndText
+            .attr('href', '#')
+            .removeClass('text-muted')
+            .text('More');
+        }
+      }
+    });
+  }
+
+  // Trigger when activity-end-text is clicked
+  activityEndText.click(() => {
+    // Show Loading... text
+    activityEndText
+      .removeAttr('href')
+      .addClass('text-muted')
+      .text('Loading...');
+
+    // Get own posts
+    getOwnPosts(skip, limit);
+
+    // Increment 'skip' by 10
+    skip += 10;
+
+    return false;
   });
 
   // Trigger when connectionsTab is clicked
