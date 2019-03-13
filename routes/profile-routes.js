@@ -145,7 +145,7 @@ module.exports = (app) => {
       .sort('-date')
       .skip(Number(req.params.skip))
       .limit(Number(req.params.limit))
-      .select('username content date')
+      .select('-audience')
       .exec((err, posts) => {
         // If error
         if (err) {
@@ -159,6 +159,50 @@ module.exports = (app) => {
           res.json(posts);
         }
       });
+  });
+
+  // GET requests handler, for /:username/posts/own/:skip/:limit
+  app.route('/:username/posts/own/:skip/:limit').get((req, res) => {
+    // If user is logged in
+    if (req.isAuthenticated()) {
+      const paramUsername = req.params.username;
+      const currentUsername = req.user.username;
+
+      // If user wants its own posts
+      if (paramUsername === currentUsername) {
+        // Find all user's posts
+        Post.find({ username: currentUsername })
+          .sort('-date')
+          .skip(Number(req.params.skip))
+          .limit(Number(req.params.limit))
+          .select('-audience')
+          .exec((err, posts) => {
+            // If error
+            if (err) {
+              // Log error
+              console.error(err);
+
+              // Render error view
+              res.render('error', { errorMessage: 'An Error Occured' });
+            }
+            // Posts found successfully
+            else {
+              // Send posts as json
+              res.json(posts);
+            }
+          });
+      }
+      // User wants someone else's posts
+      else {
+        // Render error view
+        res.render('error', { errorMessage: 'Not Allowed' });
+      }
+    }
+    // User is not logged in
+    else {
+      // Redirect to /login
+      res.redirect('/login');
+    }
   });
 
   // Function to validate new fields
