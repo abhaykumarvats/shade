@@ -94,7 +94,7 @@ $(document).ready(() => {
   }
 
   // Trigger when activity-end-text is clicked
-  $('#activity-end-text').click(() => {
+  activityEndText.click(() => {
     // Show Loading... text
     activityEndText
       .removeAttr('href')
