@@ -2,22 +2,22 @@
 const express = require('express');
 const app = express();
 
-// Require path for path joining
-const path = require('path');
-
 // Require helmet for information security
 const helmet = require('helmet');
 
-// Retrieve port number from environment, or use 3000
-const port = process.env.PORT || 3000;
-
 // Require passport module for authentication
 const passport = require('./passport/passport');
+
+// Require path for path joining
+const path = require('path');
 
 // Require routes modules for route handling
 const loginRoutes = require('./routes/login-routes');
 const profileRoutes = require('./routes/profile-routes');
 const helperRoutes = require('./routes/helper-routes');
+
+// Retrieve port number from environment, or use 3000
+const port = process.env.PORT || 3000;
 
 // To prevent attacks and caching
 app.use(helmet());
