@@ -88,7 +88,7 @@ $(document).ready(() => {
 
   // Function to get own posts
   function getOwnPosts(skip, limit) {
-    // Get user's public posts
+    // Get user's posts
     $.getJSON(username + '/posts/own/' + skip + '/' + limit, (json) => {
       const jsonLength = json.length;
 
@@ -111,7 +111,7 @@ $(document).ready(() => {
             .off('click');
         }
       } else {
-        // For each public post
+        // For each post
         for (let i = 0; i < jsonLength; i++) {
           // Append a list group item
           activityList.append(
