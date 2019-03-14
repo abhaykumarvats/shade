@@ -216,6 +216,7 @@ module.exports = (app) => {
               }
               // Invalid post
               else {
+                // Render error view
                 res.render('error', { errorMessage: 'Invalid Post' });
               }
             }
@@ -229,7 +230,130 @@ module.exports = (app) => {
     else res.redirect('/login');
   });
 
-  // GET requests handler, for /:username/posts/public
+  // GET requests handler, for /:username/posts/own/:skip/:limit
+  app.route('/:username/posts/own/:skip/:limit').get((req, res) => {
+    // If user is logged in
+    if (req.isAuthenticated()) {
+      const paramUsername = req.params.username;
+      const currentUsername = req.user.username;
+
+      // If user wants its own posts
+      if (paramUsername === currentUsername) {
+        // Find all user's posts
+        Post.find({ username: currentUsername })
+      .sort('-date')
+      .skip(Number(req.params.skip))
+      .limit(Number(req.params.limit))
+      .select('-audience')
+      .exec((err, posts) => {
+        // If error
+        if (err) {
+          // Log error
+          console.error(err);
+
+          // Render error view
+          res.render('error', { errorMessage: 'An Error Occured' });
+            }
+            // Posts found successfully
+            else {
+          // Send posts as json
+          res.json(posts);
+        }
+      });
+      }
+      // User wants someone else's posts
+      else {
+        // Render error view
+        res.render('error', { errorMessage: 'Not Allowed' });
+      }
+    }
+    // User is not logged in
+    else {
+      // Redirect to /login
+      res.redirect('/login');
+    }
+  });
+
+  // GET requests handler, for /:username/posts/connection/:skip/:limit
+  app.route('/:username/posts/connection/:skip/:limit').get((req, res) => {
+    // If user is logged in
+    if (req.isAuthenticated()) {
+      const paramUsername = req.params.username;
+      const currentUsername = req.user.username;
+
+      // If user wants its connection posts
+      if (paramUsername === currentUsername) {
+        // Render error view
+        res.render('error', { errorMessage: 'Not Allowed' });
+      }
+      // User wants someone else's connection posts
+      else {
+        // Find requested user's connections
+        User.findOne(
+          { username: paramUsername },
+          '-_id connections',
+          (err, user) => {
+            // If error
+            if (err) {
+              // Log error
+              console.error(err);
+
+              // Rende error view
+              res.render('error', { errorMessage: 'An Error Occured' });
+            } else {
+              const friends = user.connections.friends;
+              const family = user.connections.family;
+              const acquaintances = user.connections.acquaintances;
+
+              // If user is in connections
+              if (
+                friends.includes(currentUsername) ||
+                family.includes(currentUsername) ||
+                acquaintances.includes(currentUsername)
+              ) {
+                // Find user-only and public posts
+                Post.find({
+                  username: paramUsername,
+                  audience: { $in: [currentUsername, 'public'] }
+                })
+          .sort('-date')
+          .skip(Number(req.params.skip))
+          .limit(Number(req.params.limit))
+          .select('-audience')
+          .exec((err, posts) => {
+            // If error
+            if (err) {
+              // Log error
+              console.error(err);
+
+              // Render error view
+              res.render('error', { errorMessage: 'An Error Occured' });
+            }
+                    // Posts retrieved successfully
+            else {
+              // Send posts as json
+              res.json(posts);
+            }
+          });
+      }
+              // User is not in connections
+      else {
+        // Render error view
+        res.render('error', { errorMessage: 'Not Allowed' });
+      }
+    }
+          }
+        );
+      }
+    }
+    // User is not logged in
+    else {
+      // Redirect to /login
+      res.redirect('/login');
+    }
+  });
+
+  // GET requests handler, for /:username/posts/public/:skip/:limit
   app.route('/:username/posts/public/:skip/:limit').get((req, res) => {
     // Find public posts of requested user
     Post.find({ username: req.params.username, audience: 'public' })
@@ -250,50 +374,6 @@ module.exports = (app) => {
           res.json(posts);
         }
       });
-  });
-
-  // GET requests handler, for /:username/posts/own/:skip/:limit
-  app.route('/:username/posts/own/:skip/:limit').get((req, res) => {
-    // If user is logged in
-    if (req.isAuthenticated()) {
-      const paramUsername = req.params.username;
-      const currentUsername = req.user.username;
-
-      // If user wants its own posts
-      if (paramUsername === currentUsername) {
-        // Find all user's posts
-        Post.find({ username: currentUsername })
-          .sort('-date')
-          .skip(Number(req.params.skip))
-          .limit(Number(req.params.limit))
-          .select('-audience')
-          .exec((err, posts) => {
-            // If error
-            if (err) {
-              // Log error
-              console.error(err);
-
-              // Render error view
-              res.render('error', { errorMessage: 'An Error Occured' });
-            }
-            // Posts found successfully
-            else {
-              // Send posts as json
-              res.json(posts);
-            }
-          });
-      }
-      // User wants someone else's posts
-      else {
-        // Render error view
-        res.render('error', { errorMessage: 'Not Allowed' });
-      }
-    }
-    // User is not logged in
-    else {
-      // Redirect to /login
-      res.redirect('/login');
-    }
   });
 
   // Function to validate new fields
