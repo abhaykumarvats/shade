@@ -241,25 +241,25 @@ module.exports = (app) => {
       if (paramUsername === currentUsername) {
         // Find all user's posts
         Post.find({ username: currentUsername })
-      .sort('-date')
-      .skip(Number(req.params.skip))
-      .limit(Number(req.params.limit))
-      .select('-audience')
-      .exec((err, posts) => {
-        // If error
-        if (err) {
-          // Log error
-          console.error(err);
+          .sort('-date')
+          .skip(Number(req.params.skip))
+          .limit(Number(req.params.limit))
+          .select('-audience')
+          .exec((err, posts) => {
+            // If error
+            if (err) {
+              // Log error
+              console.error(err);
 
-          // Render error view
-          res.render('error', { errorMessage: 'An Error Occured' });
+              // Render error view
+              res.render('error', { errorMessage: 'An Error Occured' });
             }
             // Posts found successfully
             else {
-          // Send posts as json
-          res.json(posts);
-        }
-      });
+              // Send posts as json
+              res.json(posts);
+            }
+          });
       }
       // User wants someone else's posts
       else {
@@ -290,7 +290,7 @@ module.exports = (app) => {
       else {
         // Find requested user's connections
         User.findOne(
-          { username: paramUsername },
+          { username: currentUsername },
           '-_id connections',
           (err, user) => {
             // If error
@@ -307,41 +307,41 @@ module.exports = (app) => {
 
               // If user is in connections
               if (
-                friends.includes(currentUsername) ||
-                family.includes(currentUsername) ||
-                acquaintances.includes(currentUsername)
+                friends.includes(paramUsername) ||
+                family.includes(paramUsername) ||
+                acquaintances.includes(paramUsername)
               ) {
                 // Find user-only and public posts
                 Post.find({
                   username: paramUsername,
                   audience: { $in: [currentUsername, 'public'] }
                 })
-          .sort('-date')
-          .skip(Number(req.params.skip))
-          .limit(Number(req.params.limit))
-          .select('-audience')
-          .exec((err, posts) => {
-            // If error
-            if (err) {
-              // Log error
-              console.error(err);
+                  .sort('-date')
+                  .skip(Number(req.params.skip))
+                  .limit(Number(req.params.limit))
+                  .select('-audience')
+                  .exec((err, posts) => {
+                    // If error
+                    if (err) {
+                      // Log error
+                      console.error(err);
 
-              // Render error view
-              res.render('error', { errorMessage: 'An Error Occured' });
-            }
+                      // Render error view
+                      res.render('error', { errorMessage: 'An Error Occured' });
+                    }
                     // Posts retrieved successfully
-            else {
-              // Send posts as json
-              res.json(posts);
-            }
-          });
-      }
+                    else {
+                      // Send posts as json
+                      res.json(posts);
+                    }
+                  });
+              }
               // User is not in connections
-      else {
-        // Render error view
-        res.render('error', { errorMessage: 'Not Allowed' });
-      }
-    }
+              else {
+                // Render error view
+                res.render('error', { errorMessage: 'Not Allowed' });
+              }
+            }
           }
         );
       }
