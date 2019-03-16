@@ -28,10 +28,10 @@ $(document).ready(() => {
     return false;
   });
 
-  // Function to get public posts
+  // Function to get connection-only posts
   function getPublicPosts(skip, limit) {
-    // Get user's public posts
-    $.getJSON(username + '/posts/public/' + skip + '/' + limit, (json) => {
+    // Get user's posts
+    $.getJSON(username + '/posts/connection/' + skip + '/' + limit, (json) => {
       const jsonLength = json.length;
 
       // No posts found
@@ -53,7 +53,7 @@ $(document).ready(() => {
             .off('click');
         }
       } else {
-        // For each public post
+        // For each post
         for (let i = 0; i < jsonLength; i++) {
           // Append a list group item
           activityList.append(
