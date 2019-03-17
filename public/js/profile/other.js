@@ -29,7 +29,7 @@ $(document).ready(() => {
   });
 
   // Function to get connection-only posts
-  function getPublicPosts(skip, limit) {
+  function getConnectionPosts(skip, limit) {
     // Get user's posts
     $.getJSON(username + '/posts/connection/' + skip + '/' + limit, (json) => {
       const jsonLength = json.length;
@@ -102,7 +102,7 @@ $(document).ready(() => {
       .text('Loading...');
 
     // Get public posts
-    getPublicPosts(skip, limit);
+    getConnectionPosts(skip, limit);
 
     // Increment 'skip' by 10
     skip += 10;
