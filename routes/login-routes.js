@@ -1,14 +1,39 @@
-// Require passport for authentication
-const passport = require('passport');
-
 // Require bcrypt for password hashing
 const bcrypt = require('bcryptjs');
+
+// Require passport for authentication
+const passport = require('passport');
 
 // Require User model
 const User = require('../schemas/User');
 
 // Export login-routes module
 module.exports = (app) => {
+  // Function to validate registration inputs
+  function validateRegistrationInputs(req, res, next) {
+    const username = req.body.username;
+    const password = req.body.password;
+
+    // If username is invalid
+    if (username.match(/[^a-z]/i) || username.length < 4)
+      // Render register form with alert
+      res.render('form', {
+        type: 'register',
+        alertMessage: 'Invalid Username',
+        alertType: 'danger'
+      });
+    // If password is invalid
+    else if (password.length < 6)
+      // Render register form with alert
+      res.render('form', {
+        type: 'register',
+        alertMessage: 'Invalid Password',
+        alertType: 'danger'
+      });
+    // Continue with registration
+    else return next();
+  }
+
   // GET requests handler, for /
   app.route('/').get((req, res) => {
     // Check if user is logged in
@@ -72,31 +97,6 @@ module.exports = (app) => {
           });
       })(req, res, next);
     });
-
-  // Function to validate registration inputs
-  function validateRegistrationInputs(req, res, next) {
-    const username = req.body.username;
-    const password = req.body.password;
-
-    // If username is invalid
-    if (username.match(/[^a-z]/i) || username.length < 4)
-      // Render register form with alert
-      res.render('form', {
-        type: 'register',
-        alertMessage: 'Invalid Username',
-        alertType: 'danger'
-      });
-    // If password is invalid
-    else if (password.length < 6)
-      // Render register form with alert
-      res.render('form', {
-        type: 'register',
-        alertMessage: 'Invalid Password',
-        alertType: 'danger'
-      });
-    // Continue with registration
-    else return next();
-  }
 
   // GET and POST requests handler, for /register
   app

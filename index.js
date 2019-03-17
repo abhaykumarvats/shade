@@ -5,16 +5,11 @@ const app = express();
 // Require helmet for information security
 const helmet = require('helmet');
 
-// Require passport module for authentication
-const passport = require('./passport/passport');
+// Require init module to instantiate all modules
+const init = require('./init');
 
 // Require path for path joining
 const path = require('path');
-
-// Require routes modules for route handling
-const loginRoutes = require('./routes/login-routes');
-const profileRoutes = require('./routes/profile-routes');
-const helperRoutes = require('./routes/helper-routes');
 
 // Retrieve port number from environment, or use 3000
 const port = process.env.PORT || 3000;
@@ -33,10 +28,15 @@ app.use(express.urlencoded({ extended: false }));
 app.set('view engine', 'ejs');
 
 // Instantiate modules
-passport(app);
-loginRoutes(app);
-profileRoutes(app);
-helperRoutes(app);
+init(app);
+
+// 404 handler
+app.use((req, res) => {
+  // Render error view
+  res.render('error', { errorMessage: 'Not Found' });
+});
 
 // Start server and listen for requests
-app.listen(port, () => console.log('Listening on port', port));
+app.listen(port, () => {
+  console.log('Listening on port', port);
+});
