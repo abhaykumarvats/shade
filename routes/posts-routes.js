@@ -213,62 +213,30 @@ module.exports = (app) => {
       }
       // User wants someone else's connection posts
       else {
-        // Find requested user's connections
-        User.findOne(
-          { username: currentUsername },
-          '-_id connections',
-          (err, user) => {
+        // Find user-only and public posts
+        Post.find({
+          username: paramUsername,
+          audience: { $in: [currentUsername, 'public'] }
+        })
+          .sort('-date')
+          .skip(Number(req.params.skip))
+          .limit(Number(req.params.limit))
+          .select('-audience')
+          .exec((err, posts) => {
             // If error
             if (err) {
               // Log error
               console.error(err);
 
-              // Rende error view
+              // Render error view
               res.render('error', { errorMessage: 'An Error Occured' });
-            } else {
-              const friends = user.connections.friends;
-              const family = user.connections.family;
-              const acquaintances = user.connections.acquaintances;
-
-              // If user is in connections
-              if (
-                friends.includes(paramUsername) ||
-                family.includes(paramUsername) ||
-                acquaintances.includes(paramUsername)
-              ) {
-                // Find user-only and public posts
-                Post.find({
-                  username: paramUsername,
-                  audience: { $in: [currentUsername, 'public'] }
-                })
-                  .sort('-date')
-                  .skip(Number(req.params.skip))
-                  .limit(Number(req.params.limit))
-                  .select('-audience')
-                  .exec((err, posts) => {
-                    // If error
-                    if (err) {
-                      // Log error
-                      console.error(err);
-
-                      // Render error view
-                      res.render('error', { errorMessage: 'An Error Occured' });
-                    }
-                    // Posts retrieved successfully
-                    else {
-                      // Send posts as json
-                      res.json(posts);
-                    }
-                  });
-              }
-              // User is not in connections
-              else {
-                // Render error view
-                res.render('error', { errorMessage: 'Not Allowed' });
-              }
             }
-          }
-        );
+            // Posts retrieved successfully
+            else {
+              // Send posts as json
+              res.json(posts);
+            }
+          });
       }
     }
     // User is not logged in
