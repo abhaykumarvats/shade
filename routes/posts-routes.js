@@ -155,6 +155,50 @@ module.exports = (app) => {
     else res.redirect('/login');
   });
 
+  // GET requests handler, for /:username/posts/home/:skip/:limit
+  app.route('/:username/posts/home/:skip/:limit').get((req, res) => {
+    // If user is logged in
+    if (req.isAuthenticated()) {
+      const paramUsername = req.params.username;
+      const currentUsername = req.user.username;
+
+      // If user wants to access its own home posts
+      if (paramUsername === currentUsername) {
+        // Find all posts with current user as audience
+        Post.find({ audience: currentUsername })
+          .sort('-date')
+          .skip(Number(req.params.skip))
+          .limit(Number(req.params.limit))
+          .select('-audience')
+          .exec((err, posts) => {
+            // If error
+            if (err) {
+              // Log error
+              console.error(err);
+
+              // Rende error view
+              res.render('error', { errorMessage: 'An Error Occured' });
+            }
+            // Posts retrieved successfully
+            else {
+              // Send posts as json
+              res.json(posts);
+            }
+          });
+      }
+      // User wants to access someone else's home posts
+      else {
+        // Render error view
+        res.render('error', { errorMessage: 'Not Allowed' });
+      }
+    }
+    // User is not logged in
+    else {
+      // Redirect to /login
+      res.redirect('/login');
+    }
+  });
+
   // GET requests handler, for /:username/posts/own/:skip/:limit
   app.route('/:username/posts/own/:skip/:limit').get((req, res) => {
     // If user is logged in
