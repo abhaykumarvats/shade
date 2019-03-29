@@ -17,7 +17,7 @@
   </head>
   <body>
     <!-- Username heading -->
-    <h1 class="display-4 text-center"><%= username %></h1>
+    <h1 class="display-4 text-center" id="username"><%= username %></h1>
 
     <!-- Main navigation bar -->
     <nav id="main-nav">
@@ -50,7 +50,15 @@
     <!-- Main container -->
     <div id="main-container">
       <!-- Activity container -->
-      <div id="activity-container"></div>
+      <div id="activity-container">
+        <!-- Activity list group -->
+        <ul class="list-group" id="activity-list"></ul>
+
+        <!-- Activity end text -->
+        <p class="text-center">
+          <a href="#" id="activity-end-text">Show Posts</a>
+        </p>
+      </div>
 
       <!-- Search container -->
       <div id="search-container">

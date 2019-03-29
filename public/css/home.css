@@ -58,6 +58,10 @@ a.nav-item {
   background-color: slategray;
 }
 
+#activity-end-text {
+  text-decoration: none;
+}
+
 /* Set input border on focus */
 input[type]:focus {
   border-color: #007bff;
